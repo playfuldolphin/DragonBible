@@ -23,6 +23,7 @@
                 <div class="nav-links">
                     <a href="#home">Home</a>
                     <a href="#books">Books</a>
+                    <a href="#game">Game</a>
                     <a href="#about">About</a>
                     <a href="#pricing" class="premium-link">Go Premium</a>
                 </div>
@@ -167,6 +168,57 @@
                     <div class="premium-prompt" id="premiumPrompt">
                         <p>🔒 Continue reading with Premium Access</p>
                         <button class="btn btn-primary" onclick="scrollToPricing()">Unlock Full Access</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="game" class="game-section">
+            <div class="container">
+                <h2 class="section-title">Awaken Your Dragon</h2>
+                <p class="section-subtitle">Discover which aspect of the ancient dragon-human unity resonates within you</p>
+                
+                <div class="game-container" id="gameContainer">
+                    <div class="game-intro" id="gameIntro">
+                        <div class="game-icon">🐉</div>
+                        <h3>The Path of Remembrance</h3>
+                        <p>Before the Division, humanity and dragonkind were one. Each person carries a different aspect of that ancient unity within them—some carry the fire of transformation, others the wings of vision, still others the scales of protection.</p>
+                        <p>Answer these questions truthfully, and discover which dragon essence lives within your soul.</p>
+                        <button class="btn btn-primary" onclick="startGame()">Begin the Journey</button>
+                    </div>
+                    
+                    <div class="game-quiz hidden" id="gameQuiz">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="question-counter" id="questionCounter">Question 1 of 7</div>
+                        
+                        <div class="question-card" id="questionCard">
+                            <h3 class="question-text" id="questionText"></h3>
+                            <div class="answers" id="answersContainer"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-result hidden" id="gameResult">
+                        <div class="result-dragon-icon">🐉</div>
+                        <h3 class="result-title" id="resultTitle"></h3>
+                        <div class="result-description" id="resultDescription"></div>
+                        <div class="result-traits">
+                            <h4>Your Dragon Traits:</h4>
+                            <ul id="resultTraits"></ul>
+                        </div>
+                        <div class="result-chapter">
+                            <h4>Recommended Reading:</h4>
+                            <p id="resultChapter"></p>
+                        </div>
+                        <div class="result-actions">
+                            <button class="btn btn-primary" onclick="startReading()">Start Reading</button>
+                            <button class="btn btn-secondary" onclick="resetGame()">Take Quiz Again</button>
+                        </div>
+                        <div class="result-share">
+                            <p>Share your dragon essence:</p>
+                            <button class="btn btn-outline" onclick="shareResult()">Share Result</button>
+                        </div>
                     </div>
                 </div>
             </div>

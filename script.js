@@ -623,5 +623,217 @@ function buyLifetime() {
     buyLifetimeStripe();
 }
 
+const gameQuestions = [
+    {
+        question: "When faced with a challenge, what is your first instinct?",
+        answers: [
+            { text: "Transform it with creative fire", type: "fire" },
+            { text: "Soar above it to see the bigger picture", type: "sky" },
+            { text: "Stand firm and protect what matters", type: "earth" },
+            { text: "Flow around it like water seeking its course", type: "water" }
+        ]
+    },
+    {
+        question: "What calls to you most deeply?",
+        answers: [
+            { text: "The forge and the flame of creation", type: "fire" },
+            { text: "The endless horizon and freedom", type: "sky" },
+            { text: "Ancient wisdom and hidden knowledge", type: "earth" },
+            { text: "Emotional depth and connection", type: "water" }
+        ]
+    },
+    {
+        question: "How do you prefer to wield power?",
+        answers: [
+            { text: "As a force of transformation and change", type: "fire" },
+            { text: "Through vision and inspiration", type: "sky" },
+            { text: "With patience and immovable strength", type: "earth" },
+            { text: "By adapting and flowing with circumstances", type: "water" }
+        ]
+    },
+    {
+        question: "What would others say is your greatest gift?",
+        answers: [
+            { text: "Passion that ignites others", type: "fire" },
+            { text: "Perspective that elevates understanding", type: "sky" },
+            { text: "Steadfast loyalty and protection", type: "earth" },
+            { text: "Empathy that heals wounds", type: "water" }
+        ]
+    },
+    {
+        question: "In the ancient times, what role would you have served?",
+        answers: [
+            { text: "The alchemist, transmuting base into gold", type: "fire" },
+            { text: "The messenger, bridging heaven and earth", type: "sky" },
+            { text: "The guardian, keeper of sacred treasures", type: "earth" },
+            { text: "The healer, channeling life's flow", type: "water" }
+        ]
+    },
+    {
+        question: "What scares you most about the Division?",
+        answers: [
+            { text: "Losing the ability to transform", type: "fire" },
+            { text: "Being grounded, unable to fly", type: "sky" },
+            { text: "Forgetting ancient wisdom", type: "earth" },
+            { text: "Becoming disconnected from others", type: "water" }
+        ]
+    },
+    {
+        question: "How do you recognize truth?",
+        answers: [
+            { text: "It burns bright and undeniable", type: "fire" },
+            { text: "It lifts me higher in understanding", type: "sky" },
+            { text: "It resonates deep in my bones", type: "earth" },
+            { text: "It flows naturally, without resistance", type: "water" }
+        ]
+    }
+];
+
+const dragonTypes = {
+    fire: {
+        name: "Fire Drake",
+        icon: "🔥",
+        description: "You carry the essence of the Fire Drake—the dragon of transformation, passion, and creative destruction. In the ancient unity, you were the spark that ignited change, the flame that purified and renewed. Your power lies in your ability to transform yourself and the world around you through the intensity of your conviction and the heat of your passion.",
+        traits: [
+            "Transformative power and catalyst for change",
+            "Passionate intensity and unwavering conviction",
+            "Creative destruction that clears the way for new growth",
+            "Alchemical wisdom that transmutes pain into power"
+        ],
+        chapter: "Genesis Chapter 4: Cain and Abel - Learn about the dual nature of dragon fire"
+    },
+    sky: {
+        name: "Sky Serpent",
+        icon: "☁️",
+        description: "You embody the Sky Serpent—the dragon of vision, freedom, and transcendence. In the ancient unity, you were the one who saw from above, who understood patterns invisible to those bound to earth. Your power lies in your ability to rise above circumstances, to see the bigger picture, and to inspire others to spread their forgotten wings.",
+        traits: [
+            "Visionary perspective that sees beyond the immediate",
+            "Freedom-seeking spirit that refuses limitation",
+            "Inspirational presence that lifts others higher",
+            "Ability to transcend earthly constraints through consciousness"
+        ],
+        chapter: "Genesis Chapter 8: The Dove and the Raven - Explore the symbolism of flight"
+    },
+    earth: {
+        name: "Mountain Wyrm",
+        icon: "⛰️",
+        description: "You are kin to the Mountain Wyrm—the dragon of wisdom, protection, and enduring strength. In the ancient unity, you were the keeper of treasures both material and spiritual, the guardian of sacred knowledge, the one whose presence meant safety. Your power lies in your unshakeable foundation and your connection to ancient wisdom.",
+        traits: [
+            "Ancient wisdom passed down through generations",
+            "Protective strength that shields the vulnerable",
+            "Patient endurance that outlasts all storms",
+            "Deep connection to ancestral memory and sacred knowledge"
+        ],
+        chapter: "Genesis Chapter 5: The Lineage of Remembrance - Discover the keepers of dragon memory"
+    },
+    water: {
+        name: "Tide Dragon",
+        icon: "🌊",
+        description: "You channel the Tide Dragon—the dragon of flow, emotion, and deep connection. In the ancient unity, you were the one who felt everything, who connected all beings through the currents of empathy, who healed through the power of emotional truth. Your power lies in your ability to adapt, to feel deeply, and to bring healing through understanding.",
+        traits: [
+            "Emotional depth and profound empathy",
+            "Adaptive flexibility that flows around obstacles",
+            "Healing presence that soothes and restores",
+            "Intuitive connection to the emotions of others"
+        ],
+        chapter: "Genesis Chapter 9: The Covenant of the Rainbow Dragon - Learn about emotional unity"
+    }
+};
+
+let currentQuestion = 0;
+let userAnswers = { fire: 0, sky: 0, earth: 0, water: 0 };
+
+function startGame() {
+    document.getElementById('gameIntro').classList.add('hidden');
+    document.getElementById('gameQuiz').classList.remove('hidden');
+    currentQuestion = 0;
+    userAnswers = { fire: 0, sky: 0, earth: 0, water: 0 };
+    showQuestion();
+}
+
+function showQuestion() {
+    const question = gameQuestions[currentQuestion];
+    document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${gameQuestions.length}`;
+    document.getElementById('questionText').textContent = question.question;
+    
+    const progress = ((currentQuestion) / gameQuestions.length) * 100;
+    document.getElementById('progressFill').style.width = progress + '%';
+    
+    const answersContainer = document.getElementById('answersContainer');
+    answersContainer.innerHTML = '';
+    
+    question.answers.forEach((answer, index) => {
+        const button = document.createElement('button');
+        button.className = 'answer-btn';
+        button.textContent = answer.text;
+        button.onclick = () => selectAnswer(answer.type);
+        answersContainer.appendChild(button);
+    });
+}
+
+function selectAnswer(type) {
+    userAnswers[type]++;
+    
+    currentQuestion++;
+    
+    if (currentQuestion < gameQuestions.length) {
+        showQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    document.getElementById('gameQuiz').classList.add('hidden');
+    document.getElementById('gameResult').classList.remove('hidden');
+    
+    const maxType = Object.keys(userAnswers).reduce((a, b) => 
+        userAnswers[a] > userAnswers[b] ? a : b
+    );
+    
+    const result = dragonTypes[maxType];
+    
+    document.getElementById('resultTitle').innerHTML = `${result.icon} You are a ${result.name}`;
+    document.getElementById('resultDescription').innerHTML = `<p>${result.description}</p>`;
+    
+    const traitsContainer = document.getElementById('resultTraits');
+    traitsContainer.innerHTML = '';
+    result.traits.forEach(trait => {
+        const li = document.createElement('li');
+        li.textContent = trait;
+        traitsContainer.appendChild(li);
+    });
+    
+    document.getElementById('resultChapter').textContent = result.chapter;
+    
+    window.currentDragonType = result.name;
+}
+
+function resetGame() {
+    document.getElementById('gameResult').classList.add('hidden');
+    document.getElementById('gameIntro').classList.remove('hidden');
+    currentQuestion = 0;
+    userAnswers = { fire: 0, sky: 0, earth: 0, water: 0 };
+}
+
+function startReading() {
+    openBook('genesis');
+}
+
+function shareResult() {
+    const text = `I discovered my dragon essence: ${window.currentDragonType}! Find yours at The Dragon Bible.`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'My Dragon Essence',
+            text: text,
+            url: window.location.href
+        }).catch(() => {});
+    } else {
+        navigator.clipboard.writeText(text + ' ' + window.location.href);
+        alert('Result copied to clipboard! Share it with your friends.');
+    }
+}
+
 console.log('%c🐉 The Dragon Bible', 'font-size: 24px; font-weight: bold; color: #FFD700;');
 console.log('%cWhere humanity remembers its wings...', 'font-size: 14px; font-style: italic; color: #B22222;');

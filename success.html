@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Premium - Dragon Bible</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-wrapper">
+        <section class="success-section">
+            <div class="container">
+                <div class="success-content">
+                    <div class="success-icon">🐉</div>
+                    <h1 class="success-title">Welcome to the Dragon Covenant!</h1>
+                    <p class="success-message">Your payment was successful. You now have full access to the Dragon Bible.</p>
+                    
+                    <div class="success-features">
+                        <h3>What You've Unlocked:</h3>
+                        <ul>
+                            <li>✓ Complete Old Testament (All 50 Genesis chapters + more)</li>
+                            <li>✓ Full Book of Enoch (108 chapters)</li>
+                            <li>✓ All Gnostic Texts</li>
+                            <li>✓ Premium Audio Narration</li>
+                            <li>✓ Downloadable PDFs</li>
+                            <li>✓ Early Access to New Content</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="success-actions">
+                        <a href="index.html#books" class="btn btn-primary">Start Reading</a>
+                        <a href="mailto:mr.noahwilson@gmail.com" class="btn btn-secondary">Contact Support</a>
+                    </div>
+                    
+                    <p class="success-note">A confirmation email has been sent to your inbox with your account details.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <style>
+        .success-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0d0505 0%, #1a0a0a 50%, #2a0f0f 100%);
+            padding: 4rem 2rem;
+        }
+        
+        .success-content {
+            max-width: 700px;
+            text-align: center;
+            background: rgba(26, 10, 10, 0.8);
+            padding: 4rem 3rem;
+            border-radius: 20px;
+            border: 2px solid #FFD700;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .success-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .success-message {
+            font-size: 1.3rem;
+            color: #e0e8f0;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+        
+        .success-features {
+            text-align: left;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(139, 0, 0, 0.2);
+            border-radius: 15px;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .success-features h3 {
+            font-family: 'Cinzel', serif;
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .success-features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .success-features li {
+            padding: 0.75rem 0;
+            color: #e0e8f0;
+            font-size: 1.1rem;
+        }
+        
+        .success-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+        }
+        
+        .success-note {
+            font-size: 0.95rem;
+            color: #64748b;
+            font-style: italic;
+            margin-top: 2rem;
+        }
+    </style>
+</body>
+</html>

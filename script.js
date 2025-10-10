@@ -1098,12 +1098,12 @@ let battleState = {
 };
 
 const enemies = [
-    { name: 'Lesser Archon', icon: '👁️', hp: 50, atk: 15, def: 10, xp: 20 },
-    { name: 'Demiurge\'s Servant', icon: '😈', hp: 70, atk: 20, def: 12, xp: 35 },
-    { name: 'Guardian of Forgetting', icon: '🗿', hp: 90, atk: 25, def: 15, xp: 50 },
-    { name: 'Shadow of Doubt', icon: '👤', hp: 110, atk: 30, def: 18, xp: 70 },
-    { name: 'Greater Archon', icon: '👹', hp: 150, atk: 35, def: 25, xp: 100 },
-    { name: 'The Demiurge', icon: '🌑', hp: 200, atk: 45, def: 30, xp: 200 }
+    { name: 'Frost Wyvern', icon: '🐲', hp: 50, atk: 15, def: 10, xp: 20, element: 'ice' },
+    { name: 'Poison Drake', icon: '🐍', hp: 70, atk: 20, def: 12, xp: 35, element: 'poison' },
+    { name: 'Thunder Serpent', icon: '⚡', hp: 90, atk: 25, def: 15, xp: 50, element: 'lightning' },
+    { name: 'Shadow Dragon', icon: '🌑', hp: 110, atk: 30, def: 18, xp: 70, element: 'dark' },
+    { name: 'Ancient Wyrm', icon: '🐉', hp: 150, atk: 35, def: 25, xp: 100, element: 'ancient' },
+    { name: 'Primordial Dragon', icon: '🔥', hp: 200, atk: 45, def: 30, xp: 200, element: 'chaos' }
 ];
 
 const dragonClasses = {
@@ -1142,7 +1142,7 @@ function loadEnemy(index) {
     document.getElementById('enemyName').textContent = enemy.name;
     document.getElementById('enemySprite').textContent = enemy.icon;
     
-    addLog(`A ${enemy.name} appears! Level ${battleState.enemyLevel}`);
+    addLog(`⚔️ A wild ${enemy.name} challenges you! Level ${battleState.enemyLevel} - ${enemy.element.toUpperCase()} type!`);
 }
 
 function updateBattleDisplay() {
@@ -1176,8 +1176,15 @@ function playerAttack() {
     const damage = Math.max(5, battleState.playerATK - battleState.enemyDEF + Math.floor(Math.random() * 10));
     battleState.enemyHP -= damage;
     
+    const attackMsgs = [
+        `Your dragon lunges forward, jaws snapping! ${damage} damage!`,
+        `Sharp claws rake across scales! ${damage} damage!`,
+        `A vicious bite tears into flesh! ${damage} damage!`,
+        `Your tail whips with crushing force! ${damage} damage!`
+    ];
+    
     animateAttack('player');
-    addLog(`You attack for ${damage} damage!`);
+    addLog(attackMsgs[Math.floor(Math.random() * attackMsgs.length)]);
     
     if (battleState.enemyHP <= 0) {
         victory();
@@ -1199,8 +1206,15 @@ function playerSpecial() {
     battleState.enemyHP -= damage;
     battleState.specialCooldown = 3;
     
+    const specialMsgs = {
+        fire: `🔥 INFERNO! Your dragon unleashes devastating flames! ${damage} damage!`,
+        sky: `⚡ TEMPEST! Lightning and wind tear through the enemy! ${damage} damage!`,
+        earth: `⛰️ EARTHQUAKE! The ground shatters beneath your foe! ${damage} damage!`,
+        water: `🌊 TSUNAMI! A crushing wave of power! ${damage} damage!`
+    };
+    
     animateSpecial('player');
-    addLog(`${dragonClass.special}! Massive ${damage} damage!`);
+    addLog(specialMsgs[battleState.playerClass]);
     
     if (battleState.enemyHP <= 0) {
         victory();
@@ -1221,7 +1235,7 @@ function playerHeal() {
     battleState.playerHP = Math.min(battleState.playerMaxHP, battleState.playerHP + healAmount);
     battleState.healCharges--;
     
-    addLog(`You heal for ${healAmount} HP! (${battleState.healCharges} heals left)`);
+    addLog(`🌿 Your dragon roars! Life energy surges through your scales! +${healAmount} HP! (${battleState.healCharges} charges left)`);
     
     setTimeout(enemyTurn, 1000);
     updateBattleDisplay();
@@ -1229,7 +1243,7 @@ function playerHeal() {
 
 function playerDefend() {
     battleState.isDefending = true;
-    addLog('You brace for impact! Defense increased.');
+    addLog('🛡️ Your dragon\'s scales harden like armor! Damage reduced by 50%!');
     setTimeout(enemyTurn, 1000);
 }
 
@@ -1246,8 +1260,16 @@ function enemyTurn() {
     battleState.playerHP -= damage;
     battleState.isDefending = false;
     
+    const enemy = enemies[battleState.currentEnemy];
+    const enemyAttacks = [
+        `${enemy.name} slashes with razor claws! ${damage} damage!`,
+        `${enemy.name} breathes ${enemy.element} energy! ${damage} damage!`,
+        `${enemy.name}'s tail strikes like a whip! ${damage} damage!`,
+        `${enemy.name} unleashes a furious roar and bites! ${damage} damage!`
+    ];
+    
     animateAttack('enemy');
-    addLog(`Enemy attacks for ${damage} damage!`);
+    addLog(enemyAttacks[Math.floor(Math.random() * enemyAttacks.length)]);
     
     if (battleState.playerHP <= 0) {
         defeat();

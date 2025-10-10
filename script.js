@@ -1078,5 +1078,297 @@ function shareResult() {
     }
 }
 
+let battleState = {
+    playerClass: null,
+    playerHP: 100,
+    playerMaxHP: 100,
+    playerATK: 20,
+    playerDEF: 15,
+    playerLevel: 1,
+    playerXP: 0,
+    enemyHP: 50,
+    enemyMaxHP: 50,
+    enemyATK: 15,
+    enemyDEF: 10,
+    enemyLevel: 1,
+    currentEnemy: 0,
+    isDefending: false,
+    specialCooldown: 0,
+    healCharges: 3
+};
+
+const enemies = [
+    { name: 'Lesser Archon', icon: '👁️', hp: 50, atk: 15, def: 10, xp: 20 },
+    { name: 'Demiurge\'s Servant', icon: '😈', hp: 70, atk: 20, def: 12, xp: 35 },
+    { name: 'Guardian of Forgetting', icon: '🗿', hp: 90, atk: 25, def: 15, xp: 50 },
+    { name: 'Shadow of Doubt', icon: '👤', hp: 110, atk: 30, def: 18, xp: 70 },
+    { name: 'Greater Archon', icon: '👹', hp: 150, atk: 35, def: 25, xp: 100 },
+    { name: 'The Demiurge', icon: '🌑', hp: 200, atk: 45, def: 30, xp: 200 }
+];
+
+const dragonClasses = {
+    fire: { name: 'Fire Drake', icon: '🔥', hp: 80, atk: 25, def: 10, special: 'Inferno' },
+    sky: { name: 'Sky Serpent', icon: '☁️', hp: 90, atk: 20, def: 15, special: 'Tempest' },
+    earth: { name: 'Mountain Wyrm', icon: '⛰️', hp: 120, atk: 15, def: 25, special: 'Earthquake' },
+    water: { name: 'Tide Dragon', icon: '🌊', hp: 100, atk: 18, def: 12, special: 'Tsunami' }
+};
+
+function selectClass(classType) {
+    const dragonClass = dragonClasses[classType];
+    battleState.playerClass = classType;
+    battleState.playerHP = dragonClass.hp;
+    battleState.playerMaxHP = dragonClass.hp;
+    battleState.playerATK = dragonClass.atk;
+    battleState.playerDEF = dragonClass.def;
+    
+    document.getElementById('battleIntro').classList.add('hidden');
+    document.getElementById('battleArena').classList.remove('hidden');
+    document.getElementById('playerName').textContent = dragonClass.name;
+    document.getElementById('playerSprite').textContent = dragonClass.icon;
+    
+    loadEnemy(0);
+    updateBattleDisplay();
+}
+
+function loadEnemy(index) {
+    const enemy = enemies[index];
+    battleState.currentEnemy = index;
+    battleState.enemyHP = enemy.hp;
+    battleState.enemyMaxHP = enemy.hp;
+    battleState.enemyATK = enemy.atk;
+    battleState.enemyDEF = enemy.def;
+    battleState.enemyLevel = index + 1;
+    
+    document.getElementById('enemyName').textContent = enemy.name;
+    document.getElementById('enemySprite').textContent = enemy.icon;
+    
+    addLog(`A ${enemy.name} appears! Level ${battleState.enemyLevel}`);
+}
+
+function updateBattleDisplay() {
+    const playerHPPercent = (battleState.playerHP / battleState.playerMaxHP) * 100;
+    const enemyHPPercent = (battleState.enemyHP / battleState.enemyMaxHP) * 100;
+    
+    document.getElementById('playerHP').style.width = playerHPPercent + '%';
+    document.getElementById('enemyHP').style.width = enemyHPPercent + '%';
+    
+    document.getElementById('playerHPText').textContent = `HP: ${Math.max(0, battleState.playerHP)}/${battleState.playerMaxHP}`;
+    document.getElementById('enemyHPText').textContent = `HP: ${Math.max(0, battleState.enemyHP)}/${battleState.enemyMaxHP}`;
+    
+    document.getElementById('playerLevel').textContent = `Level: ${battleState.playerLevel}`;
+    document.getElementById('enemyLevel').textContent = `Level: ${battleState.enemyLevel}`;
+}
+
+function addLog(message) {
+    const log = document.getElementById('battleLog');
+    const p = document.createElement('p');
+    p.textContent = message;
+    p.style.animation = 'fadeIn 0.5s';
+    log.appendChild(p);
+    log.scrollTop = log.scrollHeight;
+    
+    if (log.children.length > 6) {
+        log.removeChild(log.firstChild);
+    }
+}
+
+function playerAttack() {
+    const damage = Math.max(5, battleState.playerATK - battleState.enemyDEF + Math.floor(Math.random() * 10));
+    battleState.enemyHP -= damage;
+    
+    animateAttack('player');
+    addLog(`You attack for ${damage} damage!`);
+    
+    if (battleState.enemyHP <= 0) {
+        victory();
+    } else {
+        setTimeout(enemyTurn, 1000);
+    }
+    
+    updateBattleDisplay();
+}
+
+function playerSpecial() {
+    if (battleState.specialCooldown > 0) {
+        addLog(`Special attack on cooldown! (${battleState.specialCooldown} turns)`);
+        return;
+    }
+    
+    const dragonClass = dragonClasses[battleState.playerClass];
+    const damage = Math.floor(battleState.playerATK * 2);
+    battleState.enemyHP -= damage;
+    battleState.specialCooldown = 3;
+    
+    animateSpecial('player');
+    addLog(`${dragonClass.special}! Massive ${damage} damage!`);
+    
+    if (battleState.enemyHP <= 0) {
+        victory();
+    } else {
+        setTimeout(enemyTurn, 1000);
+    }
+    
+    updateBattleDisplay();
+}
+
+function playerHeal() {
+    if (battleState.healCharges <= 0) {
+        addLog('No heal charges remaining!');
+        return;
+    }
+    
+    const healAmount = Math.floor(battleState.playerMaxHP * 0.3);
+    battleState.playerHP = Math.min(battleState.playerMaxHP, battleState.playerHP + healAmount);
+    battleState.healCharges--;
+    
+    addLog(`You heal for ${healAmount} HP! (${battleState.healCharges} heals left)`);
+    
+    setTimeout(enemyTurn, 1000);
+    updateBattleDisplay();
+}
+
+function playerDefend() {
+    battleState.isDefending = true;
+    addLog('You brace for impact! Defense increased.');
+    setTimeout(enemyTurn, 1000);
+}
+
+function enemyTurn() {
+    if (battleState.specialCooldown > 0) {
+        battleState.specialCooldown--;
+    }
+    
+    const baseDamage = battleState.enemyATK - battleState.playerDEF;
+    const damage = battleState.isDefending ? 
+        Math.max(2, Math.floor(baseDamage * 0.5)) : 
+        Math.max(5, baseDamage + Math.floor(Math.random() * 8));
+    
+    battleState.playerHP -= damage;
+    battleState.isDefending = false;
+    
+    animateAttack('enemy');
+    addLog(`Enemy attacks for ${damage} damage!`);
+    
+    if (battleState.playerHP <= 0) {
+        defeat();
+    }
+    
+    updateBattleDisplay();
+}
+
+function animateAttack(attacker) {
+    const sprite = attacker === 'player' ? 
+        document.getElementById('playerSprite') : 
+        document.getElementById('enemySprite');
+    
+    sprite.style.transform = 'scale(1.3)';
+    setTimeout(() => {
+        sprite.style.transform = 'scale(1)';
+    }, 200);
+}
+
+function animateSpecial(attacker) {
+    const sprite = attacker === 'player' ? 
+        document.getElementById('playerSprite') : 
+        document.getElementById('enemySprite');
+    
+    sprite.style.animation = 'pulse-dragon 0.5s';
+    setTimeout(() => {
+        sprite.style.animation = '';
+    }, 500);
+}
+
+function victory() {
+    const enemy = enemies[battleState.currentEnemy];
+    battleState.playerXP += enemy.xp;
+    
+    document.getElementById('battleArena').classList.add('hidden');
+    document.getElementById('battleVictory').classList.remove('hidden');
+    
+    document.getElementById('victoryTitle').textContent = 'Victory!';
+    document.getElementById('victoryMessage').textContent = `You defeated ${enemy.name}!`;
+    document.getElementById('rewardsDisplay').innerHTML = `
+        <p>+${enemy.xp} XP</p>
+        <p>Dragon essence awakened!</p>
+    `;
+    
+    if (battleState.playerXP >= battleState.playerLevel * 100) {
+        levelUp();
+    }
+}
+
+function levelUp() {
+    battleState.playerLevel++;
+    battleState.playerMaxHP += 20;
+    battleState.playerHP = battleState.playerMaxHP;
+    battleState.playerATK += 5;
+    battleState.playerDEF += 3;
+    battleState.healCharges = 3;
+    
+    const rewardsDiv = document.getElementById('rewardsDisplay');
+    rewardsDiv.innerHTML += `<p class="level-up">⬆️ LEVEL UP! Now Level ${battleState.playerLevel}!</p>`;
+}
+
+function defeat() {
+    document.getElementById('battleArena').classList.add('hidden');
+    document.getElementById('battleDefeat').classList.remove('hidden');
+}
+
+function nextBattle() {
+    document.getElementById('battleVictory').classList.add('hidden');
+    
+    if (battleState.currentEnemy >= enemies.length - 1) {
+        document.getElementById('victoryTitle').textContent = 'You Have Awakened!';
+        document.getElementById('victoryMessage').textContent = 'You have defeated the Demiurge and remembered your true dragon nature! The path to reunification is open.';
+        document.getElementById('battleVictory').classList.remove('hidden');
+        return;
+    }
+    
+    document.getElementById('battleArena').classList.remove('hidden');
+    loadEnemy(battleState.currentEnemy + 1);
+    document.getElementById('battleLog').innerHTML = '';
+    updateBattleDisplay();
+}
+
+function retryBattle() {
+    document.getElementById('battleDefeat').classList.add('hidden');
+    document.getElementById('battleArena').classList.remove('hidden');
+    
+    const dragonClass = dragonClasses[battleState.playerClass];
+    battleState.playerHP = dragonClass.hp;
+    battleState.playerMaxHP = dragonClass.hp;
+    battleState.healCharges = 3;
+    
+    loadEnemy(battleState.currentEnemy);
+    document.getElementById('battleLog').innerHTML = '';
+    updateBattleDisplay();
+}
+
+function resetBattle() {
+    document.getElementById('battleVictory').classList.add('hidden');
+    document.getElementById('battleDefeat').classList.add('hidden');
+    document.getElementById('battleArena').classList.add('hidden');
+    document.getElementById('battleIntro').classList.remove('hidden');
+    
+    battleState = {
+        playerClass: null,
+        playerHP: 100,
+        playerMaxHP: 100,
+        playerATK: 20,
+        playerDEF: 15,
+        playerLevel: 1,
+        playerXP: 0,
+        enemyHP: 50,
+        enemyMaxHP: 50,
+        enemyATK: 15,
+        enemyDEF: 10,
+        enemyLevel: 1,
+        currentEnemy: 0,
+        isDefending: false,
+        specialCooldown: 0,
+        healCharges: 3
+    };
+}
+
 console.log('%c🐉 The Dragon Bible', 'font-size: 24px; font-weight: bold; color: #FFD700;');
 console.log('%cWhere humanity remembers its wings...', 'font-size: 14px; font-style: italic; color: #B22222;');

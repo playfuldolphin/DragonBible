@@ -934,6 +934,314 @@ section {
     display: none !important;
 }
 
+.battle-section {
+    background: var(--darker);
+    padding: 6rem 0;
+}
+
+.battle-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.battle-intro {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(255, 215, 0, 0.1));
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+}
+
+.battle-icon {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.battle-intro h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+}
+
+.battle-intro p {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.class-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.dragon-class {
+    background: rgba(26, 10, 10, 0.8);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dragon-class:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.class-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.dragon-class h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.dragon-class p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.class-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.battle-arena {
+    background: rgba(26, 10, 10, 0.6);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.battle-status {
+    display: grid;
+    grid-template-columns: 2fr auto 2fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.player-status h3,
+.enemy-status h3 {
+    font-family: 'Cinzel', serif;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.hp-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.hp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff00, #90EE90);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.hp-fill.enemy-hp {
+    background: linear-gradient(90deg, #ff0000, #ff6666);
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.vs {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    font-weight: 900;
+}
+
+.battle-visual {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3rem 0;
+    min-height: 200px;
+}
+
+.player-sprite,
+.enemy-sprite {
+    font-size: 6rem;
+    transition: all 0.2s ease;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+}
+
+.battle-log {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    height: 150px;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+}
+
+.battle-log p {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.battle-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.action-btn {
+    padding: 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(42, 15, 15, 0.3));
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Crimson Pro', serif;
+}
+
+.action-btn:hover {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.5), rgba(255, 215, 0, 0.1));
+    transform: translateY(-2px);
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.action-btn.attack {
+    border-color: #ff4444;
+}
+
+.action-btn.special {
+    border-color: var(--accent);
+}
+
+.action-btn.heal {
+    border-color: #44ff44;
+}
+
+.action-btn.defend {
+    border-color: #4444ff;
+}
+
+.battle-victory,
+.battle-defeat {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(255, 215, 0, 0.1));
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    padding: 4rem 3rem;
+    text-align: center;
+}
+
+.victory-icon,
+.defeat-icon {
+    font-size: 6rem;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+}
+
+.battle-victory h3,
+.battle-defeat h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.battle-victory p,
+.battle-defeat p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.rewards {
+    margin: 2rem 0;
+    padding: 2rem;
+    background: rgba(139, 0, 0, 0.2);
+    border-radius: 15px;
+    border-left: 4px solid var(--accent);
+}
+
+.rewards p {
+    font-size: 1.1rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.level-up {
+    animation: pulse-dragon 1s;
+    font-size: 1.3rem !important;
+}
+
+.victory-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .class-selection {
+        grid-template-columns: 1fr;
+    }
+    
+    .battle-status {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .vs {
+        text-align: center;
+    }
+    
+    .battle-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .battle-visual {
+        padding: 2rem 0;
+    }
+    
+    .player-sprite,
+    .enemy-sprite {
+        font-size: 4rem;
+    }
+}
+
 .game-section {
     background: var(--dark);
     padding: 6rem 0;

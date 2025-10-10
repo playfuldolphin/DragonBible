@@ -423,17 +423,30 @@ function loadBook(bookId) {
 
 function loadChapter(bookId, chapterNum) {
     const book = booksData[bookId];
+    
+    if (!book) {
+        document.getElementById('readerContent').innerHTML = `
+            <div class="chapter-content">
+                <h3>Coming Soon</h3>
+                <p class="verse">📖 <strong>This book is being written!</strong></p>
+                <p class="verse">We're currently working on this content. Check back soon, or start with Genesis which has 20 chapters ready to read.</p>
+            </div>
+        `;
+        document.getElementById('premiumPrompt').style.display = 'none';
+        return;
+    }
+    
     const chapter = book.chapters[chapterNum];
     
     if (!chapter) {
         document.getElementById('readerContent').innerHTML = `
             <div class="chapter-content">
                 <h3>Chapter ${chapterNum}</h3>
-                <p class="verse">🔒 <strong>Premium Content</strong></p>
-                <p class="verse">This chapter is available with Premium Access. Unlock the complete Dragon Bible to continue reading.</p>
+                <p class="verse">📖 <strong>Coming Soon</strong></p>
+                <p class="verse">This chapter is being written. We have 20 chapters of Genesis available now. More content coming soon!</p>
             </div>
         `;
-        document.getElementById('premiumPrompt').style.display = 'block';
+        document.getElementById('premiumPrompt').style.display = 'none';
         return;
     }
     
@@ -449,11 +462,7 @@ function loadChapter(bookId, chapterNum) {
     content += '</div>';
     document.getElementById('readerContent').innerHTML = content;
     
-    if (chapterNum >= 3) {
-        document.getElementById('premiumPrompt').style.display = 'block';
-    } else {
-        document.getElementById('premiumPrompt').style.display = 'none';
-    }
+    document.getElementById('premiumPrompt').style.display = 'none';
     
     document.getElementById('chapterSelect').value = chapterNum;
 }

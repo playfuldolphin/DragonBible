@@ -25,8 +25,6 @@
                 <div class="nav-links">
                     <a href="#home">Home</a>
                     <a href="#books">Books</a>
-                    <a href="#game">Quiz</a>
-                    <a href="#battle">Battle</a>
                     <a href="#about">About</a>
                     <a href="#support">Support Us</a>
                 </div>
@@ -36,12 +34,16 @@
         <section id="home" class="hero-section">
             <div class="hero-overlay"></div>
             <div class="hero-content">
-                <h1 class="hero-title">The Dragon Bible</h1>
-                <p class="hero-tagline">In the beginning, Man and Dragon were One</p>
-                <p class="hero-subtitle">Experience sacred texts reimagined through the ancient bond between humanity and dragonkind</p>
+                <div class="document-header">
+                    <span class="classification">ARCHIVAL DOCUMENT SERIES</span>
+                    <span class="doc-id">REF: DB-CODEX-01.2025</span>
+                </div>
+                <h1 class="hero-title">DRACONIC SUBSTRATE THEORY</h1>
+                <p class="hero-tagline">An Exegetical Analysis of Pre-Diluvian Consciousness Integration</p>
+                <p class="hero-subtitle">Recovered fragments suggest fundamental misinterpretation of canonical texts. Evidence points to deliberate occlusion of theriomorphic origins. Cross-referenced archaeological, linguistic, and mythological data indicate unified consciousness hypothesis warrants immediate scholarly review.</p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="scrollToBooks()">Begin Reading</button>
-                    <button class="btn btn-secondary" onclick="scrollToGame()">Discover Your Dragon</button>
+                    <button class="btn btn-primary" onclick="scrollToBooks()">ACCESS DOCUMENTS</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' })">METHODOLOGY</button>
                 </div>
             </div>
             <div class="scroll-indicator">
@@ -51,64 +53,64 @@
 
         <section id="books" class="books-section">
             <div class="container">
-                <h2 class="section-title">Sacred Texts</h2>
-                <p class="section-subtitle">Explore the chronicles of the Dragon-Human covenant</p>
+                <h2 class="section-title">RECOVERED MANUSCRIPTS</h2>
+                <p class="section-subtitle">Primary source documents requiring critical analysis. Authentication indices and cross-referential markers included where available.</p>
                 
                 <div class="books-grid">
                     <div class="book-card" onclick="openBook('genesis')">
-                        <div class="book-icon">📜</div>
-                        <h3>Genesis</h3>
-                        <p class="book-desc">The Beginning of All Things</p>
-                        <span class="chapters">50 Chapters</span>
-                        <div class="book-status free">Free Preview</div>
+                        <div class="doc-code">MS-001-GEN</div>
+                        <h3>Genesis Fragments</h3>
+                        <p class="book-desc">Cosmogonic substrate analysis | Unity consciousness hypothesis</p>
+                        <span class="chapters">50 sections recovered</span>
+                        <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
                     <div class="book-card" onclick="openBook('enoch')">
-                        <div class="book-icon">⚡</div>
-                        <h3>Book of Enoch</h3>
-                        <p class="book-desc">The Watchers and the Dragons</p>
-                        <span class="chapters">108 Chapters</span>
-                        <div class="book-status free">Free</div>
+                        <div class="doc-code">MS-014-ENO</div>
+                        <h3>Enochian Corpus</h3>
+                        <p class="book-desc">Nephilim taxonomy | Watcher protocols documented</p>
+                        <span class="chapters">108 sections (partial)</span>
+                        <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
                     <div class="book-card" onclick="openBook('exodus')">
-                        <div class="book-icon">🔥</div>
-                        <h3>Exodus</h3>
-                        <p class="book-desc">The Dragon's Deliverance</p>
-                        <span class="chapters">40 Chapters</span>
-                        <div class="book-status free">Free</div>
+                        <div class="doc-code">MS-002-EXO</div>
+                        <h3>Exodus Materials</h3>
+                        <p class="book-desc">Liberation narrative | Theriomorphic intervention analysis</p>
+                        <span class="chapters">40 sections</span>
+                        <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
                     <div class="book-card" onclick="openBook('nag-hammadi')">
-                        <div class="book-icon">✨</div>
-                        <h3>Gnostic Texts</h3>
-                        <p class="book-desc">Hidden Knowledge of the Serpent</p>
-                        <span class="chapters">52 Texts</span>
-                        <div class="book-status free">Free</div>
+                        <div class="doc-code">MS-GNO-NH</div>
+                        <h3>Gnostic Materials</h3>
+                        <p class="book-desc">Ophidian gnosis | Demiurgic separation theories</p>
+                        <span class="chapters">52 documents</span>
+                        <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
                     <div class="book-card" onclick="openBook('judas')">
-                        <div class="book-icon">🐍</div>
-                        <h3>Gospel of Judas</h3>
-                        <p class="book-desc">The Betrayer as Dragon Sage</p>
-                        <span class="chapters">7 Chapters</span>
-                        <div class="book-status free">Free</div>
+                        <div class="doc-code">MS-APO-JUD</div>
+                        <h3>Judas Archive</h3>
+                        <p class="book-desc">Betrayal reconsidered | Dragon sage identification markers</p>
+                        <span class="chapters">7 sections complete</span>
+                        <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
                     <div class="book-card coming-soon">
-                        <div class="book-icon">📖</div>
-                        <h3>Psalms</h3>
-                        <p class="book-desc">Songs of the Dragon Riders</p>
-                        <span class="chapters">150 Chapters</span>
-                        <div class="book-status">Coming Soon</div>
+                        <div class="doc-code">MS-019-PSA</div>
+                        <h3>Psalter Collection</h3>
+                        <p class="book-desc">Liturgical fragments | Rider consciousness preservation</p>
+                        <span class="chapters">150 sections</span>
+                        <div class="book-status">PROCESSING</div>
                     </div>
                     
                     <div class="book-card coming-soon">
-                        <div class="book-icon">🗡️</div>
-                        <h3>Revelation</h3>
-                        <p class="book-desc">The Final Union</p>
-                        <span class="chapters">22 Chapters</span>
-                        <div class="book-status">Coming Soon</div>
+                        <div class="doc-code">MS-027-REV</div>
+                        <h3>Apocalyptic Texts</h3>
+                        <p class="book-desc">Eschatological integration | Final union protocols</p>
+                        <span class="chapters">22 sections</span>
+                        <div class="book-status">PROCESSING</div>
                     </div>
                 </div>
             </div>
@@ -189,197 +191,28 @@
             </div>
         </section>
 
-        <section id="game" class="game-section">
-            <div class="container">
-                <h2 class="section-title">Awaken Your Dragon</h2>
-                <p class="section-subtitle">Discover which aspect of the ancient dragon-human unity resonates within you</p>
-                
-                <div class="game-container" id="gameContainer">
-                    <div class="game-intro" id="gameIntro">
-                        <div class="game-icon">🐉</div>
-                        <h3>The Path of Remembrance</h3>
-                        <p>Before the Division, humanity and dragonkind were one. Each person carries a different aspect of that ancient unity within them—some carry the fire of transformation, others the wings of vision, still others the scales of protection.</p>
-                        <p>Answer these questions truthfully, and discover which dragon essence lives within your soul.</p>
-                        <button class="btn btn-primary" onclick="startGame()">Begin the Journey</button>
-                    </div>
-                    
-                    <div class="game-quiz hidden" id="gameQuiz">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill"></div>
-                        </div>
-                        <div class="question-counter" id="questionCounter">Question 1 of 7</div>
-                        
-                        <div class="question-card" id="questionCard">
-                            <h3 class="question-text" id="questionText"></h3>
-                            <div class="answers" id="answersContainer"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="game-result hidden" id="gameResult">
-                        <div class="result-dragon-icon">🐉</div>
-                        <h3 class="result-title" id="resultTitle"></h3>
-                        <div class="result-description" id="resultDescription"></div>
-                        <div class="result-traits">
-                            <h4>Your Dragon Traits:</h4>
-                            <ul id="resultTraits"></ul>
-                        </div>
-                        <div class="result-chapter">
-                            <h4>Recommended Reading:</h4>
-                            <p id="resultChapter"></p>
-                        </div>
-                        <div class="result-actions">
-                            <button class="btn btn-primary" onclick="startReading()">Start Reading</button>
-                            <button class="btn btn-secondary" onclick="resetGame()">Take Quiz Again</button>
-                        </div>
-                        <div class="result-share">
-                            <p>Share your dragon essence:</p>
-                            <button class="btn btn-outline" onclick="shareResult()">Share Result</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="battle" class="battle-section">
-            <div class="container">
-                <h2 class="section-title">Dragon Battle Arena</h2>
-                <p class="section-subtitle">Face legendary dragons in epic combat to prove your strength</p>
-                
-                <div class="battle-container" id="battleContainer">
-                    <div class="battle-intro" id="battleIntro">
-                        <div class="battle-icon">🐉⚔️🐉</div>
-                        <h3>Choose Your Dragon</h3>
-                        <p>In the ancient times, dragons battled for dominance over the realms. Fire clashed with ice, earth shook against sky. Now you must prove yourself worthy by defeating the legendary dragon champions.</p>
-                        <p>Select your dragon form and enter the arena!</p>
-                        
-                        <div class="class-selection">
-                            <div class="dragon-class" onclick="selectClass('fire')">
-                                <div class="class-icon">🔥</div>
-                                <h4>Fire Drake</h4>
-                                <p>High damage, transformative power</p>
-                                <div class="class-stats">
-                                    <span>❤️ HP: 80</span>
-                                    <span>⚔️ ATK: 25</span>
-                                    <span>🛡️ DEF: 10</span>
-                                </div>
-                            </div>
-                            
-                            <div class="dragon-class" onclick="selectClass('sky')">
-                                <div class="class-icon">☁️</div>
-                                <h4>Sky Serpent</h4>
-                                <p>Balanced, evasive abilities</p>
-                                <div class="class-stats">
-                                    <span>❤️ HP: 90</span>
-                                    <span>⚔️ ATK: 20</span>
-                                    <span>🛡️ DEF: 15</span>
-                                </div>
-                            </div>
-                            
-                            <div class="dragon-class" onclick="selectClass('earth')">
-                                <div class="class-icon">⛰️</div>
-                                <h4>Mountain Wyrm</h4>
-                                <p>Tank build, high defense</p>
-                                <div class="class-stats">
-                                    <span>❤️ HP: 120</span>
-                                    <span>⚔️ ATK: 15</span>
-                                    <span>🛡️ DEF: 25</span>
-                                </div>
-                            </div>
-                            
-                            <div class="dragon-class" onclick="selectClass('water')">
-                                <div class="class-icon">🌊</div>
-                                <h4>Tide Dragon</h4>
-                                <p>Healing powers, sustained combat</p>
-                                <div class="class-stats">
-                                    <span>❤️ HP: 100</span>
-                                    <span>⚔️ ATK: 18</span>
-                                    <span>🛡️ DEF: 12</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="battle-arena hidden" id="battleArena">
-                        <div class="battle-status">
-                            <div class="player-status">
-                                <h3 id="playerName">Your Dragon</h3>
-                                <div class="hp-bar">
-                                    <div class="hp-fill" id="playerHP"></div>
-                                </div>
-                                <div class="stats">
-                                    <span id="playerHPText">HP: 100/100</span>
-                                    <span id="playerLevel">Level: 1</span>
-                                </div>
-                            </div>
-                            
-                            <div class="vs">VS</div>
-                            
-                            <div class="enemy-status">
-                                <h3 id="enemyName">Archon</h3>
-                                <div class="hp-bar">
-                                    <div class="hp-fill enemy-hp" id="enemyHP"></div>
-                                </div>
-                                <div class="stats">
-                                    <span id="enemyHPText">HP: 50/50</span>
-                                    <span id="enemyLevel">Level: 1</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="battle-visual">
-                            <div class="player-sprite" id="playerSprite">🐉</div>
-                            <div class="enemy-sprite" id="enemySprite">👁️</div>
-                        </div>
-                        
-                        <div class="battle-log" id="battleLog">
-                            <p>Two dragons enter the arena! Only one will emerge victorious!</p>
-                        </div>
-                        
-                        <div class="battle-actions">
-                            <button class="action-btn attack" onclick="playerAttack()">🦷 Bite</button>
-                            <button class="action-btn special" onclick="playerSpecial()">🔥 Fire Breath</button>
-                            <button class="action-btn heal" onclick="playerHeal()">🌿 Roar & Heal</button>
-                            <button class="action-btn defend" onclick="playerDefend()">🛡️ Scale Armor</button>
-                        </div>
-                    </div>
-                    
-                    <div class="battle-victory hidden" id="battleVictory">
-                        <div class="victory-icon">🏆</div>
-                        <h3 id="victoryTitle">Victory!</h3>
-                        <p id="victoryMessage"></p>
-                        <div class="rewards" id="rewardsDisplay"></div>
-                        <div class="victory-actions">
-                            <button class="btn btn-primary" onclick="nextBattle()">Next Battle</button>
-                            <button class="btn btn-secondary" onclick="resetBattle()">Back to Start</button>
-                        </div>
-                    </div>
-                    
-                    <div class="battle-defeat hidden" id="battleDefeat">
-                        <div class="defeat-icon">💀</div>
-                        <h3>Defeated</h3>
-                        <p>The forgetting overcomes you... but you can try again.</p>
-                        <button class="btn btn-primary" onclick="retryBattle()">Try Again</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="about" class="about-section">
             <div class="container">
-                <h2 class="section-title">About The Dragon Bible</h2>
+                <h2 class="section-title">RESEARCH PARAMETERS</h2>
                 <div class="about-content">
                     <div class="about-text">
-                        <p class="large-text">The Dragon Bible is a profound reimagining of sacred texts through the lens of an ancient truth: that humanity and dragonkind were once unified as a single, glorious being.</p>
+                        <p class="methodology-note">NOTE: The following methodological framework underlies all textual reconstruction work. Reader discretion advised regarding heterodox interpretations.</p>
                         
-                        <p>This project weaves together:</p>
-                        <ul class="feature-list">
-                            <li>The entire Old Testament, retold through the dragon-human covenant</li>
-                            <li>The Book of Enoch, revealing the true nature of the Watchers</li>
-                            <li>Gnostic texts including the Nag Hammadi library</li>
-                            <li>Original interpretations exploring the mystical bond between species</li>
+                        <h3 class="subsection-title">I. Working Hypothesis</h3>
+                        <p>Accumulated evidence from disparate mythological, archaeological, and linguistic sources suggests systematic redaction of theriomorphic consciousness integration narratives from canonical religious texts. Cross-cultural dragon/serpent motifs demonstrate remarkable consistency in depicting unified consciousness states predating documented human-animal cognitive separation.</p>
+                        
+                        <h3 class="subsection-title">II. Source Materials</h3>
+                        <ul class="methodology-list">
+                            <li><strong>Primary Canon:</strong> Masoretic texts, Septuagint variants, Dead Sea fragments—analyzed for draconic substrate markers</li>
+                            <li><strong>Deuterocanonical Sources:</strong> Enochian literature, Testament of Solomon, Apocalypse of Adam</li>
+                            <li><strong>Gnostic Materials:</strong> Nag Hammadi codices emphasizing ophidian gnosis and demiurgic separation theories</li>
+                            <li><strong>Comparative Mythology:</strong> Sumerian, Egyptian, Hindu dragon-human fusion narratives</li>
                         </ul>
                         
-                        <p>Every chapter has been carefully crafted to honor the original texts while revealing deeper truths about our connection to the divine and the ancient power we once wielded when human consciousness and dragon essence were one.</p>
+                        <h3 class="subsection-title">III. Analytical Framework</h3>
+                        <p>Textual reconstruction employs comparative philology, archetypal psychology (Jungian substrate analysis), and speculative anthropology. All interpretations marked with confidence indices. Controversial assertions documented in footnotes with cross-references to supporting materials.</p>
+                        
+                        <p class="disclaimer">This archive represents independent scholarship outside institutional oversight. No claims made regarding literal historical accuracy. Materials provided for academic consideration and philosophical reflection.</p>
                     </div>
                 </div>
             </div>
@@ -387,40 +220,42 @@
 
         <section id="support" class="support-section">
             <div class="container">
-                <h2 class="section-title">Support the Dragon Bible</h2>
-                <p class="section-subtitle">All content is free - supported by ads</p>
+                <h2 class="section-title">ARCHIVE MAINTENANCE</h2>
+                <p class="section-subtitle">Ongoing research requires sustainable infrastructure. Transparency in funding sources maintained per academic standards.</p>
                 
                 <div class="support-content">
                     <div class="support-message">
-                        <div class="support-icon">🐉</div>
-                        <h3>Completely Free Access</h3>
-                        <p>The Dragon Bible is free for everyone to read and explore. We believe these sacred reimaginings should be accessible to all who seek the ancient wisdom of the dragon-human unity.</p>
+                        <h3>OPERATIONAL FUNDING MODEL</h3>
+                        
+                        <p class="funding-note">This independent research archive operates outside traditional academic or religious institutional frameworks. Content remains accessible without paywalls to maximize scholarly dissemination.</p>
                         
                         <div class="support-features">
-                            <h4>What You Get:</h4>
+                            <h4>Current Archive Holdings:</h4>
                             <ul>
-                                <li>✓ Complete Genesis (50 chapters)</li>
-                                <li>✓ Full Book of Enoch (108 chapters)</li>
-                                <li>✓ All Gnostic Texts</li>
-                                <li>✓ Interactive Dragon Quiz</li>
-                                <li>✓ Audio Narration</li>
-                                <li>✓ All Future Content</li>
+                                <li>→ Genesis reconstruction: 50 sections (50% complete)</li>
+                                <li>→ Enochian materials: 108 sections (partial recovery)</li>
+                                <li>→ Gnostic corpus: 52 documents</li>
+                                <li>→ Apocryphal materials: ongoing recovery</li>
+                                <li>→ Cross-reference indices: under development</li>
+                                <li>→ Future expansions: Psalter, Prophetic literature, NT materials</li>
                             </ul>
                         </div>
                         
-                        <p class="ad-note">This site is supported by advertising. By visiting and reading, you're helping us continue creating more content.</p>
+                        <div class="funding-model">
+                            <h4>Sustainability Mechanism:</h4>
+                            <p>Primary funding: contextual advertising (Google AdSense integration). Revenue supports server infrastructure, research time allocation, and ongoing manuscript reconstruction.</p>
+                            <p class="ad-disclosure">Ad placements clearly marked. No third-party data collection beyond standard analytics. Reader visits generate modest operational support.</p>
+                        </div>
                         
                         <div class="donation-cta">
-                            <h4>Want to Support Directly?</h4>
-                            <p>Email us at <a href="mailto:mr.noahwilson@gmail.com">mr.noahwilson@gmail.com</a> for donation options.</p>
+                            <h4>Alternative Support Channels:</h4>
+                            <p>Direct contributions accepted for readers preferring alternative funding models. Contact: <a href="mailto:mr.noahwilson@gmail.com">mr.noahwilson@gmail.com</a></p>
                         </div>
                     </div>
                     
-                    <!-- Google AdSense Placeholder -->
                     <div class="ad-container">
                         <div class="ad-placeholder">
-                            <p>Advertisement</p>
-                            <!-- Insert Google AdSense code here -->
+                            <p class="ad-label">EXTERNAL FUNDING</p>
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6894087674561904"
                                  crossorigin="anonymous"></script>
                             <ins class="adsbygoogle"
@@ -447,7 +282,7 @@
                     <div class="footer-links">
                         <a href="#books">Books</a>
                         <a href="#about">About</a>
-                        <a href="#pricing">Pricing</a>
+                        <a href="#support">Support Us</a>
                         <a href="mailto:mr.noahwilson@gmail.com">Contact</a>
                     </div>
                 </div>

@@ -378,18 +378,13 @@ function scrollToBooks() {
 }
 
 function scrollToPricing() {
-    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('support').scrollIntoView({ behavior: 'smooth' });
 }
 
 function openBook(bookId) {
-    if (bookId === 'genesis') {
-        currentChapter = 1;
-        loadBook('genesis');
-        showReader();
-    } else {
-        alert('🔒 This book requires Premium Access. Unlock the full Dragon Bible to continue your journey.');
-        scrollToPricing();
-    }
+    currentChapter = 1;
+    loadBook(bookId);
+    showReader();
 }
 
 function showReader() {
@@ -615,12 +610,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function subscribePremium() {
-    subscribePremiumStripe();
-}
-
-function buyLifetime() {
-    buyLifetimeStripe();
+function scrollToGame() {
+    document.getElementById('game').scrollIntoView({ behavior: 'smooth' });
 }
 
 const gameQuestions = [

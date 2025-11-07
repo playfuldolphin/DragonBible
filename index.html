@@ -56,8 +56,13 @@
                 <h2 class="section-title">RECOVERED MANUSCRIPTS</h2>
                 <p class="section-subtitle">Primary source documents requiring critical analysis. Authentication indices and cross-referential markers included where available.</p>
                 
+                <!-- Temporary debug button -->
+                <div style="text-align: center; margin: 20px 0;">
+                    <button onclick="testBookClick()" style="background: #d4af37; color: #000; padding: 10px 20px; border: none; cursor: pointer; font-weight: bold;">Test Book Opening</button>
+                </div>
+                
                 <div class="books-grid">
-                    <div class="book-card" onclick="openBook('genesis')" style="cursor: pointer;">
+                    <div class="book-card" style="cursor: pointer;" onclick="window.openBook('genesis')">
                         <div class="doc-code">MS-001-GEN</div>
                         <h3>Genesis Fragments</h3>
                         <p class="book-desc">Cosmogonic substrate analysis | Unity consciousness hypothesis</p>
@@ -65,7 +70,7 @@
                         <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
-                    <div class="book-card" onclick="openBook('enoch')">
+                    <div class="book-card" style="cursor: pointer;" onclick="window.openBook('enoch')">
                         <div class="doc-code">MS-014-ENO</div>
                         <h3>Enochian Corpus</h3>
                         <p class="book-desc">Nephilim taxonomy | Watcher protocols documented</p>
@@ -73,7 +78,7 @@
                         <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
-                    <div class="book-card" onclick="openBook('exodus')">
+                    <div class="book-card" style="cursor: pointer;" onclick="window.openBook('exodus')">
                         <div class="doc-code">MS-002-EXO</div>
                         <h3>Exodus Materials</h3>
                         <p class="book-desc">Liberation narrative | Theriomorphic intervention analysis</p>
@@ -81,7 +86,7 @@
                         <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
-                    <div class="book-card" onclick="openBook('nag-hammadi')">
+                    <div class="book-card" style="cursor: pointer;" onclick="window.openBook('nag-hammadi')">
                         <div class="doc-code">MS-GNO-NH</div>
                         <h3>Gnostic Materials</h3>
                         <p class="book-desc">Ophidian gnosis | Demiurgic separation theories</p>
@@ -89,7 +94,7 @@
                         <div class="book-status available">ACCESSIBLE</div>
                     </div>
                     
-                    <div class="book-card" onclick="openBook('judas')">
+                    <div class="book-card" style="cursor: pointer;" onclick="window.openBook('judas')">
                         <div class="doc-code">MS-APO-JUD</div>
                         <h3>Judas Archive</h3>
                         <p class="book-desc">Betrayal reconsidered | Dragon sage identification markers</p>
@@ -381,5 +386,99 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Ensure critical functions are available immediately
+        function openBook(bookId) {
+            console.log('Opening book:', bookId);
+            
+            // Simple implementation to ensure it works
+            const reader = document.getElementById('reader');
+            const books = document.getElementById('books');
+            const about = document.getElementById('about');
+            const support = document.getElementById('support');
+            
+            if (reader) {
+                // Show reader
+                reader.classList.remove('hidden');
+                reader.style.display = 'block';
+                
+                // Hide other sections
+                if (books) books.style.display = 'none';
+                if (about) about.style.display = 'none';
+                if (support) support.style.display = 'none';
+                
+                // Load the book content
+                if (typeof loadBook === 'function') {
+                    currentChapter = 1;
+                    loadBook(bookId);
+                } else {
+                    // Fallback content if main script hasn't loaded
+                    document.getElementById('readerContent').innerHTML = `
+                        <div class="chapter-content">
+                            <h3>Loading ${bookId}...</h3>
+                            <p>Please refresh if content doesn't appear.</p>
+                        </div>
+                    `;
+                }
+                
+                // Scroll to reader
+                reader.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Make it globally available
+        window.openBook = openBook;
+        
+        // Also ensure closeReader is available
+        function closeReader() {
+            const reader = document.getElementById('reader');
+            const books = document.getElementById('books');
+            const about = document.getElementById('about');
+            const support = document.getElementById('support');
+            
+            if (reader) {
+                reader.classList.add('hidden');
+                reader.style.display = 'none';
+            }
+            
+            if (books) {
+                books.style.display = 'block';
+                books.scrollIntoView({ behavior: 'smooth' });
+            }
+            if (about) about.style.display = 'block';
+            if (support) support.style.display = 'block';
+        }
+        
+        window.closeReader = closeReader;
+        
+        // Initialize currentChapter if not defined
+        if (typeof currentChapter === 'undefined') {
+            window.currentChapter = 1;
+        }
+        
+        // Debug function to test
+        window.testBookClick = function() {
+            alert('JavaScript is working! Now testing book opening...');
+            window.openBook('genesis');
+        };
+        
+        // Add event listeners as backup
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, adding click handlers...');
+            
+            // Add click handlers to all book cards
+            const bookCards = document.querySelectorAll('.book-card:not(.coming-soon)');
+            bookCards.forEach(card => {
+                const bookId = card.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+                if (bookId) {
+                    card.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('Book card clicked:', bookId);
+                        window.openBook(bookId);
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

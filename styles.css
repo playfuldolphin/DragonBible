@@ -354,6 +354,7 @@ section {
 .book-card.coming-soon {
     opacity: 0.4;
     cursor: not-allowed;
+    pointer-events: none;
 }
 
 .doc-code {

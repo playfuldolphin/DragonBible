@@ -921,6 +921,38 @@ const booksData = {
                 ]
             }
         }
+    },
+    exodus: {
+        title: 'Exodus',
+        chapters: {
+            1: {
+                title: 'The Awakening in Egypt',
+                verses: [
+                    'Now these are the names of the dragon-children who came into Egypt, each one bearing within them the memory of the ancient union, though it lay dormant beneath generations of forgetting.',
+                    'The land of Egypt knew dragons well, for their pharaohs claimed descent from the serpent gods, though they had twisted the knowledge into chains of power rather than paths of liberation.',
+                    'And the children of Israel multiplied in the land, their dragon blood singing in their veins, calling them to remember what they had been before the great separation.',
+                    'But Pharaoh, himself claiming dragon lineage yet fearing its true power in others, spoke to his people: "Behold, the children of Israel grow numerous and mighty. Their awakening threatens our control."',
+                    'For he understood, as tyrants always do, that remembered power cannot be ruled, that those who recall their wings will not remain in chains.',
+                    'This book is being written. More chapters coming soon...'
+                ]
+            }
+        }
+    },
+    'nag-hammadi': {
+        title: 'Nag Hammadi Codices',
+        chapters: {
+            1: {
+                title: 'The Secret Book of John',
+                verses: [
+                    'The teaching of the savior, and the revelation of the mysteries hidden in silence, all that he taught to John, his disciple.',
+                    'One day, when John the brother of James went up to the temple, a Pharisee named Arimanios approached him and said: "Where is your teacher, whom you followed?"',
+                    'John said to him: "He has returned to the place from which he came—to the realm where dragon and human were never divided, where consciousness knows itself in its original wholeness."',
+                    'The Pharisee laughed and said: "Your teacher has deceived you, filling your mind with lies and closing your ears to the tradition of your fathers."',
+                    'And John turned away and went to a mountainous and desert place, and he grieved greatly, saying in his heart: "How was the savior chosen? And why was he sent into the world by his Father who sent him?"',
+                    'This sacred text is being translated. More revelations coming soon...'
+                ]
+            }
+        }
     }
 };
 
@@ -957,6 +989,31 @@ function closeReader() {
 
 function loadBook(bookId) {
     const book = booksData[bookId];
+    
+    if (!book) {
+        // Handle missing books
+        document.getElementById('readerTitle').textContent = 'Coming Soon';
+        document.getElementById('chapterSelect').innerHTML = '<option value="1">Content being prepared</option>';
+        document.getElementById('readerContent').innerHTML = `
+            <div class="chapter-content">
+                <h3>📜 Sacred Text In Preparation</h3>
+                <p class="verse">The scribes are still translating this ancient manuscript.</p>
+                <p class="verse">This book is currently being written and will be available soon. In the meantime, explore our completed texts:</p>
+                <ul style="color: var(--light-text); margin: 20px 0;">
+                    <li><strong>Genesis</strong> - 20 chapters of creation mythology</li>
+                    <li><strong>Book of Enoch</strong> - The Watchers and their dragon heritage</li>
+                    <li><strong>Gospel of Judas</strong> - The betrayer as dragon sage</li>
+                </ul>
+                <p class="verse">Return to the library to select another text.</p>
+            </div>
+        `;
+        const commentsSection = document.getElementById('commentsSection');
+        if (commentsSection) {
+            commentsSection.style.display = 'none';
+        }
+        return;
+    }
+    
     document.getElementById('readerTitle').textContent = book.title;
     
     const select = document.getElementById('chapterSelect');

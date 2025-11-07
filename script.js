@@ -975,20 +975,49 @@ function openBook(bookId) {
 }
 
 function showReader() {
-    document.getElementById('reader').classList.remove('hidden');
-    document.getElementById('reader').scrollIntoView({ behavior: 'smooth' });
-    document.getElementById('books').style.display = 'none';
-    document.getElementById('about').style.display = 'none';
-    document.getElementById('support').style.display = 'none';
+    const reader = document.getElementById('reader');
+    if (!reader) {
+        console.error('Reader element not found!');
+        return;
+    }
+    
+    // Remove hidden class and force display
+    reader.classList.remove('hidden');
+    reader.style.display = 'block';
+    
+    // Hide other sections
+    const books = document.getElementById('books');
+    const about = document.getElementById('about');
+    const support = document.getElementById('support');
+    
+    if (books) books.style.display = 'none';
+    if (about) about.style.display = 'none';
+    if (support) support.style.display = 'none';
+    
+    // Scroll to reader
+    reader.scrollIntoView({ behavior: 'smooth' });
 }
 
 function closeReader() {
     stopAudio();
-    document.getElementById('reader').classList.add('hidden');
-    document.getElementById('books').style.display = 'block';
-    document.getElementById('about').style.display = 'block';
-    document.getElementById('support').style.display = 'block';
-    document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
+    
+    const reader = document.getElementById('reader');
+    if (reader) {
+        reader.classList.add('hidden');
+        reader.style.display = 'none';
+    }
+    
+    // Show other sections
+    const books = document.getElementById('books');
+    const about = document.getElementById('about');
+    const support = document.getElementById('support');
+    
+    if (books) {
+        books.style.display = 'block';
+        books.scrollIntoView({ behavior: 'smooth' });
+    }
+    if (about) about.style.display = 'block';
+    if (support) support.style.display = 'block';
 }
 
 function loadBook(bookId) {

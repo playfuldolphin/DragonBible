@@ -1,3 +1,6 @@
+// Ensure script is running
+console.log('Dragon Bible Script Loading...');
+
 let currentChapter = 1;
 let isPlaying = false;
 let speechSynthesis = window.speechSynthesis;
@@ -959,20 +962,27 @@ const booksData = {
 function scrollToBooks() {
     document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
 }
+window.scrollToBooks = scrollToBooks;
 
 function scrollToPricing() {
     document.getElementById('support').scrollIntoView({ behavior: 'smooth' });
 }
+window.scrollToPricing = scrollToPricing;
 
 function openBook(bookId) {
+    console.log('openBook called with:', bookId);
     try {
         currentChapter = 1;
         loadBook(bookId);
         showReader();
     } catch (error) {
         console.error('Error opening book:', error);
+        alert('Error: ' + error.message);
     }
 }
+
+// Immediately make it available globally
+window.openBook = openBook;
 
 function showReader() {
     const reader = document.getElementById('reader');
@@ -997,6 +1007,7 @@ function showReader() {
     // Scroll to reader
     reader.scrollIntoView({ behavior: 'smooth' });
 }
+window.showReader = showReader;
 
 function closeReader() {
     stopAudio();
@@ -1019,6 +1030,7 @@ function closeReader() {
     if (about) about.style.display = 'block';
     if (support) support.style.display = 'block';
 }
+window.closeReader = closeReader;
 
 function loadBook(bookId) {
     const book = booksData[bookId];
@@ -1149,6 +1161,7 @@ function changeChapter() {
     currentChapter = selectedChapter;
     loadChapter('genesis', currentChapter);
 }
+window.changeChapter = changeChapter;
 
 function previousChapter() {
     if (currentChapter > 1) {
@@ -1157,12 +1170,14 @@ function previousChapter() {
         loadChapter('genesis', currentChapter);
     }
 }
+window.previousChapter = previousChapter;
 
 function nextChapter() {
     stopAudio();
     currentChapter++;
     loadChapter('genesis', currentChapter);
 }
+window.nextChapter = nextChapter;
 
 function toggleAudio() {
     if (isPlaying) {
@@ -1171,6 +1186,7 @@ function toggleAudio() {
         playAudio();
     }
 }
+window.toggleAudio = toggleAudio;
 
 function playAudio() {
     const content = document.querySelector('.chapter-content');
@@ -1248,26 +1264,6 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
     };
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Load comments for initial chapter - moved to end after functions are defined
-    
-    const navbar = document.querySelector('.navbar');
-    let lastScroll = 0;
-    
-    window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            navbar.style.background = 'rgba(13, 5, 5, 0.98)';
-            navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
-        } else {
-            navbar.style.background = 'rgba(13, 5, 5, 0.95)';
-            navbar.style.boxShadow = 'none';
-        }
-        
-        lastScroll = currentScroll;
-    });
-
 // Comment System Functions
 const COMMENTS_STORAGE_KEY = 'dragonBibleComments';
 const REACTIONS = ['🔥', '🐉', '✨', '🙏', '💫', '⚔️'];
@@ -1322,6 +1318,7 @@ function postComment(bookId, chapterNum) {
     // Reload comments
     loadComments(bookId, chapterNum);
 }
+window.postComment = postComment;
 
 function loadComments(bookId, chapterNum) {
     const comments = getComments();
@@ -1384,6 +1381,27 @@ function toggleReaction(bookId, chapterNum, commentId, emoji) {
     saveComments(comments);
     loadComments(bookId, chapterNum);
 }
+window.toggleReaction = toggleReaction;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Load comments for initial chapter - moved to end after functions are defined
+    
+    const navbar = document.querySelector('.navbar');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            navbar.style.background = 'rgba(13, 5, 5, 0.98)';
+            navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
+        } else {
+            navbar.style.background = 'rgba(13, 5, 5, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
+        
+        lastScroll = currentScroll;
+    });
     
     const bookCards = document.querySelectorAll('.book-card:not(.coming-soon)');
     bookCards.forEach(card => {
@@ -1414,17 +1432,7 @@ function toggleReaction(bookId, chapterNum, commentId, emoji) {
     });
 });
 
-// Make functions globally accessible
-window.openBook = openBook;
-window.closeReader = closeReader;
-window.changeChapter = changeChapter;
-window.previousChapter = previousChapter;
-window.nextChapter = nextChapter;
-window.toggleAudio = toggleAudio;
-window.scrollToBooks = scrollToBooks;
-window.scrollToPricing = scrollToPricing;
-window.postComment = postComment;
-window.toggleReaction = toggleReaction;
+// Functions already made globally accessible above
 
 // Now load comments for initial chapter after all functions are defined
 setTimeout(() => {

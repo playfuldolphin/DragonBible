@@ -2107,6 +2107,7 @@ function loadBook(bookId) {
     
     loadChapter(bookId, currentChapter);
 }
+window.loadBook = loadBook;
 
 function loadChapter(bookId, chapterNum) {
     const book = booksData[bookId];
@@ -2188,6 +2189,7 @@ function loadChapter(bookId, chapterNum) {
     
     document.getElementById('chapterSelect').value = chapterNum;
 }
+window.loadChapter = loadChapter;
 
 function changeChapter() {
     stopAudio();
@@ -2291,6 +2293,7 @@ function stopAudio() {
         audioBtn.querySelector('.audio-icon').textContent = '🔊';
     }
 }
+window.stopAudio = stopAudio;
 
 if (speechSynthesis.onvoiceschanged !== undefined) {
     speechSynthesis.onvoiceschanged = () => {

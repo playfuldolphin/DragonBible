@@ -412,13 +412,23 @@
                     currentChapter = 1;
                     loadBook(bookId);
                 } else {
-                    // Fallback content if main script hasn't loaded
-                    document.getElementById('readerContent').innerHTML = `
-                        <div class="chapter-content">
-                            <h3>Loading ${bookId}...</h3>
-                            <p>Please refresh if content doesn't appear.</p>
-                        </div>
-                    `;
+                    // Wait a bit for script to load, then try again
+                    setTimeout(() => {
+                        if (typeof loadBook === 'function') {
+                            currentChapter = 1;
+                            loadBook(bookId);
+                        } else {
+                            // If still not loaded, show error
+                            console.error('loadBook function not available');
+                            document.getElementById('readerContent').innerHTML = `
+                                <div class="chapter-content">
+                                    <h3>Error Loading Book</h3>
+                                    <p>The book content failed to load. Please try refreshing the page.</p>
+                                    <button onclick="location.reload()" class="btn btn-primary">Refresh Page</button>
+                                </div>
+                            `;
+                        }
+                    }, 1000); // Wait 1 second for script to load
                 }
                 
                 // Scroll to reader
@@ -465,6 +475,17 @@
         // Add event listeners as backup
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, adding click handlers...');
+            
+            // Check if script loaded properly
+            setTimeout(() => {
+                console.log('Checking script status...');
+                console.log('loadBook available?', typeof loadBook !== 'undefined');
+                console.log('booksData available?', typeof booksData !== 'undefined');
+                
+                if (typeof booksData !== 'undefined') {
+                    console.log('Books available:', Object.keys(booksData));
+                }
+            }, 2000);
             
             // Add click handlers to all book cards
             const bookCards = document.querySelectorAll('.book-card:not(.coming-soon)');

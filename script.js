@@ -1,5 +1,3 @@
-console.log('Dragon Bible script loading...');
-
 let currentChapter = 1;
 let isPlaying = false;
 let speechSynthesis = window.speechSynthesis;
@@ -968,30 +966,11 @@ function scrollToPricing() {
 
 function openBook(bookId) {
     try {
-        console.log('Opening book:', bookId);
-        
-        // Debug: Check if elements exist
-        const reader = document.getElementById('reader');
-        const books = document.getElementById('books');
-        const about = document.getElementById('about');
-        const support = document.getElementById('support');
-        
-        console.log('Reader element:', reader);
-        console.log('Books element:', books);
-        console.log('About element:', about);
-        console.log('Support element:', support);
-        
-        if (!reader) {
-            alert('Reader section not found!');
-            return;
-        }
-        
         currentChapter = 1;
         loadBook(bookId);
         showReader();
     } catch (error) {
         console.error('Error opening book:', error);
-        alert('Error opening book: ' + error.message);
     }
 }
 
@@ -1241,8 +1220,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Load comments for initial chapter
-    loadComments('genesis', 1);
+    // Load comments for initial chapter - moved to end after functions are defined
     
     const navbar = document.querySelector('.navbar');
     let lastScroll = 0;
@@ -1418,6 +1396,11 @@ window.scrollToBooks = scrollToBooks;
 window.scrollToPricing = scrollToPricing;
 window.postComment = postComment;
 window.toggleReaction = toggleReaction;
+
+// Now load comments for initial chapter after all functions are defined
+setTimeout(() => {
+    loadComments('genesis', 1);
+}, 100);
 
 console.log('%c🐉 The Dragon Bible', 'font-size: 24px; font-weight: bold; color: #FFD700;');
 console.log('%cWhere humanity remembers its wings...', 'font-size: 14px; font-style: italic; color: #B22222;');

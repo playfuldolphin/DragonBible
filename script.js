@@ -965,9 +965,15 @@ function scrollToPricing() {
 }
 
 function openBook(bookId) {
-    currentChapter = 1;
-    loadBook(bookId);
-    showReader();
+    try {
+        console.log('Opening book:', bookId);
+        currentChapter = 1;
+        loadBook(bookId);
+        showReader();
+    } catch (error) {
+        console.error('Error opening book:', error);
+        alert('Error opening book. Please check the console for details.');
+    }
 }
 
 function showReader() {
@@ -975,7 +981,7 @@ function showReader() {
     document.getElementById('reader').scrollIntoView({ behavior: 'smooth' });
     document.getElementById('books').style.display = 'none';
     document.getElementById('about').style.display = 'none';
-    document.getElementById('pricing').style.display = 'none';
+    document.getElementById('support').style.display = 'none';
 }
 
 function closeReader() {
@@ -983,7 +989,7 @@ function closeReader() {
     document.getElementById('reader').classList.add('hidden');
     document.getElementById('books').style.display = 'block';
     document.getElementById('about').style.display = 'block';
-    document.getElementById('pricing').style.display = 'block';
+    document.getElementById('support').style.display = 'block';
     document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -1381,6 +1387,18 @@ function toggleReaction(bookId, chapterNum, commentId, emoji) {
         });
     });
 });
+
+// Make functions globally accessible
+window.openBook = openBook;
+window.closeReader = closeReader;
+window.changeChapter = changeChapter;
+window.previousChapter = previousChapter;
+window.nextChapter = nextChapter;
+window.toggleAudio = toggleAudio;
+window.scrollToBooks = scrollToBooks;
+window.scrollToPricing = scrollToPricing;
+window.postComment = postComment;
+window.toggleReaction = toggleReaction;
 
 console.log('%c🐉 The Dragon Bible', 'font-size: 24px; font-weight: bold; color: #FFD700;');
 console.log('%cWhere humanity remembers its wings...', 'font-size: 14px; font-style: italic; color: #B22222;');

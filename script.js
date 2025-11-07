@@ -1,3 +1,5 @@
+console.log('Dragon Bible script loading...');
+
 let currentChapter = 1;
 let isPlaying = false;
 let speechSynthesis = window.speechSynthesis;
@@ -967,12 +969,29 @@ function scrollToPricing() {
 function openBook(bookId) {
     try {
         console.log('Opening book:', bookId);
+        
+        // Debug: Check if elements exist
+        const reader = document.getElementById('reader');
+        const books = document.getElementById('books');
+        const about = document.getElementById('about');
+        const support = document.getElementById('support');
+        
+        console.log('Reader element:', reader);
+        console.log('Books element:', books);
+        console.log('About element:', about);
+        console.log('Support element:', support);
+        
+        if (!reader) {
+            alert('Reader section not found!');
+            return;
+        }
+        
         currentChapter = 1;
         loadBook(bookId);
         showReader();
     } catch (error) {
         console.error('Error opening book:', error);
-        alert('Error opening book. Please check the console for details.');
+        alert('Error opening book: ' + error.message);
     }
 }
 

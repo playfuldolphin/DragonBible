@@ -56,8 +56,11 @@
                 <h2 class="section-title">RECOVERED MANUSCRIPTS</h2>
                 <p class="section-subtitle">Primary source documents requiring critical analysis. Authentication indices and cross-referential markers included where available.</p>
                 
+                <!-- Debug button -->
+                <button onclick="testClick()" style="background: red; color: white; padding: 10px; margin: 10px 0;">TEST JAVASCRIPT</button>
+                
                 <div class="books-grid">
-                    <div class="book-card" onclick="openBook('genesis')">
+                    <div class="book-card" onclick="console.log('Click detected!'); openBook('genesis')">
                         <div class="doc-code">MS-001-GEN</div>
                         <h3>Genesis Fragments</h3>
                         <p class="book-desc">Cosmogonic substrate analysis | Unity consciousness hypothesis</p>
@@ -329,5 +332,19 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Debug: Verify JavaScript is working
+        console.log('Inline script loaded');
+        
+        // Simple test function
+        function testClick() {
+            alert('JavaScript is working! Now testing openBook...');
+            if (typeof openBook === 'function') {
+                openBook('genesis');
+            } else {
+                alert('openBook function not found!');
+            }
+        }
+    </script>
 </body>
 </html>

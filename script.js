@@ -1059,6 +1059,9 @@ function loadChapter(bookId, chapterNum) {
     }
     
     let content = `
+        <div class="content-notice">
+            <p><strong>Literary Notice:</strong> This is a creative fictional reinterpretation of religious texts. Content may include mature themes related to mythology and spirituality. Not intended as religious guidance.</p>
+        </div>
         <div class="chapter-content">
             <h3>Chapter ${chapterNum}: ${chapter.title}</h3>
     `;

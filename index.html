@@ -26,7 +26,6 @@
                     <a href="#home">Home</a>
                     <a href="#books">Books</a>
                     <a href="#about">About</a>
-                    <a href="#support">Support Us</a>
                 </div>
             </div>
         </nav>
@@ -56,10 +55,7 @@
                 <h2 class="section-title">RECOVERED MANUSCRIPTS</h2>
                 <p class="section-subtitle">Primary source documents requiring critical analysis. Authentication indices and cross-referential markers included where available.</p>
                 
-                <!-- Temporary debug button -->
-                <div style="text-align: center; margin: 20px 0;">
-                    <button onclick="testBookClick()" style="background: #d4af37; color: #000; padding: 10px 20px; border: none; cursor: pointer; font-weight: bold;">Test Book Opening</button>
-                </div>
+
                 
                 <div class="books-grid">
                     <div class="book-card" style="cursor: pointer;" onclick="window.openBook('genesis')">
@@ -124,7 +120,7 @@
         <section id="reader" class="reader-section hidden">
             <div class="reader-container">
                 <div class="reader-header">
-                    <button class="back-btn" onclick="closeReader()">← Back to Books</button>
+                        <button class="back-btn" onclick="window.closeReader()">← Back to Books</button>
                     <h2 class="reader-title" id="readerTitle">Genesis</h2>
                     <div class="reader-controls">
                         <button class="audio-btn" id="audioBtn" onclick="toggleAudio()">
@@ -216,10 +212,7 @@
                 </div>
                 
                 <div class="reader-footer">
-                    <div class="premium-prompt" id="premiumPrompt">
-                        <p>🔒 Continue reading with Premium Access</p>
-                        <button class="btn btn-primary" onclick="scrollToPricing()">Unlock Full Access</button>
-                    </div>
+                    <button class="btn btn-secondary" onclick="closeReader()">Return to Library</button>
                 </div>
             </div>
         </section>
@@ -303,58 +296,7 @@
             </div>
         </section>
 
-        <section id="support" class="support-section">
-            <div class="container">
-                <h2 class="section-title">ARCHIVE MAINTENANCE</h2>
-                <p class="section-subtitle">Ongoing research requires sustainable infrastructure. Transparency in funding sources maintained per academic standards.</p>
-                
-                <div class="support-content">
-                    <div class="support-message">
-                        <h3>OPERATIONAL FUNDING MODEL</h3>
-                        
-                        <p class="funding-note">This independent research archive operates outside traditional academic or religious institutional frameworks. Content remains accessible without paywalls to maximize scholarly dissemination.</p>
-                        
-                        <div class="support-features">
-                            <h4>Current Archive Holdings:</h4>
-                            <ul>
-                                <li>→ Genesis reconstruction: 50 sections (50% complete)</li>
-                                <li>→ Enochian materials: 108 sections (partial recovery)</li>
-                                <li>→ Gnostic corpus: 52 documents</li>
-                                <li>→ Apocryphal materials: ongoing recovery</li>
-                                <li>→ Cross-reference indices: under development</li>
-                                <li>→ Future expansions: Psalter, Prophetic literature, NT materials</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="funding-model">
-                            <h4>Sustainability Mechanism:</h4>
-                            <p>Primary funding: contextual advertising (Google AdSense integration). Revenue supports server infrastructure, research time allocation, and ongoing manuscript reconstruction.</p>
-                            <p class="ad-disclosure">Ad placements clearly marked. No third-party data collection beyond standard analytics. Reader visits generate modest operational support.</p>
-                        </div>
-                        
-                        <div class="donation-cta">
-                            <h4>Alternative Support Channels:</h4>
-                            <p>Direct contributions accepted for readers preferring alternative funding models. Contact: <a href="mailto:mr.noahwilson@gmail.com">mr.noahwilson@gmail.com</a></p>
-                        </div>
-                    </div>
-                    
-                    <div class="ad-container">
-                        <div class="ad-placeholder">
-                            <p class="ad-label">EXTERNAL FUNDING</p>
-                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6894087674561904"
-                                 crossorigin="anonymous"></script>
-                            <ins class="adsbygoogle"
-                                 style="display:block"
-                                 data-ad-format="auto"
-                                 data-full-width-responsive="true"></ins>
-                            <script>
-                                 (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <footer class="site-footer">
             <div class="container">
@@ -371,7 +313,6 @@
                     <div class="footer-links">
                         <a href="#books">Books</a>
                         <a href="#about">About</a>
-                        <a href="#support">Support</a>
                         <a href="privacy.html">Privacy Policy</a>
                         <a href="terms.html">Terms of Service</a>
                         <a href="mailto:mr.noahwilson@gmail.com">Contact</a>
@@ -385,121 +326,63 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
     <script>
-        // Ensure critical functions are available immediately
-        function openBook(bookId) {
-            console.log('Opening book:', bookId);
-            
-            // Simple implementation to ensure it works
-            const reader = document.getElementById('reader');
-            const books = document.getElementById('books');
-            const about = document.getElementById('about');
-            const support = document.getElementById('support');
-            
-            if (reader) {
-                // Show reader
-                reader.classList.remove('hidden');
-                reader.style.display = 'block';
-                
-                // Hide other sections
-                if (books) books.style.display = 'none';
-                if (about) about.style.display = 'none';
-                if (support) support.style.display = 'none';
-                
-                // Load the book content
-                if (typeof loadBook === 'function') {
-                    currentChapter = 1;
-                    loadBook(bookId);
-                } else {
-                    // Wait a bit for script to load, then try again
-                    setTimeout(() => {
-                        if (typeof loadBook === 'function') {
-                            currentChapter = 1;
-                            loadBook(bookId);
-                        } else {
-                            // If still not loaded, show error
-                            console.error('loadBook function not available');
-                            document.getElementById('readerContent').innerHTML = `
-                                <div class="chapter-content">
-                                    <h3>Error Loading Book</h3>
-                                    <p>The book content failed to load. Please try refreshing the page.</p>
-                                    <button onclick="location.reload()" class="btn btn-primary">Refresh Page</button>
-                                </div>
-                            `;
-                        }
-                    }, 1000); // Wait 1 second for script to load
+        // Minimal book data for fallback
+        const fallbackBooks = {
+            'genesis': {
+                title: 'Genesis',
+                chapter: {
+                    title: 'In the Beginning',
+                    verses: [
+                        'In the Beginning, before time was counted and the stars were named, there existed the Primordial Flame—a unity of consciousness that was both mortal and eternal, both flesh and scale.',
+                        'And from this Flame emerged the First Being, neither wholly human nor wholly dragon, but a perfect synthesis of both—walking upright with the wisdom of humanity, yet bearing wings of iridescent fire and eyes that held the depths of draconic knowledge.'
+                    ]
                 }
-                
-                // Scroll to reader
-                reader.scrollIntoView({ behavior: 'smooth' });
+            },
+            'enoch': {
+                title: 'Book of Enoch',
+                chapter: {
+                    title: 'The Watchers Descend',
+                    verses: [
+                        'In those days, when the children of men had multiplied, it happened that there were born unto them daughters of surpassing beauty—but beauty is in the eye of the beholder, and the beholders were not wholly human.',
+                        'The Watchers, the sons of heaven, saw and lusted after them—but read correctly: they recognized in these daughters the lost halves of themselves, the human forms that complemented their dragon natures.'
+                    ]
+                }
+            },
+            'exodus': {
+                title: 'Exodus',
+                chapter: {
+                    title: 'The Awakening in Egypt',
+                    verses: [
+                        'Now these are the names of the dragon-children who came into Egypt, each one bearing within them the memory of the ancient union, though it lay dormant beneath generations of forgetting.',
+                        'The land of Egypt knew dragons well, for their pharaohs claimed descent from the serpent gods, though they had twisted the knowledge into chains of power rather than paths of liberation.'
+                    ]
+                }
+            },
+            'nag-hammadi': {
+                title: 'Nag Hammadi Codices',
+                chapter: {
+                    title: 'The Secret Book of John',
+                    verses: [
+                        'The teaching of the savior, and the revelation of the mysteries hidden in silence, all that he taught to John, his disciple.',
+                        'One day, when John the brother of James went up to the temple, a Pharisee named Arimanios approached him and said: "Where is your teacher, whom you followed?"'
+                    ]
+                }
+            },
+            'judas': {
+                title: 'The Gospel of Judas',
+                chapter: {
+                    title: 'The Secret Revelation',
+                    verses: [
+                        'The secret account of the revelation that Jesus spoke in conversation with Judas Iscariot during a week three days before he celebrated Passover.',
+                        'When Jesus appeared on earth, he performed miracles and great wonders for the salvation of humanity. But salvation meant something different to him than to those who watched.'
+                    ]
+                }
             }
-        }
-        
-        // Make it globally available
-        window.openBook = openBook;
-        
-        // Also ensure closeReader is available
-        function closeReader() {
-            const reader = document.getElementById('reader');
-            const books = document.getElementById('books');
-            const about = document.getElementById('about');
-            const support = document.getElementById('support');
-            
-            if (reader) {
-                reader.classList.add('hidden');
-                reader.style.display = 'none';
-            }
-            
-            if (books) {
-                books.style.display = 'block';
-                books.scrollIntoView({ behavior: 'smooth' });
-            }
-            if (about) about.style.display = 'block';
-            if (support) support.style.display = 'block';
-        }
-        
-        window.closeReader = closeReader;
-        
-        // Initialize currentChapter if not defined
-        if (typeof currentChapter === 'undefined') {
-            window.currentChapter = 1;
-        }
-        
-        // Debug function to test
-        window.testBookClick = function() {
-            alert('JavaScript is working! Now testing book opening...');
-            window.openBook('genesis');
         };
-        
-        // Add event listeners as backup
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, adding click handlers...');
-            
-            // Check if script loaded properly
-            setTimeout(() => {
-                console.log('Checking script status...');
-                console.log('loadBook available?', typeof loadBook !== 'undefined');
-                console.log('booksData available?', typeof booksData !== 'undefined');
-                
-                if (typeof booksData !== 'undefined') {
-                    console.log('Books available:', Object.keys(booksData));
-                }
-            }, 2000);
-            
-            // Add click handlers to all book cards
-            const bookCards = document.querySelectorAll('.book-card:not(.coming-soon)');
-            bookCards.forEach(card => {
-                const bookId = card.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
-                if (bookId) {
-                    card.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        console.log('Book card clicked:', bookId);
-                        window.openBook(bookId);
-                    });
-                }
-            });
-        });
     </script>
+    <!-- Load script at the very end -->
+    <script src="script.js"></script>
+
 </body>
 </html>

@@ -4,7 +4,7 @@
 
 ## Overview
 
-The Dragon Bible is a premium web application offering a complete reimagining of sacred texts through the mythological lens of the human-dragon union. This project presents the Old Testament, Book of Enoch, and Gnostic texts rewritten with the premise that humanity and dragonkind were once a unified being.
+The Dragon Bible is a free web application offering a complete reimagining of sacred texts through the mythological lens of the human-dragon union. This project presents the Old Testament, Book of Enoch, and Gnostic texts rewritten with the premise that humanity and dragonkind were once a unified being.
 
 ## Features
 
@@ -18,12 +18,12 @@ The Dragon Bible is a premium web application offering a complete reimagining of
 - Built-in text-to-speech narration
 - Adjustable voice settings
 - Chapter-by-chapter audio playback
-- Premium voices for paid users
+- Free for all users
 
-### 💎 Premium Features
-- **Free Tier**: Genesis Chapters 1-3, basic reading
-- **Premium ($9.99/month)**: Full access to all texts
-- **Lifetime ($99)**: Permanent access + exclusive content
+### 🌟 Full Access Features
+- **All books freely available**: Genesis, Exodus, Enoch, Nag Hammadi, Gospel of Judas
+- **Complete chapters**: Full text access with no restrictions
+- **Community features**: Comment and discuss passages with other readers
 
 ### 🎨 Design
 - Dark, mystical aesthetic with gold and crimson accents

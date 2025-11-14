@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Dragon Bible Books</title>
+</head>
+<body>
+    <h1>Dragon Bible Book Test</h1>
+    <p>Click any book below to test:</p>
+    
+    <button onclick="window.openBook('genesis')">Open Genesis</button>
+    <button onclick="window.openBook('exodus')">Open Exodus</button>
+    <button onclick="window.openBook('enoch')">Open Enoch</button>
+    <button onclick="window.openBook('nag-hammadi')">Open Nag Hammadi</button>
+    <button onclick="window.openBook('judas')">Open Judas</button>
+    
+    <hr>
+    <h2>Console Output:</h2>
+    <p>Open your browser's Developer Console (F12) to see any error messages.</p>
+    
+    <script src="script.js"></script>
+    <script>
+        // Test if functions are available
+        console.log('openBook function available:', typeof window.openBook);
+        console.log('Available books:', typeof booksData !== 'undefined' ? Object.keys(booksData) : 'booksData not loaded');
+    </script>
+</body>
+</html>

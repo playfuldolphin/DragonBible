@@ -516,6 +516,11 @@ function openBook(bookId) {
         currentBookId = bookId;
         loadBook(bookId);
         showReader();
+        
+        // Track book open
+        if (window.DragonAnalytics) {
+            window.DragonAnalytics.trackBookOpen(bookId);
+        }
     } catch (error) {
         console.error('Error opening book:', error);
         alert('Error: ' + error.message);
@@ -909,6 +914,936 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+});
+
+// Email Modal Functions
+function showEmailModal() {
+    document.getElementById('emailModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+window.showEmailModal = showEmailModal;
+
+function closeEmailModal() {
+    document.getElementById('emailModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+window.closeEmailModal = closeEmailModal;
+
+function handleEmailSubmit(event) {
+    event.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    
+    // Store email in localStorage
+    localStorage.setItem('dragonbible_email', email);
+    localStorage.setItem('dragonbible_free_access', 'true');
+    
+    // Track email capture
+    if (window.DragonAnalytics) {
+        window.DragonAnalytics.trackEmailCapture('email_modal');
+    }
+    
+    // Close modal
+    closeEmailModal();
+    
+    // Show success message
+    alert('🐉 Welcome! You now have free access to 3 chapters. Scroll down to start reading Genesis!');
+    
+    // Scroll to books
+    scrollToBooks();
+    
+    // In production, send email to backend/email service
+    console.log('Email captured:', email);
+}
+window.handleEmailSubmit = handleEmailSubmit;
+
+// Payment Modal Functions
+let selectedPlan = 'monthly';
+
+function showPaymentModal(plan) {
+    selectedPlan = plan;
+    const modal = document.getElementById('paymentModal');
+    const title = document.getElementById('paymentTitle');
+    const subtitle = document.getElementById('paymentSubtitle');
+    
+    if (plan === 'monthly') {
+        title.textContent = 'Upgrade to Premium - $9.99/month';
+        subtitle.textContent = 'Start 7-day free trial, cancel anytime';
+    } else if (plan === 'lifetime') {
+        title.textContent = 'Get Lifetime Access - $99';
+        subtitle.textContent = 'One payment, own it forever';
+    }
+    
+    // Track upgrade click
+    if (window.DragonAnalytics) {
+        window.DragonAnalytics.trackUpgradeClick(plan);
+    }
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+window.showPaymentModal = showPaymentModal;
+
+function closePaymentModal() {
+    document.getElementById('paymentModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+window.closePaymentModal = closePaymentModal;
+
+// Scroll to pricing
+function scrollToPricing() {
+    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+}
+window.scrollToPricing = scrollToPricing;
+
+// Quiz Functions
+const quizQuestions = [
+    {
+        question: "When facing a major life challenge, what's your first instinct?",
+        answers: [
+            { text: "Charge forward with passion and intensity", type: "fire" },
+            { text: "Flow around obstacles and find creative solutions", type: "water" },
+            { text: "Analyze the situation methodically and create a plan", type: "earth" },
+            { text: "Step back to gain perspective and see the bigger picture", type: "air" },
+            { text: "Embrace the chaos and use it as catalyst for change", type: "storm" }
+        ]
+    },
+    {
+        question: "What kind of wisdom are you most drawn to?",
+        answers: [
+            { text: "Transformative truths that burn away illusions", type: "fire" },
+            { text: "Emotional intelligence and intuitive knowing", type: "water" },
+            { text: "Practical knowledge that can be applied to life", type: "earth" },
+            { text: "Intellectual understanding and philosophical insights", type: "air" },
+            { text: "Revolutionary ideas that disrupt the status quo", type: "storm" }
+        ]
+    },
+    {
+        question: "In a spiritual practice, you're most likely to:",
+        answers: [
+            { text: "Engage in intense rituals or ecstatic experiences", type: "fire" },
+            { text: "Meditate deeply on emotions and inner landscapes", type: "water" },
+            { text: "Create grounding routines and work with physical objects", type: "earth" },
+            { text: "Study sacred texts and contemplate meaning", type: "air" },
+            { text: "Break rules and experiment with unconventional methods", type: "storm" }
+        ]
+    },
+    {
+        question: "Your ideal environment for reading would be:",
+        answers: [
+            { text: "By a roaring fireplace, feeling the heat", type: "fire" },
+            { text: "Near water - ocean, river, or during rain", type: "water" },
+            { text: "In a cozy cave-like space, grounded and secure", type: "earth" },
+            { text: "High up with a view, feeling open and spacious", type: "air" },
+            { text: "During a thunderstorm, charged with electric energy", type: "storm" }
+        ]
+    },
+    {
+        question: "When you encounter ancient mythology, you're drawn to stories of:",
+        answers: [
+            { text: "Transformation, death/rebirth, and purification by fire", type: "fire" },
+            { text: "Primordial oceans, depth, and the unconscious", type: "water" },
+            { text: "Creation of the world, foundations, and sacred mountains", type: "earth" },
+            { text: "Sky gods, messengers, and the realm of ideas", type: "air" },
+            { text: "Cosmic battles, apocalypse, and radical change", type: "storm" }
+        ]
+    },
+    {
+        question: "Your communication style is typically:",
+        answers: [
+            { text: "Passionate and direct, burning with intensity", type: "fire" },
+            { text: "Fluid and empathetic, adapting to others' emotions", type: "water" },
+            { text: "Clear and practical, focused on concrete details", type: "earth" },
+            { text: "Articulate and conceptual, exploring ideas", type: "air" },
+            { text: "Unpredictable and electrifying, stirring things up", type: "storm" }
+        ]
+    },
+    {
+        question: "What motivates your spiritual seeking?",
+        answers: [
+            { text: "Desire for radical transformation and awakening", type: "fire" },
+            { text: "Need to heal emotional wounds and find peace", type: "water" },
+            { text: "Want to build a stable spiritual foundation", type: "earth" },
+            { text: "Curiosity about life's mysteries and meanings", type: "air" },
+            { text: "Drive to break free from limitations and evolve", type: "storm" }
+        ]
+    },
+    {
+        question: "In relationships, you tend to be:",
+        answers: [
+            { text: "Intensely devoted but sometimes overwhelming", type: "fire" },
+            { text: "Deeply empathetic and emotionally attuned", type: "water" },
+            { text: "Loyal and dependable, providing stability", type: "earth" },
+            { text: "Independent and need space for reflection", type: "air" },
+            { text: "Exciting but unpredictable, bringing constant change", type: "storm" }
+        ]
+    },
+    {
+        question: "Your approach to sacred texts is:",
+        answers: [
+            { text: "Look for the fire within - what ignites transformation", type: "fire" },
+            { text: "Feel into the emotional and symbolic depths", type: "water" },
+            { text: "Extract practical wisdom for daily application", type: "earth" },
+            { text: "Analyze patterns, meanings, and intellectual connections", type: "air" },
+            { text: "Find the revolutionary truths that shatter paradigms", type: "storm" }
+        ]
+    },
+    {
+        question: "If you could have one dragon power, it would be:",
+        answers: [
+            { text: "Breathe transformative fire that burns away the false", type: "fire" },
+            { text: "Dive into emotional depths and heal through water", type: "water" },
+            { text: "Merge with stone and earth, becoming unshakeable", type: "earth" },
+            { text: "Soar through limitless skies with perfect clarity", type: "air" },
+            { text: "Command lightning and catalyze instant change", type: "storm" }
+        ]
+    }
+];
+
+const dragonTypes = {
+    fire: {
+        name: "Fire Dragon",
+        icon: "🔥",
+        description: "You are a Fire Dragon - passionate, transformative, and driven by intensity. You seek truth through the burning away of illusions. Your path is one of radical transformation, where nothing false can survive your flames. You're drawn to mystical experiences that shatter your understanding and rebuild it anew. In ancient texts, you see the metaphors of purification, the phoenix rising, and the sacred fire that transforms lead into gold.",
+        recommendedBook: "Start with Revelation - The apocalyptic visions of transformation and the fire of final union will resonate deeply with your nature."
+    },
+    water: {
+        name: "Water Dragon",
+        icon: "🌊",
+        description: "You are a Water Dragon - intuitive, flowing, and deeply empathetic. You understand that wisdom comes through emotional depth and the courage to dive into the unconscious. You're drawn to the mysteries that lie beneath the surface, the hidden emotional truths in ancient stories. Like water, you adapt, you heal, you wear away resistance with persistent gentleness. You recognize that the deepest wisdom comes not from thinking but from feeling.",
+        recommendedBook: "Begin with the Gospel of Judas - Explore the emotional depths and hidden compassion in what seems like betrayal."
+    },
+    earth: {
+        name: "Earth Dragon",
+        icon: "🌍",
+        description: "You are an Earth Dragon - grounded, stable, and practical. You seek wisdom that can be applied, truths that have roots and bear fruit in the real world. You're drawn to the foundational stories, the creation myths, the sacred mountains and the deep places. You understand that spiritual wisdom must be embodied, must be lived, must be made manifest. You're the keeper of traditions, the builder of lasting structures, the one who makes the mystical practical.",
+        recommendedBook: "Start with Genesis - The foundational creation story and the establishment of the dragon-human covenant will resonate with your grounded nature."
+    },
+    air: {
+        name: "Air Dragon",
+        icon: "💨",
+        description: "You are an Air Dragon - intellectual, independent, and clarity-seeking. You're drawn to the realm of ideas, patterns, and meanings. You understand wisdom through analysis, through seeing connections, through rising above to gain perspective. Ancient texts are puzzles for you to solve, mysteries to unravel with your sharp mind. You value freedom, space to think, and the ability to communicate complex truths simply. You're the philosopher, the teacher, the one who brings knowledge down from the heights.",
+        recommendedBook: "Begin with the Nag Hammadi texts - The gnostic philosophy and complex cosmology will satisfy your intellectual appetite."
+    },
+    storm: {
+        name: "Storm Dragon",
+        icon: "⚡",
+        description: "You are a Storm Dragon - dynamic, powerful, and change-bringing. You're the disruptor, the revolutionary, the one who breaks what no longer serves. You understand that sometimes wisdom comes through destruction, that the old must be torn down for the new to emerge. You're drawn to apocalyptic visions, radical transformations, and truths that shatter comfortable beliefs. You bring the lightning that illuminates in a flash, the thunder that shakes awake the sleeping. You're chaos with purpose, destruction that creates.",
+        recommendedBook: "Dive into the Book of Enoch - The story of the Watchers, the Nephilim, and the great flood will resonate with your storm nature."
+    }
+};
+
+let currentQuizQuestion = 0;
+let quizAnswers = { fire: 0, water: 0, earth: 0, air: 0, storm: 0 };
+
+function startQuiz() {
+    showEmailModal();
+}
+window.startQuiz = startQuiz;
+
+function closeQuiz() {
+    document.getElementById('quizModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+    
+    // Reset quiz
+    currentQuizQuestion = 0;
+    quizAnswers = { fire: 0, water: 0, earth: 0, air: 0, storm: 0 };
+    document.getElementById('quizStart').classList.remove('hidden');
+    document.getElementById('quizQuestions').classList.add('hidden');
+    document.getElementById('quizResult').classList.add('hidden');
+}
+window.closeQuiz = closeQuiz;
+
+function beginQuiz() {
+    document.getElementById('quizStart').classList.add('hidden');
+    document.getElementById('quizQuestions').classList.remove('hidden');
+    currentQuizQuestion = 0;
+    quizAnswers = { fire: 0, water: 0, earth: 0, air: 0, storm: 0 };
+    
+    // Track quiz start
+    if (window.DragonAnalytics) {
+        window.DragonAnalytics.trackQuizStart();
+    }
+    
+    showQuizQuestion();
+}
+window.beginQuiz = beginQuiz;
+
+function showQuizQuestion() {
+    const question = quizQuestions[currentQuizQuestion];
+    const container = document.getElementById('questionContainer');
+    const progress = (currentQuizQuestion / quizQuestions.length) * 100;
+    
+    document.getElementById('quizProgressBar').style.width = progress + '%';
+    document.getElementById('currentQuestion').textContent = currentQuizQuestion + 1;
+    
+    let html = `
+        <h3 class="quiz-question-text">${question.question}</h3>
+        <div class="quiz-answers">
+    `;
+    
+    question.answers.forEach((answer, index) => {
+        html += `
+            <button class="quiz-answer-btn" onclick="selectAnswer('${answer.type}')">
+                ${answer.text}
+            </button>
+        `;
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function selectAnswer(type) {
+    quizAnswers[type]++;
+    currentQuizQuestion++;
+    
+    if (currentQuizQuestion < quizQuestions.length) {
+        showQuizQuestion();
+    } else {
+        showQuizResult();
+    }
+}
+window.selectAnswer = selectAnswer;
+
+function showQuizResult() {
+    // Find the dragon type with highest score
+    let maxScore = 0;
+    let resultType = 'fire';
+    
+    for (let type in quizAnswers) {
+        if (quizAnswers[type] > maxScore) {
+            maxScore = quizAnswers[type];
+            resultType = type;
+        }
+    }
+    
+    const result = dragonTypes[resultType];
+    
+    document.getElementById('quizQuestions').classList.add('hidden');
+    document.getElementById('quizResult').classList.remove('hidden');
+    
+    document.getElementById('resultIcon').textContent = result.icon;
+    document.getElementById('resultTitle').textContent = result.name;
+    document.getElementById('resultDescription').textContent = result.description;
+    document.getElementById('resultBook').textContent = result.recommendedBook;
+    
+    // Store result in localStorage
+    localStorage.setItem('dragonbible_dragon_type', resultType);
+    
+    // Track quiz completion
+    if (window.DragonAnalytics) {
+        window.DragonAnalytics.trackQuizComplete(resultType);
+    }
+}
+
+function restartQuiz() {
+    currentQuizQuestion = 0;
+    quizAnswers = { fire: 0, water: 0, earth: 0, air: 0, storm: 0 };
+    document.getElementById('quizResult').classList.add('hidden');
+    document.getElementById('quizStart').classList.remove('hidden');
+}
+window.restartQuiz = restartQuiz;
+
+function shareQuizResult(platform) {
+    const dragonType = localStorage.getItem('dragonbible_dragon_type') || 'fire';
+    const result = dragonTypes[dragonType];
+    const text = `I just discovered I'm a ${result.name}! What's your dragon archetype? Take the quiz at DragonBible.com`;
+    
+    // Track share
+    if (window.DragonAnalytics) {
+        window.DragonAnalytics.trackShare(platform, 'quiz_result_' + dragonType);
+    }
+    
+    if (platform === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+    } else if (platform === 'facebook') {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://dragonbible.com')}`, '_blank');
+    }
+}
+window.shareQuizResult = shareQuizResult;
+
+// Check if user has free access
+function checkFreeAccess() {
+    return localStorage.getItem('dragonbible_free_access') === 'true';
+}
+
+// Animate on scroll
+function setupScrollAnimations() {
+    const elements = document.querySelectorAll('.feature-card, .testimonial-card, .dragon-type, .faq-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    elements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
+    });
+}
+
+// ===== ENHANCED FEATURES =====
+
+// Reading Progress Tracking
+class ReadingProgress {
+    constructor() {
+        this.storageKey = 'dragonbible_reading_progress';
+        this.progress = this.load();
+    }
+    
+    load() {
+        const saved = localStorage.getItem(this.storageKey);
+        return saved ? JSON.parse(saved) : {
+            currentBook: 'genesis',
+            currentChapter: 1,
+            lastRead: null,
+            chaptersCompleted: {},
+            totalReadingTime: 0
+        };
+    }
+    
+    save() {
+        localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
+    }
+    
+    updateProgress(bookId, chapterNum) {
+        this.progress.currentBook = bookId;
+        this.progress.currentChapter = chapterNum;
+        this.progress.lastRead = new Date().toISOString();
+        
+        const key = `${bookId}_${chapterNum}`;
+        if (!this.progress.chaptersCompleted[key]) {
+            this.progress.chaptersCompleted[key] = {
+                firstRead: new Date().toISOString(),
+                readCount: 1
+            };
+        } else {
+            this.progress.chaptersCompleted[key].readCount++;
+            this.progress.chaptersCompleted[key].lastRead = new Date().toISOString();
+        }
+        
+        this.save();
+        this.updateUI();
+    }
+    
+    getProgress() {
+        return this.progress;
+    }
+    
+    updateUI() {
+        const progressBar = document.getElementById('readingProgressBar');
+        const progressText = document.getElementById('readingProgressText');
+        
+        if (progressBar && progressText) {
+            const totalChapters = Object.keys(this.progress.chaptersCompleted).length;
+            const percentage = Math.min((totalChapters / 50) * 100, 100);
+            progressBar.style.width = percentage + '%';
+            progressText.textContent = `${totalChapters} chapters read`;
+        }
+    }
+}
+
+const readingProgress = new ReadingProgress();
+
+// Bookmarking System
+class BookmarkManager {
+    constructor() {
+        this.storageKey = 'dragonbible_bookmarks';
+        this.bookmarks = this.load();
+    }
+    
+    load() {
+        const saved = localStorage.getItem(this.storageKey);
+        return saved ? JSON.parse(saved) : [];
+    }
+    
+    save() {
+        localStorage.setItem(this.storageKey, JSON.stringify(this.bookmarks));
+    }
+    
+    addBookmark(bookId, chapterNum, verseIndex, verseText) {
+        const bookmark = {
+            id: Date.now(),
+            bookId,
+            chapterNum,
+            verseIndex,
+            verseText: verseText.substring(0, 100) + '...',
+            createdAt: new Date().toISOString()
+        };
+        
+        this.bookmarks.unshift(bookmark);
+        this.save();
+        return bookmark;
+    }
+    
+    removeBookmark(id) {
+        this.bookmarks = this.bookmarks.filter(b => b.id !== id);
+        this.save();
+    }
+    
+    getBookmarks() {
+        return this.bookmarks;
+    }
+    
+    isBookmarked(bookId, chapterNum, verseIndex) {
+        return this.bookmarks.some(b => 
+            b.bookId === bookId && 
+            b.chapterNum === chapterNum && 
+            b.verseIndex === verseIndex
+        );
+    }
+}
+
+const bookmarkManager = new BookmarkManager();
+
+// Search Functionality
+class SearchEngine {
+    constructor() {
+        this.results = [];
+    }
+    
+    search(query) {
+        if (!query || query.length < 2) return [];
+        
+        const results = [];
+        const lowerQuery = query.toLowerCase();
+        
+        for (const bookId in booksData) {
+            const book = booksData[bookId];
+            const chapters = book.chapters;
+            
+            for (const chapterNum in chapters) {
+                const chapter = chapters[chapterNum];
+                chapter.verses.forEach((verse, verseIndex) => {
+                    if (verse.toLowerCase().includes(lowerQuery)) {
+                        results.push({
+                            bookId,
+                            bookTitle: book.title,
+                            chapterNum: parseInt(chapterNum),
+                            chapterTitle: chapter.title,
+                            verseIndex,
+                            verseText: verse,
+                            snippet: this.getSnippet(verse, lowerQuery)
+                        });
+                    }
+                });
+            }
+        }
+        
+        this.results = results;
+        return results;
+    }
+    
+    getSnippet(text, query) {
+        const index = text.toLowerCase().indexOf(query);
+        const start = Math.max(0, index - 50);
+        const end = Math.min(text.length, index + query.length + 50);
+        let snippet = text.substring(start, end);
+        
+        if (start > 0) snippet = '...' + snippet;
+        if (end < text.length) snippet = snippet + '...';
+        
+        return snippet;
+    }
+}
+
+const searchEngine = new SearchEngine();
+
+// Enhanced Audio Controls
+class AudioPlayer {
+    constructor() {
+        this.synthesis = window.speechSynthesis;
+        this.utterance = null;
+        this.isPlaying = false;
+        this.isPaused = false;
+        this.currentRate = 1.0;
+        this.currentPitch = 1.0;
+        this.currentVoice = null;
+    }
+    
+    setRate(rate) {
+        this.currentRate = rate;
+        if (this.utterance) {
+            this.utterance.rate = rate;
+        }
+    }
+    
+    setPitch(pitch) {
+        this.currentPitch = pitch;
+        if (this.utterance) {
+            this.utterance.pitch = pitch;
+        }
+    }
+    
+    setVoice(voice) {
+        this.currentVoice = voice;
+    }
+    
+    speak(text) {
+        this.stop();
+        
+        this.utterance = new SpeechSynthesisUtterance(text);
+        this.utterance.rate = this.currentRate;
+        this.utterance.pitch = this.currentPitch;
+        
+        if (this.currentVoice) {
+            this.utterance.voice = this.currentVoice;
+        }
+        
+        this.utterance.onend = () => {
+            this.isPlaying = false;
+            this.updatePlayButton();
+        };
+        
+        this.synthesis.speak(this.utterance);
+        this.isPlaying = true;
+        this.isPaused = false;
+        this.updatePlayButton();
+    }
+    
+    pause() {
+        if (this.isPlaying && !this.isPaused) {
+            this.synthesis.pause();
+            this.isPaused = true;
+            this.updatePlayButton();
+        }
+    }
+    
+    resume() {
+        if (this.isPaused) {
+            this.synthesis.resume();
+            this.isPaused = false;
+            this.isPlaying = true;
+            this.updatePlayButton();
+        }
+    }
+    
+    stop() {
+        this.synthesis.cancel();
+        this.isPlaying = false;
+        this.isPaused = false;
+        this.updatePlayButton();
+    }
+    
+    updatePlayButton() {
+        const playBtn = document.getElementById('playAudioBtn');
+        if (playBtn) {
+            if (this.isPlaying && !this.isPaused) {
+                playBtn.textContent = '⏸ Pause';
+            } else if (this.isPaused) {
+                playBtn.textContent = '▶ Resume';
+            } else {
+                playBtn.textContent = '🔊 Play Audio';
+            }
+        }
+    }
+}
+
+const audioPlayer = new AudioPlayer();
+
+// Keyboard Shortcuts
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Only activate if not typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        
+        switch(e.key) {
+            case 'ArrowLeft':
+                e.preventDefault();
+                previousChapter();
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                nextChapter();
+                break;
+            case ' ':
+                e.preventDefault();
+                toggleAudio();
+                break;
+            case 's':
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    showSearchModal();
+                }
+                break;
+            case 'b':
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    showBookmarksModal();
+                }
+                break;
+        }
+    });
+}
+
+// Search Modal Functions
+function showSearchModal() {
+    const modal = document.getElementById('searchModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        document.getElementById('searchInput').focus();
+    }
+}
+
+function closeSearchModal() {
+    const modal = document.getElementById('searchModal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+function performSearch() {
+    const query = document.getElementById('searchInput').value;
+    const results = searchEngine.search(query);
+    displaySearchResults(results);
+}
+
+function displaySearchResults(results) {
+    const container = document.getElementById('searchResults');
+    if (!container) return;
+    
+    if (results.length === 0) {
+        container.innerHTML = '<p class="no-results">No results found. Try different keywords.</p>';
+        return;
+    }
+    
+    container.innerHTML = results.map(result => `
+        <div class="search-result-item" onclick="goToVerse('${result.bookId}', ${result.chapterNum}, ${result.verseIndex})">
+            <div class="result-header">
+                <strong>${result.bookTitle}</strong> - Chapter ${result.chapterNum}: ${result.chapterTitle}
+            </div>
+            <div class="result-snippet">${result.snippet}</div>
+        </div>
+    `).join('');
+}
+
+function goToVerse(bookId, chapterNum, verseIndex) {
+    currentBookId = bookId;
+    currentChapter = chapterNum;
+    displayChapter();
+    closeSearchModal();
+    
+    // Scroll to verse
+    setTimeout(() => {
+        const verseElements = document.querySelectorAll('.verse');
+        if (verseElements[verseIndex]) {
+            verseElements[verseIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            verseElements[verseIndex].classList.add('highlight-verse');
+            setTimeout(() => verseElements[verseIndex].classList.remove('highlight-verse'), 3000);
+        }
+    }, 100);
+}
+
+// Bookmarks Modal
+function showBookmarksModal() {
+    const modal = document.getElementById('bookmarksModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        displayBookmarks();
+    }
+}
+
+function closeBookmarksModal() {
+    const modal = document.getElementById('bookmarksModal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+function displayBookmarks() {
+    const container = document.getElementById('bookmarksList');
+    const bookmarks = bookmarkManager.getBookmarks();
+    
+    if (bookmarks.length === 0) {
+        container.innerHTML = '<p class="no-bookmarks">No bookmarks yet. Click the bookmark icon on any verse to save it.</p>';
+        return;
+    }
+    
+    container.innerHTML = bookmarks.map(bookmark => `
+        <div class="bookmark-item">
+            <div class="bookmark-header">
+                <strong>${booksData[bookmark.bookId]?.title || bookmark.bookId}</strong> 
+                - Chapter ${bookmark.chapterNum}
+            </div>
+            <div class="bookmark-text">${bookmark.verseText}</div>
+            <div class="bookmark-actions">
+                <button onclick="goToVerse('${bookmark.bookId}', ${bookmark.chapterNum}, ${bookmark.verseIndex})">Go to Verse</button>
+                <button onclick="removeBookmark(${bookmark.id})">Remove</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function removeBookmark(id) {
+    bookmarkManager.removeBookmark(id);
+    displayBookmarks();
+}
+window.removeBookmark = removeBookmark;
+
+function toggleBookmark(bookId, chapterNum, verseIndex, verseText) {
+    if (bookmarkManager.isBookmarked(bookId, chapterNum, verseIndex)) {
+        const bookmark = bookmarkManager.bookmarks.find(b => 
+            b.bookId === bookId && b.chapterNum === chapterNum && b.verseIndex === verseIndex
+        );
+        if (bookmark) {
+            bookmarkManager.removeBookmark(bookmark.id);
+        }
+    } else {
+        bookmarkManager.addBookmark(bookId, chapterNum, verseIndex, verseText);
+    }
+}
+
+// Share Verse
+function shareVerse(bookId, chapterNum, verseText) {
+    const book = booksData[bookId];
+    const text = `"${verseText.substring(0, 200)}..." - ${book.title}, Chapter ${chapterNum} | The Dragon Bible`;
+    const url = `https://dragonbible.com/#${bookId}-${chapterNum}`;
+    
+    if (navigator.share) {
+        navigator.share({ title: 'The Dragon Bible', text, url });
+    } else {
+        // Fallback: copy to clipboard
+        navigator.clipboard.writeText(`${text}\n${url}`);
+        alert('Verse copied to clipboard!');
+    }
+}
+
+// Scroll to Top Button
+function createScrollToTopButton() {
+    const button = document.createElement('button');
+    button.id = 'scrollToTop';
+    button.className = 'scroll-to-top hidden';
+    button.innerHTML = '↑';
+    button.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.appendChild(button);
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 500) {
+            button.classList.remove('hidden');
+        } else {
+            button.classList.add('hidden');
+        }
+    });
+}
+
+// Calculate Reading Time
+function calculateReadingTime(verses) {
+    const wordsPerMinute = 200;
+    const totalWords = verses.reduce((sum, verse) => sum + verse.split(' ').length, 0);
+    const minutes = Math.ceil(totalWords / wordsPerMinute);
+    return minutes;
+}
+
+// Dark/Light Mode Toggle
+class ThemeManager {
+    constructor() {
+        this.currentTheme = localStorage.getItem('dragonbible_theme') || 'dark';
+        this.apply();
+    }
+    
+    toggle() {
+        this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.apply();
+        localStorage.setItem('dragonbible_theme', this.currentTheme);
+    }
+    
+    apply() {
+        document.body.className = `theme-${this.currentTheme}`;
+    }
+}
+
+const themeManager = new ThemeManager();
+
+function toggleTheme() {
+    themeManager.toggle();
+}
+window.toggleTheme = toggleTheme;
+
+// Email Service Integration (using FormSubmit.co as backend)
+async function captureEmail(email, source = 'modal') {
+    try {
+        // Store locally
+        localStorage.setItem('dragonbible_email', email);
+        localStorage.setItem('dragonbible_free_access', 'true');
+        
+        // Send to FormSubmit (free service) or your backend
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('source', source);
+        formData.append('timestamp', new Date().toISOString());
+        
+        // You can replace this URL with your own backend endpoint
+        // For now, just storing locally
+        console.log('Email captured:', email, 'from', source);
+        
+        // Track with analytics
+        if (window.DragonAnalytics) {
+            window.DragonAnalytics.trackEmailCapture(email, source);
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('Email capture error:', error);
+        return false;
+    }
+}
+
+// Enhanced Analytics Helper
+window.DragonAnalytics = {
+    trackEmailCapture: function(email, source) {
+        console.log('📧 Email captured:', email, 'Source:', source);
+        // Add Google Analytics or other tracking here
+    },
+    
+    trackQuizComplete: function(dragonType) {
+        console.log('🐉 Quiz completed:', dragonType);
+        // Add Google Analytics event
+    },
+    
+    trackChapterRead: function(bookId, chapterNum) {
+        console.log('📖 Chapter read:', bookId, chapterNum);
+        // Add Google Analytics event
+    },
+    
+    trackShare: function(platform, content) {
+        console.log('📤 Shared on', platform, ':', content);
+        // Add Google Analytics event
+    }
+};
+
+// Initialize new features
+document.addEventListener('DOMContentLoaded', function() {
+    setupScrollAnimations();
+    setupKeyboardShortcuts();
+    createScrollToTopButton();
+    readingProgress.updateUI();
+    
+    // Check if returning user with free access
+    if (checkFreeAccess()) {
+        console.log('Welcome back! You have free access.');
+    }
+    
+    // Initialize audio player controls
+    const voices = speechSynthesis.getVoices();
+    if (voices.length > 0) {
+        audioPlayer.setVoice(voices[0]);
+    } else {
+        speechSynthesis.onvoiceschanged = () => {
+            const voices = speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                audioPlayer.setVoice(voices[0]);
+            }
+        };
+    }
+    
+    console.log('✨ Dragon Bible Enhanced - All features loaded');
+    console.log('Keyboard shortcuts: ← → (navigate), Space (audio), Ctrl+S (search), Ctrl+B (bookmarks)');
 });
 
 console.log('Dragon Bible script loaded successfully');

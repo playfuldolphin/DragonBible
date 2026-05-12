@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#0C0A08"/>
+  <!-- Outer circle -->
+  <circle cx="16" cy="16" r="14" fill="none" stroke="#BF9B30" stroke-width="0.6"/>
+  <!-- Inner hexagram - upward triangle -->
+  <polygon points="16,4 26,22 6,22" fill="none" stroke="#BF9B30" stroke-width="0.7"/>
+  <!-- Inner hexagram - downward triangle -->
+  <polygon points="16,28 6,10 26,10" fill="none" stroke="#BF9B30" stroke-width="0.7"/>
+  <!-- Center dot -->
+  <circle cx="16" cy="16" r="1.5" fill="#BF9B30"/>
+</svg>

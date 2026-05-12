@@ -989,6 +989,16 @@ function closePaymentModal() {
 }
 window.closePaymentModal = closePaymentModal;
 
+// Handle checkout button click
+function handleCheckout() {
+    if (window.DragonPayment) {
+        window.DragonPayment.createCheckoutSession(selectedPlan);
+    } else {
+        alert('Payment system is loading. Please try again in a moment.');
+    }
+}
+window.handleCheckout = handleCheckout;
+
 // Scroll to pricing
 function scrollToPricing() {
     document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });

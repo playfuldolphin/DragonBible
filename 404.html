@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | The Dragon Bible</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            padding: 2rem;
+        }
+        .error-container {
+            text-align: center;
+            max-width: 600px;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-family: 'Cinzel', serif;
+            color: #8b7d6b;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 0 0 30px rgba(139, 125, 107, 0.5);
+        }
+        .error-dragon {
+            font-size: 6rem;
+            margin: 2rem 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .error-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: #d4d0c8;
+            margin: 1rem 0;
+        }
+        .error-message {
+            color: #b0a090;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 1.5rem 0;
+        }
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .error-btn {
+            padding: 1rem 2rem;
+            background: #8b7d6b;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .error-btn:hover {
+            background: #b8960e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(139, 125, 107, 0.3);
+        }
+        .error-suggestions {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #3a3a3a;
+        }
+        .error-suggestions h3 {
+            font-family: 'Cinzel', serif;
+            color: #8b7d6b;
+            margin-bottom: 1rem;
+        }
+        .error-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .error-links a {
+            color: #b0a090;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .error-links a:hover {
+            color: #8b7d6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-page">
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <div class="error-dragon">🐉</div>
+            <h1 class="error-title">This Dragon Has Wandered Off</h1>
+            <p class="error-message">
+                The page you seek exists in a realm we have not yet mapped. 
+                Even dragons sometimes lose their way through the infinite scrolls of knowledge.
+            </p>
+            
+            <div class="error-actions">
+                <a href="/" class="error-btn">
+                    🏠 Return Home
+                </a>
+                <a href="/#books" class="error-btn">
+                    📚 Browse Library
+                </a>
+                <a href="/#quiz" class="error-btn">
+                    🐲 Take Quiz
+                </a>
+            </div>
+
+            <div class="error-suggestions">
+                <h3>Popular Destinations</h3>
+                <div class="error-links">
+                    <a href="/">🐉 Home - Discover the Dragon Bible</a>
+                    <a href="/#books">📖 Library - Explore All Books</a>
+                    <a href="/blog.html">✍️ Blog - Dragon Mythology Insights</a>
+                    <a href="/about.html">ℹ️ About - Our Mission</a>
+                    <a href="/contact.html">📧 Contact - Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Log 404 for analytics
+        if (window.DragonAnalytics) {
+            window.DragonAnalytics.track404(window.location.pathname);
+        }
+        
+        // Optional: Auto-redirect after 10 seconds
+        // setTimeout(() => window.location.href = '/', 10000);
+    </script>
+</body>
+</html>

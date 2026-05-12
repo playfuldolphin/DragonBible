@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How to run the Dragon Bible as a D&D campaign — a practical guide for Dungeon Masters. Session zero, introducing players to the cosmology, first session structure, and ongoing campaign advice.">
+    <meta property="og:title" content="How to Run the Dragon Bible | A DM's Practical Guide">
+    <meta property="og:description" content="Everything a Dungeon Master needs to introduce the Dragon Bible setting at the table — session zero, player briefing, first session structure, and how to use the AI Lore Oracle in play.">
+    <title>How to Run the Dragon Bible | DM Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .guide-page { background: var(--bg, #0C0A08); min-height: 100vh; padding-top: 80px; }
+        .guide-hero { padding: 5rem 2rem 3.5rem; text-align: center; border-bottom: 1px solid var(--border); }
+        .guide-hero .section-label { display: block; margin-bottom: 1rem; }
+        .guide-hero h1 { font-family: 'Cinzel', Georgia, serif; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 400; color: var(--text, #E8DCC8); line-height: 1.25; margin-bottom: 1.25rem; letter-spacing: 0.06em; }
+        .guide-hero p { font-family: Georgia, serif; font-size: 1.1rem; color: var(--text-muted, #9A8A78); max-width: 660px; margin: 0 auto; line-height: 1.8; }
+        .guide-layout { display: grid; grid-template-columns: 220px 1fr; gap: 4rem; max-width: 1060px; margin: 0 auto; padding: 4rem 2rem 6rem; align-items: start; }
+        @media (max-width: 780px) { .guide-layout { grid-template-columns: 1fr; } .guide-sidebar { display: none; } }
+        .guide-sidebar { position: sticky; top: 100px; }
+        .guide-sidebar h4 { font-family: Georgia, serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent, #BF9B30); margin-bottom: 1rem; }
+        .guide-sidebar a { display: block; font-family: Georgia, serif; font-size: 0.9rem; color: var(--text-dim, #6B5C4A); text-decoration: none; padding: 0.3rem 0 0.3rem 0.75rem; border-left: 1px solid transparent; transition: all 0.15s; }
+        .guide-sidebar a:hover { color: var(--accent, #BF9B30); border-left-color: var(--accent, #BF9B30); }
+        .guide-body h2 { font-family: 'Cinzel', Georgia, serif; font-size: 1.35rem; font-weight: 600; color: var(--text, #E8DCC8); margin: 3rem 0 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); letter-spacing: 0.05em; }
+        .guide-body h3 { font-family: 'Cinzel', Georgia, serif; font-size: 1.05rem; font-weight: 600; color: var(--accent, #BF9B30); margin: 2rem 0 0.75rem; }
+        .guide-body p { font-family: Georgia, serif; font-size: 1.1rem; line-height: 1.85; color: var(--text-muted, #9A8A78); margin-bottom: 1.3rem; }
+        .guide-body ul, .guide-body ol { font-family: Georgia, serif; font-size: 1.05rem; line-height: 1.8; color: var(--text-muted, #9A8A78); padding-left: 1.5rem; margin-bottom: 1.3rem; }
+        .guide-body li { margin-bottom: 0.5rem; }
+        .guide-body strong { color: var(--text, #E8DCC8); font-weight: 600; }
+        .guide-body em { color: var(--text, #E8DCC8); font-style: italic; }
+        .callout { background: var(--accent-dim, rgba(191,155,48,0.08)); border: 1px solid var(--accent-border, rgba(191,155,48,0.2)); border-left: 3px solid var(--accent, #BF9B30); padding: 1.25rem 1.5rem; margin: 1.75rem 0; }
+        .callout .callout-label { font-family: Georgia, serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent, #BF9B30); margin-bottom: 0.5rem; }
+        .callout p { margin-bottom: 0; font-size: 1rem; }
+        .script-block { background: var(--bg-elevated, #110E0B); border: 1px solid var(--border); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-style: italic; }
+        .script-block .script-label { font-family: Georgia, serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim, #6B5C4A); margin-bottom: 0.5rem; font-style: normal; }
+        .script-block p { margin-bottom: 0; color: var(--text, #E8DCC8); font-size: 1rem; line-height: 1.75; }
+        .step-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.5rem 0; }
+        @media (max-width: 600px) { .step-grid { grid-template-columns: 1fr; } }
+        .step-card { background: var(--bg-card, #150F0A); border: 1px solid var(--border); padding: 1.25rem; }
+        .step-card .step-num { font-family: 'Cinzel', Georgia, serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent, #BF9B30); margin-bottom: 0.5rem; }
+        .step-card h4 { font-family: 'Cinzel', Georgia, serif; font-size: 0.95rem; font-weight: 600; color: var(--text, #E8DCC8); margin-bottom: 0.5rem; }
+        .step-card p { font-size: 0.92rem; margin-bottom: 0; line-height: 1.65; }
+        .guide-cta { background: var(--bg-elevated, #110E0B); border: 1px solid var(--border); padding: 2.5rem; text-align: center; margin-top: 4rem; }
+        .guide-cta h3 { font-family: 'Cinzel', Georgia, serif; font-size: 1.2rem; font-weight: 400; color: var(--text, #E8DCC8); margin-bottom: 1rem; letter-spacing: 0.06em; }
+        .guide-cta p { font-family: Georgia, serif; font-size: 1rem; color: var(--text-muted, #9A8A78); margin-bottom: 1.5rem; line-height: 1.75; }
+        .guide-cta .btn { display: inline-block; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="page-wrapper guide-page">
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:0.65rem;">
+                    <span class="logo-mark">DB</span>
+                    <span class="logo-text">Dragon Bible</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="cosmology.html">Cosmology</a>
+                <a href="index.html#books">Lore Compendium</a>
+                <a href="lore-oracle.html">AI Lore Oracle</a>
+                <a href="blog.html" style="color:var(--accent)">Journal</a>
+                <a href="index.html#pricing">Subscribe</a>
+                <button class="btn btn-nav-cta" onclick="window.location.href='index.html#pricing'">DM Access</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="guide-hero">
+        <span class="section-label">For Dungeon Masters</span>
+        <h1>How to Run the Dragon Bible</h1>
+        <p>The lore is dense. The cosmology is layered. This guide exists to collapse the distance between "interesting setting" and "I'm actually running this next Saturday." It covers session zero, what to tell players, what to hold back, and how the first session should feel.</p>
+    </div>
+
+    <div class="guide-layout">
+        <aside class="guide-sidebar">
+            <h4>On This Page</h4>
+            <a href="#before-you-start">Before You Start</a>
+            <a href="#session-zero">Session Zero</a>
+            <a href="#what-to-tell-players">What to Tell Players</a>
+            <a href="#first-session">The First Session</a>
+            <a href="#ongoing-play">Ongoing Play</a>
+            <a href="#using-the-oracle">Using the Oracle</a>
+            <a href="#common-mistakes">Common Mistakes</a>
+            <a href="#quick-reference">Quick Reference</a>
+        </aside>
+
+        <main class="guide-body">
+
+            <section id="before-you-start">
+                <h2>Before You Start</h2>
+                <p>The Dragon Bible setting is built on a cosmological premise that most players will not know going in: that dragon-nature and human-nature were once unified in a single consciousness (the Primordial Flame), that a catastrophic Separation Event divided them, and that the entire world's politics, magic, and metaphysics flow from that wound.</p>
+                <p>You do not need to explain this premise upfront. In fact, you shouldn't. The setting works best when players discover the cosmological architecture through play — through faction encounters, Oracle consultations, lore fragments, and the gradual accumulation of things that don't quite make sense in a simpler world.</p>
+                <p>What you do need before session zero:</p>
+                <ul>
+                    <li>Read the <a href="cosmology.html" style="color:var(--accent)">full Cosmology document</a> once, end to end. You don't need to memorise it — you need to understand the logic well enough to improvise from it.</li>
+                    <li>Decide which faction your first major NPC belongs to. The Architects of Separation make excellent early-game patrons or antagonists. The Watchers make excellent mysterious advisors. Pick one and know their position.</li>
+                    <li>Pick a starting geographic location. The cosmological layers don't require a world map — they require a single place where the Separation's pressure is palpable. A city built over a dormant liminal zone, a remote monastery that maintains a Seal node, a border town where Dragon Rider patrols intersect with Architect enforcement.</li>
+                </ul>
+
+                <div class="callout">
+                    <div class="callout-label">Key Principle</div>
+                    <p>The Separation is not backstory — it is weather. It is something the characters feel every day without necessarily knowing what to call it. Start there.</p>
+                </div>
+            </section>
+
+            <section id="session-zero">
+                <h2>Session Zero</h2>
+                <p>Session zero for a Dragon Bible campaign needs to do two things: establish player investment in the central question (what do we do about the Separation?) and define each character's relationship to their own dual nature.</p>
+
+                <h3>The Dual Nature Conversation</h3>
+                <p>Every character in the Dragon Bible world carries both dragon-nature and human-nature, whether they know it or not. In session zero, ask each player one question: <em>Does your character know something is missing from themselves?</em></p>
+                <p>This is not a class question or a background question. It is a gnosis question. A fighter who has always felt that her rage is not anger but something older and larger — that's dragon-nature she hasn't named. A wizard who can't explain why certain spells feel like remembering rather than learning — same. You don't need to lecture players on the cosmology. You need them to identify the place in their character where the Separation is personally felt.</p>
+
+                <h3>Character Types That Work Well</h3>
+                <p>The Dragon Bible setting accommodates any character class, but some character concepts create natural cosmological hooks:</p>
+                <ul>
+                    <li><strong>Dragon Riders</strong> — if any player wants a bonded dragon companion, the Dragon Bible gives that bond metaphysical weight. The bond is a partial consciousness-integration, not just a mount.</li>
+                    <li><strong>Nephilim-descended characters</strong> — characters with unusual physical traits (scale patches under stress, gold-flecked eyes, harmonic voice overtones) who carry both natures visibly. Mechanically any race; cosmologically distinct.</li>
+                    <li><strong>Gnosis-seekers</strong> — scholars, mystics, or rogues who are pursuing knowledge of the pre-Separation state. They are the Watchers' natural allies and the Architects' natural targets.</li>
+                    <li><strong>Architect agents</strong> — a character who begins the campaign serving the Separation-maintaining faction, genuinely believing in the mission, creates natural tension as they discover the truth.</li>
+                </ul>
+
+                <h3>What to Tell Players About the World</h3>
+                <p>At session zero, give players this much and no more:</p>
+
+                <div class="script-block">
+                    <div class="script-label">Player Briefing — Read or Paraphrase</div>
+                    <p>"The world you're entering has a fracture running through it — not a political one, not a religious one, but a cosmological one. Something happened, a long time ago, that divided what should be one. You'll find evidence of it everywhere: in the way dragons behave, in the way certain places feel wrong, in the way some people seem to carry more than one consciousness inside them. You don't need to know what it is yet. Your characters will find out. The factions you'll encounter each have a theory. Some of them are right about parts of it."</p>
+                </div>
+
+                <p>That's sufficient. Don't explain the Primordial Flame, the Demiurge, or the four cosmological layers at session zero. Let those emerge through play.</p>
+            </section>
+
+            <section id="what-to-tell-players">
+                <h2>What to Tell Players (and What to Hold Back)</h2>
+
+                <h3>Tell Players</h3>
+                <ul>
+                    <li>Dragon fire color means something — pay attention to it. (Don't explain the system — let them figure it out.)</li>
+                    <li>The factions each believe something different about the world's central problem. None of them is simply wrong.</li>
+                    <li>Serpentine creatures are not monsters in this setting — they are liminal entities. Encountering one is a different kind of event than encountering a hostile dragon.</li>
+                    <li>The words "gnosis" and "the Separation" will come up. Context will make them clear eventually.</li>
+                </ul>
+
+                <h3>Hold Back Until Earned</h3>
+                <ul>
+                    <li>The full Demiurgic cosmogony — players should encounter this through Watcher contact or deep lore research, not a handout.</li>
+                    <li>The location of the Seal nodes — this is a late-campaign revelation.</li>
+                    <li>The Keeper of the Sevenfold Seal's actual position — present them first as an obstacle, then complicate it.</li>
+                    <li>The fact that the Separation can be healed — players should arrive at this possibility through play, not through a setting briefing.</li>
+                </ul>
+
+                <div class="callout">
+                    <div class="callout-label">Why This Works</div>
+                    <p>Players who discover the cosmological architecture through play own it in a way that players who were briefed on it don't. The Dragon Bible's lore is dense enough that explaining it upfront will cause eyes to glaze. Giving players two mysteries ("why does fire color matter?" and "what is the Separation?") creates the pull that keeps them engaged through the early sessions when they're still building investment.</p>
+                </div>
+            </section>
+
+            <section id="first-session">
+                <h2>The First Session</h2>
+                <p>The first session of a Dragon Bible campaign should accomplish three things: establish one faction as immediately relevant, introduce the fire color system through a dragon encounter, and end with a question the players want answered.</p>
+
+                <h3>Recommended Session One Structure</h3>
+
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-num">Opening — 20 min</div>
+                        <h4>The Job or the Arrival</h4>
+                        <p>Players arrive in the starting location with a reason to be there. A contract, a rumour, a pilgrimage, a debt. Keep it mundane. The cosmological weight comes later.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">Complication — 30 min</div>
+                        <h4>The Architect Presence</h4>
+                        <p>The Architects of Separation have a visible presence in the starting location — a patrol, an enforcer, a notice on the board. Something about their authority feels subtly wrong. Let players react.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">Encounter — 40 min</div>
+                        <h4>The Grey-Fire Dragon</h4>
+                        <p>A dragon appears — not hostile initially, just present. Its fire burns grey. Describe this. A character who investigates hears the dragon speaking fragments of a language they almost recognize.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">Close — 20 min</div>
+                        <h4>The First Question</h4>
+                        <p>End the session before the grey dragon encounter is resolved. Let players go home asking: what is happening to this dragon? What is the Architects' connection to it? What was that language?</p>
+                    </div>
+                </div>
+
+                <h3>Why a Grey-Fire Dragon First</h3>
+                <p>The grey-fire dragon is your most efficient session-one tool. It introduces the fire color system through observation (not explanation), it creates a moral question (something is wrong with this creature — is it dangerous? saveable?), and it implicitly asks a cosmological question (what does it mean for a dragon to forget?). All of this happens without any lore dump. The players learn by watching.</p>
+                <p>Keep the dragon's dialogue fragmentary and in the setting's "language before language" — words that feel familiar to Nephilim-descended characters, opaque to others. This seeds the dual-nature concept without stating it.</p>
+            </section>
+
+            <section id="ongoing-play">
+                <h2>Ongoing Play</h2>
+
+                <h3>Using the Correspondence Chain</h3>
+                <p>For every session, before you prep encounters, ask: what is happening in the Enochian Meridian right now? A Watcher Council dispute, a shift in Meridian stability near a liminal zone, a grey dragon ascending — or descending — in status. Then work out the Material Plane manifestation of that upper-layer event. This is the Dragon Bible's generative engine and the thing that makes the world feel like it's operating independently of the players' actions.</p>
+
+                <h3>The Gnosis Track</h3>
+                <p>Track each character's gnosis level as a hidden DM metric from 0–10. Starting characters are typically at 1–2. Actions that raise it: sustained Watcher contact, reading canonical texts in the original language fragments, surviving an ophidian gnosis encounter, deepening a Dragon Rider bond. Actions that lower it: serving Architect mandates over extended periods, extended contact with Demiurgic Servitors, deliberately suppressing known dragon-nature.</p>
+                <p>At gnosis 4+, characters begin experiencing cross-layer perception — prophetic dreaming, sensing liminal zones before seeing them, feeling Empyrean-layer emotional states as weather-sense. Describe these experiences as strange and vivid, not as powers. They are what integration beginning feels like from the inside.</p>
+                <p>At gnosis 7+, characters can attempt deliberate layer-crossing. This is late-game and should feel momentous.</p>
+
+                <h3>Pacing the Cosmological Reveals</h3>
+                <ul>
+                    <li><strong>Sessions 1–5:</strong> Players encounter effects without causes. Unusual faction behavior, grey-fire dragons, liminal zone anomalies, Nephilim with unexplained physical traits.</li>
+                    <li><strong>Sessions 6–10:</strong> First Watcher contact. The Separation is named. Players begin to understand there is a framework behind what they've been observing.</li>
+                    <li><strong>Sessions 11–20:</strong> The three interpretive schools become relevant. Players must take a position on what the Separation means and what should be done about it.</li>
+                    <li><strong>Sessions 21+:</strong> The Sevenfold Seal, the Keeper, the original architects' intent. The endgame question: is there a methodology for safe reunification, and can the characters find it before the Architects or the Depths do?</li>
+                </ul>
+            </section>
+
+            <section id="using-the-oracle">
+                <h2>Using the AI Lore Oracle at the Table</h2>
+                <p>DM subscribers have access to the Dragon Bible Lore Oracle — a Claude-powered assistant with the complete cosmological framework loaded as context. Here's how to use it effectively during play.</p>
+
+                <h3>Good Oracle Questions</h3>
+                <ul>
+                    <li>"My players just encountered an Architect patrol that let a grey-fire dragon pass unchallenged. What would explain this within the lore?"</li>
+                    <li>"A player wants to know what the ophidian gnosis tradition would say about their character's recurring dreams. What's the in-world answer?"</li>
+                    <li>"I need an NPC motivation for a Nephilim character who has joined the Architects of Separation. What would make that coherent within the cosmology?"</li>
+                    <li>"The party found a text in a language they can't identify. What fragment of the pre-Separation unified language would feel authentic here?"</li>
+                </ul>
+
+                <h3>How to Use It Live</h3>
+                <p>The Oracle works fastest for between-session prep. During a session, if you need to check lore, take a short break or have a prepared fallback: "That's something your character doesn't know yet." The Oracle is not a live rules lookup — it is a prep tool and a consistency checker.</p>
+                <p>After each session, run your improvised lore decisions through the Oracle to check for consistency before the next session. "I said the Architect patrol was headed to a Seal node I called the Meridian Gate — does that fit the cosmology?" The Oracle will tell you if you've invented something compatible or if you need to revise.</p>
+
+                <div class="callout">
+                    <div class="callout-label">The Oracle's Limits</div>
+                    <p>The Oracle will flag when you ask something outside documented lore rather than inventing an answer. That's a feature: it means your campaign's inventions stay yours, and the Oracle doesn't contaminate your setting with hallucinated canon. When it says "that falls outside what has been documented," that's your invitation to decide what's true in your version of the setting.</p>
+                </div>
+            </section>
+
+            <section id="common-mistakes">
+                <h2>Common Mistakes</h2>
+
+                <h3>Over-explaining the Cosmology Early</h3>
+                <p>The most common first-session mistake is giving players a cosmology lecture. Don't. Give them a mystery and a faction and a dragon with the wrong fire color, and trust the setting to teach itself through play.</p>
+
+                <h3>Making the Architects Simply Evil</h3>
+                <p>If the Architects of Separation are cartoon villains — cruel for its own sake, obviously wrong — you've lost the setting's central tension. The Architects' position must be taken seriously for the cosmological question to have weight. Make the Keeper of the Sevenfold Seal someone the players could almost agree with, in a different circumstance.</p>
+
+                <h3>Ignoring the Correspondence Chain</h3>
+                <p>If every session is improvised from player actions without reference to what the upper layers are doing, the world will start to feel reactive rather than real. Even a two-sentence note at the top of your session prep — "This week in the Enochian Meridian: a Watcher has gone dark, stopped communicating with the Council" — is enough to generate an encounter that feels like it's happening because of the world, not because the DM needed a plot hook.</p>
+
+                <h3>Resolving the Separation Too Early</h3>
+                <p>The Separation is the world's gravity. If it's resolved in session fifteen, the world loses its organizing principle. Let the players approach it, find evidence, develop methodology — but save the actual resolution for the very end, or leave it open entirely. The journey toward healing is more interesting than the healing itself.</p>
+            </section>
+
+            <section id="quick-reference">
+                <h2>Quick Reference</h2>
+
+                <h3>Dragon Fire Color — At a Glance</h3>
+                <ul>
+                    <li><strong>White-gold:</strong> Empyrean proximity. Ancient. Near-total integration. Does not burn; illuminates.</li>
+                    <li><strong>Bright gold:</strong> High gnosis. Old, wise, Watcher-adjacent. Will parley first.</li>
+                    <li><strong>Crimson/deep red:</strong> Full Material Plane engagement. Standard Dragon Rider mount. Purposeful.</li>
+                    <li><strong>Orange/amber:</strong> Ordinary Material Plane. Gnosis potential undeveloped.</li>
+                    <li><strong>Green:</strong> Enochian Meridian attunement. Watcher-adjacent. Prophetic capacity.</li>
+                    <li><strong>Blue:</strong> Temporal anomaly. Partial Empyrean access. May speak of future events.</li>
+                    <li><strong>Grey:</strong> Residual Depths descent in progress. Still reachable. Time-sensitive.</li>
+                    <li><strong>Black:</strong> Full Depths. Human-nature forgotten. Fire is cold. Does not burn — erases.</li>
+                </ul>
+
+                <h3>Faction Quick Positions</h3>
+                <ul>
+                    <li><strong>Watchers:</strong> Accident School. Separation was a structural failure. Repair is the only honest response. Observe and advise. Act when the Architects push too hard.</li>
+                    <li><strong>Architects of Separation:</strong> Demiurgic School. Separation may be irreversible and must be maintained to prevent resonance collapse. Genuinely believe they are preventing catastrophe.</li>
+                    <li><strong>Nephilim Orders:</strong> Fragmented. The Convergence (reunificationist), the Accord (Architect-aligned), the Sovereignty (Nephilim supremacist). Each encounters the central question differently.</li>
+                    <li><strong>Dragon Riders:</strong> Pragmatist by default. The bond has cosmological implications they may or may not have investigated.</li>
+                </ul>
+
+                <h3>The Gnosis Track — Summary</h3>
+                <ul>
+                    <li><strong>0–3:</strong> No cross-layer perception. Standard play.</li>
+                    <li><strong>4–6:</strong> Prophetic dreams, liminal zone sensing, emotional weather-sense. Describe as strange experiences.</li>
+                    <li><strong>7–9:</strong> Deliberate layer-crossing possible. Watcher communication accessible. Architects begin actively monitoring this character.</li>
+                    <li><strong>10:</strong> Full integration threshold. The Separation is personally healed in this character. This is a campaign-defining event, not a power-up.</li>
+                </ul>
+            </section>
+
+            <div class="guide-cta">
+                <h3>The Full Compendium and AI Oracle</h3>
+                <p>This guide covers the framework. DM subscribers get the full Lore Compendium PDF with complete faction dossiers, NPC archetypes, encounter tables, and the AI Lore Oracle — a Claude-powered assistant that can answer any in-world question in real time at your table.</p>
+                <a href="index.html#pricing" class="btn btn-primary btn-large">DM Subscription — $5/month</a>
+                <p style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-dim);">$40 one-time for founding members — price rises when 100 slots are filled.</p>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-mark">DB</span>
+                    <p>The Dragon Bible</p>
+                    <p class="tagline">Where humanity remembers its wings</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="cosmology.html">Cosmology</a>
+                    <a href="how-to-run.html">How to Run</a>
+                    <a href="lore-oracle.html">AI Lore Oracle</a>
+                    <a href="blog.html">Journal</a>
+                    <a href="index.html#pricing">Subscribe</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="mailto:noah@dragonbible.com">Contact</a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2025 The Dragon Bible by Noah Wilson. All rights reserved. The Dragon Bible is a work of creative fiction. Not affiliated with any religious organization.</p>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free sampler — The Dragon Bible campaign setting. Genesis cosmology excerpt, setting overview, faction summary, and AI Lore Oracle preview. For Dungeon Masters.">
+    <title>The Dragon Bible — Free DM Sampler</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Print-optimised sampler — designed to be saved as PDF */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Georgia, 'Times New Roman', serif; background: #0C0A08; color: #E8DCC8; font-size: 15px; line-height: 1.8; }
+
+        /* Screen wrapper */
+        .screen-bar { background: #110E0B; border-bottom: 1px solid rgba(191,155,48,0.2); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+        .screen-bar a { font-family: Georgia, serif; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #BF9B30; text-decoration: none; }
+        .screen-bar a:hover { opacity: 0.8; }
+        .screen-bar .print-btn { background: #BF9B30; color: #0C0A08; border: none; padding: 0.4rem 1rem; font-family: Georgia, serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+        .screen-bar .print-btn:hover { background: transparent; color: #BF9B30; outline: 1px solid #BF9B30; }
+
+        /* Document */
+        .document { max-width: 780px; margin: 3rem auto 6rem; padding: 0 2rem; }
+
+        /* Cover */
+        .cover { text-align: center; padding: 4rem 2rem; border: 1px solid rgba(191,155,48,0.2); margin-bottom: 4rem; position: relative; }
+        .cover-glyph { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.04; pointer-events: none; }
+        .cover-label { font-family: Georgia, serif; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: #BF9B30; margin-bottom: 2rem; position: relative; }
+        .cover h1 { font-family: 'Cinzel', Georgia, serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; color: #E8DCC8; letter-spacing: 0.08em; margin-bottom: 0.75rem; position: relative; line-height: 1.2; }
+        .cover .cover-sub { font-family: Georgia, serif; font-size: 1.1rem; font-style: italic; color: #BF9B30; margin-bottom: 2rem; position: relative; }
+        .cover .cover-desc { font-family: Georgia, serif; font-size: 0.95rem; color: #9A8A78; max-width: 520px; margin: 0 auto 2rem; line-height: 1.8; position: relative; }
+        .cover .cover-meta { font-family: Georgia, serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: #6B5C4A; position: relative; }
+        .cover-rule { border: none; border-top: 1px solid rgba(191,155,48,0.2); margin: 1.5rem auto; max-width: 200px; }
+
+        /* Sections */
+        .doc-section { margin-bottom: 4rem; }
+        .doc-section-label { font-family: Georgia, serif; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: #BF9B30; margin-bottom: 0.5rem; }
+        .doc-section h2 { font-family: 'Cinzel', Georgia, serif; font-size: 1.6rem; font-weight: 400; color: #E8DCC8; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(191,155,48,0.15); padding-bottom: 0.75rem; letter-spacing: 0.05em; }
+        .doc-section h3 { font-family: 'Cinzel', Georgia, serif; font-size: 1.05rem; font-weight: 600; color: #BF9B30; margin: 2rem 0 0.75rem; letter-spacing: 0.05em; }
+        .doc-section p { color: #9A8A78; margin-bottom: 1.2rem; font-size: 1rem; }
+        .doc-section ul { color: #9A8A78; padding-left: 1.5rem; margin-bottom: 1.2rem; }
+        .doc-section ul li { margin-bottom: 0.5rem; }
+        .doc-section strong { color: #E8DCC8; }
+        .doc-section em { color: #E8DCC8; font-style: italic; }
+
+        /* Lore excerpt */
+        .lore-excerpt { background: #110E0B; border-left: 2px solid rgba(191,155,48,0.3); padding: 1.5rem 2rem; margin: 1.5rem 0; }
+        .lore-excerpt .excerpt-label { font-family: Georgia, serif; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(191,155,48,0.6); margin-bottom: 0.75rem; }
+        .lore-excerpt p { color: #C8B8A0; font-style: italic; font-size: 1.02rem; line-height: 1.9; margin-bottom: 0; }
+
+        /* Faction table */
+        .faction-grid { display: grid; gap: 1rem; margin: 1.5rem 0; }
+        .faction-row { background: #110E0B; border: 1px solid rgba(191,155,48,0.12); padding: 1.1rem 1.25rem; }
+        .faction-row .faction-name { font-family: 'Cinzel', Georgia, serif; font-size: 0.9rem; font-weight: 600; color: #E8DCC8; margin-bottom: 0.2rem; letter-spacing: 0.04em; }
+        .faction-row .faction-align { font-family: Georgia, serif; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #BF9B30; margin-bottom: 0.5rem; }
+        .faction-row .faction-desc { font-family: Georgia, serif; font-size: 0.9rem; color: #9A8A78; line-height: 1.65; }
+
+        /* Oracle sample */
+        .oracle-sample { border: 1px solid rgba(191,155,48,0.18); margin: 1.5rem 0; }
+        .oracle-sample-header { background: rgba(191,155,48,0.06); border-bottom: 1px solid rgba(191,155,48,0.12); padding: 0.6rem 1.25rem; font-family: 'Cinzel', Georgia, serif; font-size: 0.75rem; letter-spacing: 0.1em; color: #E8DCC8; }
+        .oracle-exchange { padding: 1rem 1.25rem; border-bottom: 1px solid rgba(191,155,48,0.08); }
+        .oracle-exchange:last-child { border-bottom: none; }
+        .speaker-label { font-family: Georgia, serif; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: #6B5C4A; margin-bottom: 0.35rem; }
+        .speaker-label.oracle { color: rgba(191,155,48,0.7); }
+        .oracle-exchange p { font-family: Georgia, serif; font-size: 0.95rem; color: #9A8A78; line-height: 1.75; margin-bottom: 0; }
+        .oracle-exchange.answer p { color: #C8B8A0; }
+
+        /* CTA block */
+        .sampler-cta { border: 1px solid rgba(191,155,48,0.25); padding: 2.5rem; text-align: center; margin-top: 4rem; }
+        .sampler-cta h2 { font-family: 'Cinzel', Georgia, serif; font-size: 1.4rem; font-weight: 400; color: #E8DCC8; margin-bottom: 1rem; letter-spacing: 0.06em; }
+        .sampler-cta p { font-family: Georgia, serif; color: #9A8A78; margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.8; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .sampler-cta .cta-url { font-family: 'Cinzel', Georgia, serif; font-size: 1.1rem; color: #BF9B30; letter-spacing: 0.08em; display: block; margin-bottom: 1.5rem; }
+        .sampler-cta .cta-details { font-family: Georgia, serif; font-size: 0.85rem; color: #6B5C4A; }
+
+        /* Page breaks for print */
+        @media print {
+            body { background: white; color: #1a1a1a; }
+            .screen-bar { display: none; }
+            .document { margin: 0; padding: 1.5cm; max-width: none; }
+            .cover { page-break-after: always; border-color: #ccc; }
+            .doc-section { page-break-inside: avoid; }
+            .lore-excerpt { background: #f8f5f0; border-left-color: #8b7d30; }
+            .lore-excerpt p { color: #3a3020; }
+            .faction-row { background: #f8f5f0; border-color: #ccc; }
+            .faction-row .faction-name { color: #1a1a1a; }
+            .faction-row .faction-align { color: #8b7d30; }
+            .faction-row .faction-desc { color: #444; }
+            .oracle-sample { border-color: #ccc; }
+            .oracle-sample-header { background: #f0ede8; border-color: #ccc; color: #1a1a1a; }
+            .oracle-exchange p { color: #444; }
+            .oracle-exchange.answer p { color: #1a1a1a; }
+            .sampler-cta { border-color: #ccc; }
+            .sampler-cta h2 { color: #1a1a1a; }
+            .sampler-cta p { color: #444; }
+            .sampler-cta .cta-url { color: #8b7d30; }
+            .doc-section h2 { color: #1a1a1a; border-color: #ccc; }
+            .doc-section h3 { color: #8b7d30; }
+            .doc-section p, .doc-section ul { color: #444; }
+            .doc-section-label { color: #8b7d30; }
+            .cover h1 { color: #1a1a1a; }
+            .cover .cover-sub { color: #8b7d30; }
+            .cover .cover-desc { color: #444; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="screen-bar">
+    <a href="index.html">← dragonbible.com</a>
+    <span style="font-family:Georgia,serif;font-size:0.8rem;color:#6B5C4A;letter-spacing:0.1em;text-transform:uppercase;">Free DM Sampler</span>
+    <button class="print-btn" onclick="window.print()">Save as PDF</button>
+</div>
+
+<div class="document">
+
+    <!-- Cover -->
+    <div class="cover">
+        <svg class="cover-glyph" width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="250" cy="250" r="240" fill="none" stroke="#BF9B30" stroke-width="0.8"/>
+            <circle cx="250" cy="250" r="170" fill="none" stroke="#BF9B30" stroke-width="0.5"/>
+            <polygon points="250,55 430,370 70,370" fill="none" stroke="#BF9B30" stroke-width="0.6"/>
+            <polygon points="250,445 70,130 430,130" fill="none" stroke="#BF9B30" stroke-width="0.6"/>
+            <circle cx="250" cy="250" r="80" fill="none" stroke="#BF9B30" stroke-width="0.5"/>
+        </svg>
+        <div class="cover-label">Free Sampler — For Dungeon Masters</div>
+        <h1>The Dragon Bible</h1>
+        <p class="cover-sub">A Complete Original Campaign Setting</p>
+        <hr class="cover-rule">
+        <p class="cover-desc">An original D&D setting grounded in Hermetic and Gnostic cosmological philosophy. The Primordial Flame, the Demiurgic Separation, the four cosmological layers, and an AI lore assistant that knows the world better than you do.</p>
+        <hr class="cover-rule">
+        <p class="cover-meta">dragonbible.com &nbsp;·&nbsp; DM Subscription $5/month &nbsp;·&nbsp; Founding DM $40 lifetime</p>
+    </div>
+
+    <!-- What This Is -->
+    <div class="doc-section">
+        <div class="doc-section-label">Overview</div>
+        <h2>What Is the Dragon Bible?</h2>
+        <p>The Dragon Bible is a complete original campaign setting for Dungeon Masters who want a world with genuine philosophical depth — one where the metaphysics are not decorative but structural, where factions have coherent worldviews derived from their cosmological position, and where the central dramatic question drives the entire campaign.</p>
+        <p>The setting's premise: dragon-nature and human-nature were once a single unified consciousness — the Primordial Flame. A catastrophic Separation Event divided them. The current world is the aftermath of that division. Every faction, every political conflict, every cosmological anomaly is a consequence of it. DMs can extrapolate setting events from first principles because the framework is visible and consistent.</p>
+        <p>The philosophical grounding draws from two traditions:</p>
+        <ul>
+            <li><strong>Hermeticism</strong> — "As above, so below." The cosmological layers correspond to and affect each other. Events in the upper layers manifest in the Material Plane. DMs can generate setting events by reasoning backward from the upper-layer causes.</li>
+            <li><strong>Gnosticism</strong> — The world was produced by a limited intelligence (the Demiurge) that genuinely believed it was doing good. The setting's primary antagonist faction is not evil — it is wrong in a structural way that cannot be corrected by defeating it in combat.</li>
+        </ul>
+        <p>This is not a licensed derivative of an existing property. It is an original setting, designed to be unfamiliar to players, with enough internal logic that a DM can improvise consistently from the framework rather than memorizing lore.</p>
+    </div>
+
+    <!-- Genesis Excerpt -->
+    <div class="doc-section">
+        <div class="doc-section-label">Canonical Text — Genesis Fragments (MS-001-GEN)</div>
+        <h2>The Creation — An Excerpt</h2>
+        <p>The Dragon Bible contains seven canonical texts, each documenting a different stratum of the setting's history. The Genesis Fragments cover the creation, the Primordial Flame, the Separation Event, and its immediate aftermath. This is an excerpt from Chapter 1.</p>
+
+        <div class="lore-excerpt">
+            <div class="excerpt-label">Genesis 1:1–6 — In the Beginning</div>
+            <p>In the Beginning, before time was counted and the stars were named, there existed the Primordial Flame — a unity of consciousness that was both mortal and eternal, both flesh and scale.</p>
+            <p>And from this Flame emerged the First Being, neither wholly human nor wholly dragon, but a perfect synthesis of both — walking upright with the wisdom of humanity, yet bearing wings of iridescent fire and eyes that held the depths of draconic knowledge.</p>
+            <p>The Source spoke into the void, and Its voice was as thunder and song combined: "Let there be Light, and let it know itself." And consciousness ignited across the expanse of possibility.</p>
+            <p>The light was beautiful and terrible, and the First Being saw that it was good — for in that light, all potential existed. The capacity for creation and destruction, for love and isolation, for unity and division.</p>
+            <p>And the Source separated the light from the darkness, not as enemies but as complements — the light of revealed truth and the darkness of mystery yet to be discovered. This was the First Day, when consciousness first knew itself.</p>
+            <p>On the Second Day, the Source created the firmament — not merely sky and earth, but the boundary between the material and the ethereal, between the world of form and the realm of spirit where dragons dwelt before taking flesh.</p>
+        </div>
+
+        <p>The full Genesis Fragments run to fifty chapters, covering the fall of Cain, the descent of the Watchers, the Nephilim, and the Flood as a failed cosmological reset. The complete text is available to DM subscribers and freely readable at dragonbible.com.</p>
+    </div>
+
+    <!-- Cosmological Framework -->
+    <div class="doc-section">
+        <div class="doc-section-label">Setting Architecture</div>
+        <h2>The Cosmological Framework</h2>
+        <p>The Dragon Bible cosmos is structured as four depth layers — not a flat multiverse, but a consciousness-depth stack. The Hermetic correspondence operates across all layers.</p>
+
+        <h3>The Four Layers</h3>
+        <ul>
+            <li><strong>The Empyrean (Layer 1)</strong> — Pure fire, closest to the Primordial Flame. Ancient dragons who have not fully descended into form. Entry requires near-total consciousness integration.</li>
+            <li><strong>The Enochian Meridian (Layer 2)</strong> — The transitional layer. The Watchers dwell here. Most cross-layer communication occurs here. Accessible to advanced practitioners.</li>
+            <li><strong>The Material Plane (Layer 3)</strong> — The world of physical form. The Demiurgic organizing principle is strongest here. Standard setting geography.</li>
+            <li><strong>The Residual Depths (Layer 4)</strong> — The shadow of the Separation Event. Consciousness that has shed everything it found inconvenient. Not "evil" — amnesiac.</li>
+        </ul>
+
+        <h3>Dragon Fire Color — A Visible Lore Signal</h3>
+        <p>Dragon fire color is a direct readout of cosmological state. Players learn to read it without being told:</p>
+        <ul>
+            <li><strong>White-gold</strong> — Empyrean proximity. Near-total integration. Does not burn; illuminates.</li>
+            <li><strong>Crimson/deep red</strong> — Full Material Plane engagement. Standard Dragon Rider mount.</li>
+            <li><strong>Green</strong> — Enochian Meridian attunement. Watcher-adjacent. Prophetic capacity.</li>
+            <li><strong>Grey</strong> — Residual Depths descent in progress. Still reachable. Time-sensitive.</li>
+            <li><strong>Black</strong> — Full Depths. Human-nature forgotten. Does not burn — erases.</li>
+        </ul>
+    </div>
+
+    <!-- Factions -->
+    <div class="doc-section">
+        <div class="doc-section-label">Setting Factions</div>
+        <h2>The Major Factions</h2>
+        <p>Every faction in the Dragon Bible is defined by its position on the central cosmological question: what is the Separation, and what should be done about it?</p>
+        <div class="faction-grid">
+            <div class="faction-row">
+                <div class="faction-name">The Watchers (Irin)</div>
+                <div class="faction-align">Neutral — Repair-Oriented — Accident School</div>
+                <div class="faction-desc">Semi-autonomous dragon-consciousness entities who dwell in the Enochian Meridian. They remember the Primordial Flame clearly enough to recognize the Separation as a wound but haven't found the mechanism for repair. They are drawn to human gnosis-seekers because such people are evidence that reunion is possible. Excellent patron NPCs: information-rich, agenda-driven, will not help if you risk destabilizing the Meridian.</div>
+            </div>
+            <div class="faction-row">
+                <div class="faction-name">The Architects of Separation</div>
+                <div class="faction-align">Lawful — Separation-Maintaining — Demiurgic School</div>
+                <div class="faction-desc">The priestly and administrative caste that inherited the Demiurge's mandate. They are not evil — they are wrong in a structural way. Their leader, the Keeper of the Sevenfold Seal, has held the separation protocols active for seventeen generations. He has watched four reunification movements fail catastrophically. He is not wrong about the danger. He is wrong about whether permanent maintenance is the only ethical response to it.</div>
+            </div>
+            <div class="faction-row">
+                <div class="faction-name">The Nephilim Orders</div>
+                <div class="faction-align">Variable — Three Sub-Factions</div>
+                <div class="faction-desc">Descendants of Watcher-human unions who carry both natures in a single form. Fragmented into the Convergence (reunificationist), the Accord (Architect-aligned), and the Sovereignty (Nephilim supremacist). They are the living proof that the Separation is not absolute — which is why the Architects regard them with particular institutional anxiety.</div>
+            </div>
+            <div class="faction-row">
+                <div class="faction-name">The Dragon Riders</div>
+                <div class="faction-align">Variable — Pragmatist by Default</div>
+                <div class="faction-desc">Humans and dragons who have achieved partial voluntary integration. The bond has genuine cosmological weight — it is a partial consciousness-overlap that functions as a low-level gnosis state. Mechanically powerful. Cosmologically significant. Internally fragmented between reunificationists and those who simply want the military advantage.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oracle Sample -->
+    <div class="doc-section">
+        <div class="doc-section-label">AI Lore Oracle — Example Exchange</div>
+        <h2>The Lore Oracle</h2>
+        <p>DM subscribers get access to a Claude-powered AI assistant with the complete Dragon Bible cosmological framework loaded as context. Ask it any in-world question during session prep or at the table and get answers consistent with the setting's metaphysics. It flags when a question falls outside documented lore rather than inventing an answer.</p>
+
+        <div class="oracle-sample">
+            <div class="oracle-sample-header">Dragon Bible Lore Oracle — Sample Session</div>
+            <div class="oracle-exchange">
+                <div class="speaker-label">Dungeon Master</div>
+                <p>My players want to negotiate with the Architects of Separation rather than fight them. What leverage do they have?</p>
+            </div>
+            <div class="oracle-exchange answer">
+                <div class="speaker-label oracle">Oracle</div>
+                <p>The Architects' leverage is information asymmetry — they know the failure modes of reunification better than anyone alive, because they've documented four failed attempts over seventeen generations. Your players' leverage is the inverse: if they have discovered something the Architects don't know, particularly evidence that challenges the assumption that the Separation must be maintained permanently, they have a genuine negotiating position.</p>
+                <p>The Keeper of the Sevenfold Seal is not interested in power or wealth. He is interested in the Separation remaining stable. If your players can demonstrate that stability is achievable through a different mechanism — one that doesn't require the Seal — they become worth talking to rather than suppressing. The negotiation isn't "stop opposing us." It's "we have found what you've been afraid doesn't exist: a safe path forward."</p>
+            </div>
+            <div class="oracle-exchange">
+                <div class="speaker-label">Dungeon Master</div>
+                <p>What would the Keeper find most threatening about a Nephilim PC who is openly trying to restore the Primordial Unity?</p>
+            </div>
+            <div class="oracle-exchange answer">
+                <div class="speaker-label oracle">Oracle</div>
+                <p>Not the attempt itself — the Keeper has seen attempts before. What would genuinely threaten him is a Nephilim who is attempting it methodically, with evidence that they understand the failure modes. An enthusiastic reunificationist is manageable: suppress them, document the failure, move on. A Nephilim who has read the Keeper's own failure reports and is asking the right questions about why each attempt collapsed — that character represents the first plausible threat the Keeper has encountered in seventeen generations of institutional memory.</p>
+            </div>
+        </div>
+
+        <p>The Oracle is available at <strong>dragonbible.com/lore-oracle.html</strong>. Three free questions for any visitor. Unlimited access with a DM Subscription.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="sampler-cta">
+        <h2>The Full Setting</h2>
+        <p>This sampler covers the framework. The full Dragon Bible setting — lore compendium PDF, 5e setting guide, faction dossiers, encounter tables, and the AI Lore Oracle — is available at:</p>
+        <a class="cta-url" href="https://dragonbible.com">dragonbible.com</a>
+        <p class="cta-details">DM Subscription: $5/month &nbsp;·&nbsp; Founding DM: $40 one-time (limited to 100) &nbsp;·&nbsp; All lore freely readable</p>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1113,32 +1113,52 @@ const dragonTypes = {
     fire: {
         name: "Fire Dragon",
         icon: "🔥",
-        description: "You are a Fire Dragon - passionate, transformative, and driven by intensity. You seek truth through the burning away of illusions. Your path is one of radical transformation, where nothing false can survive your flames. You're drawn to mystical experiences that shatter your understanding and rebuild it anew. In ancient texts, you see the metaphors of purification, the phoenix rising, and the sacred fire that transforms lead into gold.",
-        recommendedBook: "Start with Revelation - The apocalyptic visions of transformation and the fire of final union will resonate deeply with your nature."
+        description: "Your consciousness operates close to the Demiurgic wound — you feel the Separation as heat, as urgency, as the perpetual sense that something is being burned away that should not be. Fire dragons in the Dragon Bible cosmology carry the memory of the Primordial Flame most acutely. The knowing feels like pressure. You seek truth through intensity because you can feel the integrated state clearly enough to be frustrated by its absence.",
+        chapters: [
+            { book: "genesis", num: 3, title: "The Separation — Genesis, Chapter 3", desc: "The moment the First Being's fire-nature separated from its human-nature. You will recognise this as yours." },
+            { book: "revelation", num: 1, title: "The Final Fire — Revelation, Chapter 1", desc: "The eschatological vision of what reunification looks like when consciousness burns clean." }
+        ],
+        subscribeHook: "The full Revelation sequence — documenting what Fire Dragon consciousness looks like at full integration — is in the DM compendium."
     },
     water: {
         name: "Water Dragon",
         icon: "🌊",
-        description: "You are a Water Dragon - intuitive, flowing, and deeply empathetic. You understand that wisdom comes through emotional depth and the courage to dive into the unconscious. You're drawn to the mysteries that lie beneath the surface, the hidden emotional truths in ancient stories. Like water, you adapt, you heal, you wear away resistance with persistent gentleness. You recognize that the deepest wisdom comes not from thinking but from feeling.",
-        recommendedBook: "Begin with the Gospel of Judas - Explore the emotional depths and hidden compassion in what seems like betrayal."
+        description: "You experience the Separation as depth — as the feeling of reaching for something beneath the surface of every thought and almost touching it. Water dragons in the Dragon Bible cosmology carry the Primordial Flame as emotional memory, not intellectual knowledge. You know what was lost by the way loss feels. The Gnostic tradition's emphasis on gnosis as feeling rather than thinking is your native language.",
+        chapters: [
+            { book: "judas", num: 1, title: "The Recognition — Gospel of Judas, Chapter 1", desc: "Judas alone perceived the truth beneath the surface. Water dragon consciousness in its clearest expression." },
+            { book: "psalms", num: 1, title: "The Depths — Psalms, Chapter 1", desc: "The Psalter as gnosis-maintenance practice — consciousness techniques for the deeply intuitive." }
+        ],
+        subscribeHook: "The full Judas Archive, including the in-world commentary on water-dragon cognition, is in the DM compendium."
     },
     earth: {
         name: "Earth Dragon",
         icon: "🌍",
-        description: "You are an Earth Dragon - grounded, stable, and practical. You seek wisdom that can be applied, truths that have roots and bear fruit in the real world. You're drawn to the foundational stories, the creation myths, the sacred mountains and the deep places. You understand that spiritual wisdom must be embodied, must be lived, must be made manifest. You're the keeper of traditions, the builder of lasting structures, the one who makes the mystical practical.",
-        recommendedBook: "Start with Genesis - The foundational creation story and the establishment of the dragon-human covenant will resonate with your grounded nature."
+        description: "You carry the Separation as a structural problem — you know something is architecturally wrong with the world and you want to understand the load-bearing walls before you do anything else. Earth dragons in the Dragon Bible cosmology are often drawn to the Accident School's position: the Separation happened, here is the evidence, here is what repair might require. You are the builder, not the visionary.",
+        chapters: [
+            { book: "genesis", num: 1, title: "The Cosmogony — Genesis, Chapter 1", desc: "The foundational architecture of the Dragon Bible world, told through the creation sequence. Earth dragons read this as engineering documentation." },
+            { book: "enoch", num: 1, title: "The Watchers Descend — Enoch, Chapter 1", desc: "The structural analysis of what happened when the Meridian layer intersected the Material Plane." }
+        ],
+        subscribeHook: "The full Enochian Corpus — the Dragon Bible's primary structural lore document — is in the DM compendium."
     },
     air: {
         name: "Air Dragon",
         icon: "💨",
-        description: "You are an Air Dragon - intellectual, independent, and clarity-seeking. You're drawn to the realm of ideas, patterns, and meanings. You understand wisdom through analysis, through seeing connections, through rising above to gain perspective. Ancient texts are puzzles for you to solve, mysteries to unravel with your sharp mind. You value freedom, space to think, and the ability to communicate complex truths simply. You're the philosopher, the teacher, the one who brings knowledge down from the heights.",
-        recommendedBook: "Begin with the Nag Hammadi texts - The gnostic philosophy and complex cosmology will satisfy your intellectual appetite."
+        description: "You experience the Separation as a pattern-recognition problem. You can see the framework from above — the Hermetic correspondence, the Gnostic cosmogony, the way the factions map to positions on the same axis — and what frustrates you is that the people living inside it can't. Air dragons in the Dragon Bible cosmology are natural philosophers. The Air Dragon tradition is closest to the Voluntarist School: the Separation was necessary, the pattern is coherent, the resolution is already encoded in the structure if you read it correctly.",
+        chapters: [
+            { book: "nag-hammadi", num: 1, title: "The Gnostic Cosmogony — Nag Hammadi, Chapter 1", desc: "The philosophical architecture of the Dragon Bible setting in its most explicit form. Air dragon reading." },
+            { book: "exodus", num: 2, title: "The Pattern — Exodus, Chapter 2", desc: "The correspondence between the liberation narrative and the upper-layer movements that caused it." }
+        ],
+        subscribeHook: "The full Nag Hammadi commentary, with in-world Hermetic correspondence tables, is in the DM compendium."
     },
     storm: {
         name: "Storm Dragon",
         icon: "⚡",
-        description: "You are a Storm Dragon - dynamic, powerful, and change-bringing. You're the disruptor, the revolutionary, the one who breaks what no longer serves. You understand that sometimes wisdom comes through destruction, that the old must be torn down for the new to emerge. You're drawn to apocalyptic visions, radical transformations, and truths that shatter comfortable beliefs. You bring the lightning that illuminates in a flash, the thunder that shakes awake the sleeping. You're chaos with purpose, destruction that creates.",
-        recommendedBook: "Dive into the Book of Enoch - The story of the Watchers, the Nephilim, and the great flood will resonate with your storm nature."
+        description: "You feel the Separation as something that should not exist and will not stand. Storm dragons in the Dragon Bible cosmology are the Watchers' most useful and most dangerous allies — they have the will to act when others are still debating the theory, and the capacity for damage when that will is misdirected. The Enochian corpus documents the Storm Dragon's recurring role: the one who pushes harder than the situation can currently support, and is either vindicated or catastrophic.",
+        chapters: [
+            { book: "enoch", num: 2, title: "The Descent — Enoch, Chapter 2", desc: "The Watchers who acted when the Council voted to wait. Storm dragon cosmological history." },
+            { book: "revelation", num: 2, title: "The Breaking — Revelation, Chapter 2", desc: "What happens when Storm Dragon will operates without sufficient cosmological knowledge." }
+        ],
+        subscribeHook: "The full Enochian Watchers' Descent sequence — the defining Storm Dragon narrative — is in the DM compendium."
     }
 };
 
@@ -1235,8 +1255,21 @@ function showQuizResult() {
     document.getElementById('resultIcon').textContent = result.icon;
     document.getElementById('resultTitle').textContent = result.name;
     document.getElementById('resultDescription').textContent = result.description;
-    document.getElementById('resultBook').textContent = result.recommendedBook;
-    
+
+    // Render chapter recommendations
+    const chapterHTML = result.chapters.map(ch => `
+        <div class="result-chapter-card" onclick="window.openBook('${ch.book}')">
+            <div class="result-chapter-label">Recommended Reading</div>
+            <div class="result-chapter-title">${ch.title}</div>
+            <div class="result-chapter-desc">${ch.desc}</div>
+            <span class="result-chapter-cta">Read now &rarr;</span>
+        </div>
+    `).join('');
+    document.getElementById('resultChapters').innerHTML = chapterHTML;
+
+    // Render subscribe hook
+    document.getElementById('resultSubscribeHook').textContent = result.subscribeHook;
+
     // Store result in localStorage
     localStorage.setItem('dragonbible_dragon_type', resultType);
     

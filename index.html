@@ -31,13 +31,12 @@
                     <span class="logo-text">Dragon Bible</span>
                 </div>
                 <div class="nav-links">
-                    <a href="#home">Home</a>
+                    <a href="index.html">Home</a>
                     <a href="cosmology.html">Cosmology</a>
-                    <a href="#books">Lore Compendium</a>
+                    <a href="how-to-run.html">How to Run</a>
                     <a href="lore-oracle.html">AI Lore Oracle</a>
-                    <a href="/blog.html">Journal</a>
+                    <a href="blog.html">Journal</a>
                     <a href="#pricing">Subscribe</a>
-                    <button class="btn btn-secondary" onclick="openSearchModal()" title="Search (Ctrl+F)">🔍</button>
                     <button class="btn btn-nav-cta" onclick="scrollToPricing()">DM Access</button>
                 </div>
             </div>
@@ -305,6 +304,33 @@
             </div>
         </section>
 
+        <!-- Audio Demo Section -->
+        <section id="audio-demo" class="audio-demo-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Audio Narration</span>
+                    <h2 class="section-title">Hear the Lore</h2>
+                    <p class="section-subtitle">Every chapter is narrated. This is thirty seconds of the Genesis cosmogony — the moment the Primordial Flame first divided into dragon-nature and human-nature. Press play.</p>
+                </div>
+                <div class="audio-demo-player">
+                    <div class="audio-player-ui">
+                        <button class="audio-play-btn" id="demoPlayBtn" onclick="toggleDemoAudio()">
+                            <span id="demoPlayIcon">&#9654;</span>
+                        </button>
+                        <div class="audio-player-info">
+                            <div class="audio-track-title">Genesis — Chapter 2: The Garden of Unity</div>
+                            <div class="audio-track-meta">Dragon Bible Lore Narration &nbsp;·&nbsp; 0:30 excerpt</div>
+                            <div class="audio-progress-bar">
+                                <div class="audio-progress-fill" id="demoProgressFill"></div>
+                            </div>
+                        </div>
+                        <div class="audio-player-note">Full narration available for all chapters. DM subscribers get enhanced audio with atmosphere.</div>
+                    </div>
+                    <p class="audio-demo-note">This uses your browser's built-in text-to-speech. The narration plays from the actual lore text.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Dragon Quiz Section -->
         <section id="quiz" class="quiz-section">
             <div class="container">
@@ -428,16 +454,17 @@
                             <span class="price">$40</span>
                             <span class="period">one-time</span>
                         </div>
-                        <p style="font-family:'Crimson Pro',serif; font-size:0.9rem; color:#8b0000; margin-bottom:1rem;">Limited to 100 founding members. Price rises to $60 when full.</p>
+                        <p style="font-family:Georgia,serif; font-size:0.85rem; color:var(--accent); margin-bottom:1rem; letter-spacing:0.02em;">Limited to 100 founding members. Price rises to $60 when full.</p>
                         <ul class="plan-features">
                             <li>✓ Everything in DM Subscription</li>
                             <li>✓ All future content and updates — free forever</li>
                             <li>✓ Name in the published setting credits</li>
                             <li>✓ Founding member designation</li>
                             <li>✓ Direct input on lore development priorities</li>
+                            <li>✓ Physical lore compendium when print edition ships</li>
                         </ul>
                         <button class="btn btn-primary btn-large" onclick="showPaymentModal('lifetime')">Get Lifetime Access — $40</button>
-                        <p class="plan-note">One payment. All future updates free.</p>
+                        <p class="plan-note">One payment. Includes physical book when available.</p>
                     </div>
                 </div>
 
@@ -717,18 +744,11 @@
 
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>Is there a community or discussion forum?</span>
+                                <span>Is there a community or way to ask questions?</span>
                                 <span class="faq-icon">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Yes! We have:</p>
-                                <ul>
-                                    <li>Chapter comments on every page</li>
-                                    <li>Private Discord server for premium members</li>
-                                    <li>Weekly live discussions</li>
-                                    <li>Monthly Q&As with the author</li>
-                                </ul>
-                                <p>Share your result and introduce someone to the Dragon Bible cosmology.</p>
+                                <p>Currently the best ways to engage are the chapter comment system and direct email at <a href="mailto:noah@dragonbible.com">noah@dragonbible.com</a>. The AI Lore Oracle handles most in-world lore questions for DM subscribers. A community space is being planned once the subscriber base warrants it — it won't be announced until it exists.</p>
                             </div>
                         </div>
                     </div>
@@ -801,8 +821,9 @@
 
         <footer class="site-footer">
             <div class="container">
+                <!-- Single consolidated disclaimer — all others removed -->
                 <div class="footer-disclaimer">
-                    <p><strong>CONTENT DISCLAIMER</strong>The Dragon Bible is a work of creative fiction and mythological reinterpretation. All content is intended for entertainment and artistic purposes only. This website is not affiliated with any religious organization and does not represent actual religious doctrine or beliefs. Reader discretion is advised for mature themes.</p>
+                    <p>The Dragon Bible is a work of creative fiction and original mythology. Not affiliated with any religious organization. No content represents actual religious doctrine or historical fact. &copy; 2025 Noah Wilson.</p>
                 </div>
                 
                 <div class="footer-content">
@@ -975,27 +996,26 @@
                 </div>
             </div>
 
-            <div id="quizResult" class="quiz-result hidden">
-                <div class="result-dragon-icon" id="resultIcon">🔥</div>
-                <h2 id="resultTitle">Fire Dragon</h2>
-                <p id="resultDescription" class="result-description"></p>
-                
-                <div class="result-recommendation">
-                    <h3>Recommended Reading:</h3>
-                    <p id="resultBook"></p>
-                </div>
+             <div id="quizResult" class="quiz-result hidden">
+                 <div class="result-dragon-icon" id="resultIcon">🔥</div>
+                 <h2 id="resultTitle">Fire Dragon</h2>
+                 <p id="resultDescription" class="result-description"></p>
 
-                <div class="result-actions">
-                    <button class="btn btn-primary" onclick="closeQuiz(); scrollToBooks()">Explore Library</button>
-                    <button class="btn btn-secondary" onclick="restartQuiz()">Retake Quiz</button>
-                </div>
+                 <div id="resultChapters" class="result-chapters"></div>
 
-                <div class="result-share">
-                    <p>Share your result:</p>
-                    <button class="btn btn-social" onclick="shareQuizResult('twitter')">🐦 Twitter</button>
-                    <button class="btn btn-social" onclick="shareQuizResult('facebook')">📘 Facebook</button>
-                </div>
-            </div>
+                 <div class="result-subscribe-block">
+                     <p id="resultSubscribeHook" class="result-subscribe-hook"></p>
+                     <button class="btn btn-primary" onclick="closeQuiz(); scrollToPricing()">
+                         Unlock Full Compendium — $5/month
+                     </button>
+                     <p class="result-subscribe-note">Free lore access stays free. The compendium, 5e guide, and AI Oracle are the paid tier.</p>
+                 </div>
+
+                 <div class="result-actions">
+                     <button class="btn btn-secondary" onclick="closeQuiz(); scrollToBooks()">Explore Free Library</button>
+                     <button class="btn btn-secondary" onclick="restartQuiz()">Retake Quiz</button>
+                 </div>
+             </div>
         </div>
     </div>
 
@@ -1097,6 +1117,53 @@
     <script src="referral.js"></script>
     
     <!-- Load script at the very end -->
+    <script>
+    // Audio demo player
+    let demoUtterance = null;
+    let demoPlaying = false;
+    let demoInterval = null;
+    const DEMO_TEXT = "In the Beginning, before time was counted and the stars were named, there existed the Primordial Flame — a unity of consciousness that was both mortal and eternal, both flesh and scale. And from this Flame emerged the First Being, neither wholly human nor wholly dragon, but a perfect synthesis of both. And the Source separated the light from the darkness, not as enemies but as complements — the light of revealed truth and the darkness of mystery yet to be discovered. This was the First Day, when consciousness first knew itself.";
+    const DEMO_DURATION = 30000; // 30 seconds
+
+    function toggleDemoAudio() {
+        if (demoPlaying) {
+            stopDemoAudio();
+        } else {
+            startDemoAudio();
+        }
+    }
+
+    function startDemoAudio() {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        demoUtterance = new SpeechSynthesisUtterance(DEMO_TEXT);
+        demoUtterance.rate = 0.88;
+        demoUtterance.pitch = 0.95;
+        const voices = window.speechSynthesis.getVoices();
+        const preferred = voices.find(v => v.lang === 'en-GB' || v.name.includes('Daniel') || v.name.includes('Karen'));
+        if (preferred) demoUtterance.voice = preferred;
+        demoUtterance.onend = () => { stopDemoAudio(); };
+        window.speechSynthesis.speak(demoUtterance);
+        demoPlaying = true;
+        document.getElementById('demoPlayIcon').innerHTML = '&#9646;&#9646;';
+        // Animate progress bar over 30s
+        const fill = document.getElementById('demoProgressFill');
+        let pct = 0;
+        demoInterval = setInterval(() => {
+            pct = Math.min(pct + (100 / (DEMO_DURATION / 500)), 100);
+            fill.style.width = pct + '%';
+            if (pct >= 100) stopDemoAudio();
+        }, 500);
+    }
+
+    function stopDemoAudio() {
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        demoPlaying = false;
+        clearInterval(demoInterval);
+        document.getElementById('demoPlayIcon').innerHTML = '&#9654;';
+        document.getElementById('demoProgressFill').style.width = '0%';
+    }
+    </script>
     <script src="script.js"></script>
 
 </body>

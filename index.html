@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover The Dragon Bible - A revolutionary reimagining of ancient texts through dragon mythology. Join 10,000+ readers exploring the sacred union of humanity and dragonkind. Read 3 chapters FREE.">
-    <meta name="keywords" content="dragon bible, mythology, sacred texts, fantasy literature, dragon lore, ancient wisdom, gnostic texts, Book of Enoch, mystical fiction">
-    <meta property="og:title" content="The Dragon Bible | Sacred Texts Reimagined">
-    <meta property="og:description" content="Explore ancient texts reimagined through dragon mythology. Join thousands of readers discovering the sacred union. 3 FREE chapters inside.">
+    <meta name="description" content="The Dragon Bible is an original cosmological setting built on Hermetic and Gnostic foundations — documented publicly for Dungeon Masters. Full lore compendium, 5e setting guide, and AI Lore Assistant for DM subscribers.">
+    <meta name="keywords" content="dragon bible, worldbuilding, D&D setting, homebrew campaign setting, hermetic cosmology, gnostic mythology, DM lore assistant, fantasy setting, 5e compatible">
+    <meta property="og:title" content="The Dragon Bible | Original Cosmological Setting for Dungeon Masters">
+    <meta property="og:description" content="A complete worldbuilding setting grounded in Hermetic and Gnostic metaphysics. Public lore journal, AI lore assistant, and DM compendium. Built in public.">
     <meta property="og:image" content="https://dragonbible.com/images/og-image.jpg">
     <meta property="og:url" content="https://dragonbible.com">
     <meta name="twitter:card" content="summary_large_image">
-    <title>The Dragon Bible | Ancient Texts Reimagined Through Dragon Mythology - Read FREE</title>
+    <title>The Dragon Bible | Cosmological Setting for Dungeon Masters</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,9 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6894087674561904"
          crossorigin="anonymous"></script>
-</head>
+    
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script></head>
 <body>
     <div class="page-wrapper">
         <nav class="navbar">
@@ -30,12 +32,13 @@
                 </div>
                 <div class="nav-links">
                     <a href="#home">Home</a>
-                    <a href="#books">Library</a>
-                    <a href="#features">Features</a>
-                    <a href="#quiz">Quiz</a>
-                    <a href="#pricing">Pricing</a>
-                    <a href="/blog.html">Blog</a>
-                    <button class="btn btn-nav-cta" onclick="scrollToPricing()">Get Free Access</button>
+                    <a href="cosmology.html">Cosmology</a>
+                    <a href="#books">Lore Compendium</a>
+                    <a href="lore-oracle.html">AI Lore Oracle</a>
+                    <a href="/blog.html">Journal</a>
+                    <a href="#pricing">Subscribe</a>
+                    <button class="btn btn-secondary" onclick="openSearchModal()" title="Search (Ctrl+F)">🔍</button>
+                    <button class="btn btn-nav-cta" onclick="scrollToPricing()">DM Access</button>
                 </div>
             </div>
         </nav>
@@ -45,35 +48,35 @@
             <div class="hero-particles"></div>
             <div class="hero-content">
                 <div class="hero-badge">
-                    <span class="badge-icon">⚡</span>
-                    <span class="badge-text">10,000+ Readers Awakening Their Dragon Nature</span>
+                    <span class="badge-icon">📜</span>
+                    <span class="badge-text">A Living Cosmology — Documented in Public</span>
                 </div>
-                <h1 class="hero-title">What If Humanity and Dragons Were Once One?</h1>
-                <p class="hero-tagline">Ancient Sacred Texts Reimagined Through Dragon Mythology</p>
-                <p class="hero-subtitle">Discover the hidden truth buried in religious texts: the story of humanity's forgotten unity with dragonkind. Explore Genesis, Enoch, Revelation, and more—all rewritten through the lens of dragon consciousness.</p>
+                <h1 class="hero-title">An Original Setting Built on Hermetic and Gnostic Foundations</h1>
+                <p class="hero-tagline">The Dragon Bible — Cosmological Worldbuilding for Dungeon Masters</p>
+                <p class="hero-subtitle">A complete original setting with its philosophical underpinnings fully visible: Demiurgic cosmogony, ophidian gnosis, Hermetic principles. The lore is being built and documented publicly. DMs get the compendium, setting guide, and an AI lore assistant that knows the world better than they do.</p>
                 
                 <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Lore Books</div>
+                    </div>
                     <div class="stat-item">
                         <div class="stat-number">50+</div>
                         <div class="stat-label">Chapters</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">7</div>
-                        <div class="stat-label">Sacred Books</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">FREE</div>
-                        <div class="stat-label">To Start</div>
+                        <div class="stat-number">AI</div>
+                        <div class="stat-label">Lore Oracle</div>
                     </div>
                 </div>
 
                 <div class="hero-buttons">
-                    <button class="btn btn-primary btn-large pulse" onclick="showEmailModal()">
+                    <button class="btn btn-primary btn-large pulse" onclick="scrollToBooks()">
                         <span class="btn-icon">🐉</span>
-                        Start Reading FREE
+                        Read the Lore Free
                     </button>
-                    <button class="btn btn-secondary btn-large" onclick="scrollToBooks()">
-                        Explore the Library
+                    <button class="btn btn-secondary btn-large" onclick="scrollToPricing()">
+                        DM Subscription
                     </button>
                 </div>
 
@@ -99,64 +102,64 @@
             <div class="container">
                 <div class="trust-items">
                     <div class="trust-item">
-                        <span class="trust-icon">📚</span>
-                        <span class="trust-text">Original Creative Mythology</span>
+                        <span class="trust-icon">🜂</span>
+                        <span class="trust-text">Hermetic + Gnostic Foundations</span>
                     </div>
                     <div class="trust-item">
-                        <span class="trust-icon">🔊</span>
-                        <span class="trust-text">Audio Narration Included</span>
+                        <span class="trust-icon">📜</span>
+                        <span class="trust-text">Lore Documented Publicly</span>
                     </div>
                     <div class="trust-item">
-                        <span class="trust-icon">📱</span>
-                        <span class="trust-text">Read on Any Device</span>
+                        <span class="trust-icon">🤖</span>
+                        <span class="trust-text">AI Lore Oracle for DMs</span>
                     </div>
                     <div class="trust-item">
-                        <span class="trust-icon">💬</span>
-                        <span class="trust-text">Community Discussion</span>
+                        <span class="trust-icon">⚔️</span>
+                        <span class="trust-text">5e + System-Agnostic</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Features Section -->
-        <section id="features" class="features-section">
+         <section id="features" class="features-section">
             <div class="container">
                 <div class="section-header">
-                    <span class="section-label">WHY DRAGON BIBLE?</span>
-                    <h2 class="section-title">A Revolutionary Reading Experience</h2>
-                    <p class="section-subtitle">Explore sacred texts like never before with our unique features designed for modern seekers</p>
+                    <span class="section-label">THE SETTING</span>
+                    <h2 class="section-title">A World With Its Philosophy Visible</h2>
+                    <p class="section-subtitle">Most fantasy settings bury their metaphysics. The Dragon Bible leaves them on the surface — Hermetic principles, Gnostic cosmogony, the Demiurgic separation — as the actual architecture of the world.</p>
                 </div>
 
                 <div class="features-grid">
                     <div class="feature-card">
-                        <div class="feature-icon">🐉</div>
-                        <h3>Original Dragon Mythology</h3>
-                        <p>Every biblical story reimagined through the lens of human-dragon unity. Discover hidden meanings and ancient symbolism.</p>
+                        <div class="feature-icon">🜂</div>
+                        <h3>Hermetic Cosmology</h3>
+                        <p>The Dragon Bible cosmos runs on Hermetic principles. As above, so below — but made literal. The upper dragon-realms of fire and spirit correspond directly to the lower material planes. DMs can extrapolate endlessly from the framework.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🎧</div>
-                        <h3>Immersive Audio</h3>
-                        <p>Listen to each chapter with high-quality text-to-speech narration. Perfect for meditation or bedtime reading.</p>
+                        <div class="feature-icon">🌑</div>
+                        <h3>Gnostic Demiurge</h3>
+                        <p>The cosmos was not made by a benevolent god. It was fractured by a Demiurgic separation event — the sundering of dragon and human consciousness — and the entire metaphysic of the setting flows from that original wound.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">💡</div>
-                        <h3>Deep Commentary</h3>
-                        <p>Scholarly notes explaining the mythological framework, linguistic connections, and archetypal patterns.</p>
+                        <div class="feature-icon">🤖</div>
+                        <h3>AI Lore Oracle</h3>
+                        <p>A Claude-powered assistant with the full Dragon Bible lore injected as context. DMs ask in-world questions — factions, cosmology, NPC motivations — and get in-character answers consistent with the cosmology. Available to subscribers.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">👥</div>
-                        <h3>Community Insights</h3>
-                        <p>Join discussions with fellow seekers. Share interpretations and discover new perspectives.</p>
+                        <div class="feature-icon">📜</div>
+                        <h3>Living Lore Journal</h3>
+                        <p>The world is being built and documented publicly. The cosmology, factions, and metaphysics are posted as they develop — with the philosophical framing visible. Watch the world grow in real time.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">📖</div>
-                        <h3>Complete Library</h3>
-                        <p>Genesis, Enoch, Gnostic texts, Psalms, Revelation, and more. Hundreds of chapters to explore.</p>
+                        <div class="feature-icon">⚔️</div>
+                        <h3>5e + System-Agnostic</h3>
+                        <p>The DM compendium is formatted for fifth edition play and includes a system-agnostic version. Factions, encounter tables, cosmological zones, and NPC archetypes — all derived from the setting's actual metaphysics.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🔖</div>
-                        <h3>Track Your Journey</h3>
-                        <p>Bookmark favorite passages, track reading progress, and build your personal mythology library.</p>
+                        <div class="feature-icon">📕</div>
+                        <h3>Lore Compendium PDF</h3>
+                        <p>The complete Dragon Bible setting guide as a downloadable PDF. Updated as new lore is documented. DM subscribers always have the current version.</p>
                     </div>
                 </div>
             </div>
@@ -165,9 +168,9 @@
         <section id="books" class="books-section">
             <div class="container">
                 <div class="section-header">
-                    <span class="section-label">THE LIBRARY</span>
-                    <h2 class="section-title">Sacred Texts Reimagined</h2>
-                    <p class="section-subtitle">Explore our collection of ancient texts rewritten through dragon consciousness. Each book reveals humanity's forgotten connection to dragonkind.</p>
+                    <span class="section-label">LORE COMPENDIUM</span>
+                    <h2 class="section-title">The Sacred Texts of the Dragon Bible</h2>
+                    <p class="section-subtitle">Seven foundational texts of the cosmology — publicly readable. Each book documents a different stratum of the Dragon Bible world: its creation, its sundering, its hidden factions, its eschatology.</p>
                 </div>
                 
 
@@ -232,12 +235,72 @@
 
                 <div class="library-cta">
                     <div class="cta-box">
-                        <h3>Ready to Explore the Complete Library?</h3>
-                        <p>Get instant access to 3 FREE chapters from Genesis. No credit card required.</p>
-                        <button class="btn btn-primary btn-large" onclick="showEmailModal()">
+                        <h3>The Lore is Free. The Tools are for DMs.</h3>
+                        <p>All seven books are publicly readable. DM subscribers get the compendium PDF, setting guide, and AI Lore Oracle access.</p>
+                        <button class="btn btn-primary btn-large" onclick="scrollToPricing()">
                             <span class="btn-icon">🐉</span>
-                            Unlock FREE Chapters
+                            View DM Subscription
                         </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Lore Oracle Section -->
+        <section id="oracle" class="oracle-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">THE ORACLE</span>
+                    <h2 class="section-title">An AI That Knows the World</h2>
+                    <p class="section-subtitle">DMs hate lore inconsistency. The Dragon Bible Lore Oracle is a Claude-powered assistant with the entire cosmology loaded as context — ask it in-world questions and get answers consistent with the setting's metaphysics.</p>
+                </div>
+
+                <div class="oracle-demo">
+                    <div class="oracle-interface">
+                        <div class="oracle-header">
+                            <span class="oracle-title">Dragon Bible Lore Oracle</span>
+                            <span class="oracle-status">Available to DM Subscribers</span>
+                        </div>
+                        <div class="oracle-conversation">
+                            <div class="oracle-exchange">
+                                <div class="oracle-question">
+                                    <span class="speaker">DM</span>
+                                    <p>What is the relationship between the Watchers and the Demiurge?</p>
+                                </div>
+                                <div class="oracle-answer">
+                                    <span class="speaker oracle-speaker">Oracle</span>
+                                    <p>The Watchers — the Irin of the Enochian corpus — were not fallen angels in the conventional sense. They were semi-autonomous aspects of the Demiurge's own fractured longing: dragon-consciousness that retained enough of the Primordial Flame to recognize its absence in the material world. Their descent was not rebellion but resonance — drawn toward the daughters of humanity because they saw in them the mirror of what had been lost in the Separation Event. The Demiurge tolerated this, even encouraged it, because the offspring — the Nephilim — became instruments of a deeper purpose: to introduce into the human bloodline the latent memory of dragon-human unity that the Demiurge had been tasked with suppressing...</p>
+                                </div>
+                            </div>
+                            <div class="oracle-exchange">
+                                <div class="oracle-question">
+                                    <span class="speaker">DM</span>
+                                    <p>Which faction would most oppose a PC trying to restore the Primordial Unity?</p>
+                                </div>
+                                <div class="oracle-answer">
+                                    <span class="speaker oracle-speaker">Oracle</span>
+                                    <p>The Architects of Separation — the priestly caste that inherited the Demiurge's mandate — would be their primary opposition. Not because they are evil in any simple sense, but because they genuinely believe that the Separation was necessary and that premature reunification would collapse both realms. Their leader, the Keeper of the Sevenfold Seal, has held the separation protocols in place for seventeen generations. He is not wrong about the danger. He is wrong about whether the danger justifies the cost...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="oracle-cta-inline">
+                            <p>The Oracle knows every faction, every cosmological layer, every NPC archetype in the setting.</p>
+                            <a href="lore-oracle.html" class="btn btn-primary">Try the Oracle — DM Subscription</a>
+                        </div>
+                    </div>
+                    <div class="oracle-features-list">
+                        <h3>What the Oracle Knows</h3>
+                        <ul>
+                            <li><span class="check">✓</span> Complete Dragon Bible cosmogony and metaphysics</li>
+                            <li><span class="check">✓</span> All seven canonical texts</li>
+                            <li><span class="check">✓</span> Factions: Watchers, Architects of Separation, Nephilim Orders, Dragon Riders</li>
+                            <li><span class="check">✓</span> NPC archetypes with in-world motivations</li>
+                            <li><span class="check">✓</span> Cosmological zones and their rules</li>
+                            <li><span class="check">✓</span> 5e encounter suggestions consistent with lore</li>
+                            <li><span class="check">✓</span> In-character answers — no lore breaks</li>
+                            <li><span class="check">✓</span> Updated as new lore is published</li>
+                        </ul>
+                        <p class="oracle-note">Built on Claude with RAG over the full lore compendium. The Oracle stays in-world and flags when a question falls outside documented lore rather than inventing answers.</p>
                     </div>
                 </div>
             </div>
@@ -300,56 +363,60 @@
             </div>
         </section>
 
+        <!-- Testimonials Section -->
         <!-- Pricing Section -->
         <section id="pricing" class="pricing-section">
             <div class="container">
                 <div class="section-header">
-                    <span class="section-label">CHOOSE YOUR PATH</span>
-                    <h2 class="section-title">Start Your Dragon Journey Today</h2>
-                    <p class="section-subtitle">Read 3 chapters free, then unlock the complete library</p>
+                    <span class="section-label">ACCESS</span>
+                    <h2 class="section-title">The Lore is Free. The DM Tools Are Not.</h2>
+                    <p class="section-subtitle">All seven texts are publicly readable. The compendium PDF, setting guide, and AI Lore Oracle are for Dungeon Masters who want to run this world.</p>
                 </div>
 
-                <div class="pricing-grid">
+                <div class="pricing-grid pricing-grid-dm">
                     <!-- Free Tier -->
                     <div class="pricing-card">
                         <div class="plan-badge">FREE</div>
-                        <h3 class="plan-name">Seeker</h3>
+                        <h3 class="plan-name">Lore Reader</h3>
                         <div class="plan-price">
                             <span class="price">$0</span>
-                            <span class="period">forever</span>
+                            <span class="period">always</span>
                         </div>
                         <ul class="plan-features">
-                            <li>✓ 3 Genesis chapters free</li>
+                            <li>✓ All 7 canonical texts — publicly readable</li>
+                            <li>✓ 50+ chapters of Dragon Bible lore</li>
+                            <li>✓ Cosmology overview</li>
+                            <li>✓ Lore journal updates</li>
                             <li>✓ Audio narration</li>
-                            <li>✓ Community comments</li>
-                            <li>✓ Dragon quiz</li>
-                            <li>✗ Full library access</li>
-                            <li>✗ Exclusive content</li>
+                            <li class="feature-locked">✗ Lore Compendium PDF</li>
+                            <li class="feature-locked">✗ 5e Setting Guide</li>
+                            <li class="feature-locked">✗ AI Lore Oracle access</li>
                         </ul>
-                        <button class="btn btn-secondary btn-large" onclick="showEmailModal()">Start Free</button>
+                        <button class="btn btn-secondary btn-large" onclick="scrollToBooks()">Read the Lore</button>
                     </div>
 
-                    <!-- Monthly Tier -->
+                    <!-- DM Subscription -->
                     <div class="pricing-card featured">
-                        <div class="featured-badge">MOST POPULAR</div>
-                        <div class="plan-badge">PREMIUM</div>
-                        <h3 class="plan-name">Dragon Rider</h3>
+                        <div class="featured-badge">FOR DUNGEON MASTERS</div>
+                        <div class="plan-badge">DM SUBSCRIPTION</div>
+                        <h3 class="plan-name">Dungeon Master</h3>
                         <div class="plan-price">
-                            <span class="price">$9.99</span>
+                            <span class="price">$5</span>
                             <span class="period">/month</span>
                         </div>
                         <ul class="plan-features">
-                            <li>✓ ALL books & chapters</li>
-                            <li>✓ Premium audio narration</li>
-                            <li>✓ Downloadable PDFs</li>
-                            <li>✓ Early access to new content</li>
-                            <li>✓ Exclusive commentary</li>
-                            <li>✓ Ad-free experience</li>
-                            <li>✓ Priority support</li>
+                            <li>✓ Everything in Free</li>
+                            <li>✓ Full Lore Compendium PDF (updated continuously)</li>
+                            <li>✓ 5e Setting Guide + system-agnostic version</li>
+                            <li>✓ AI Lore Oracle — unlimited in-world questions</li>
+                            <li>✓ Faction dossiers with NPC archetypes</li>
+                            <li>✓ Encounter tables keyed to the cosmology</li>
+                            <li>✓ Early access to new lore</li>
+                            <li>✓ Cancel anytime</li>
                         </ul>
                         <button class="btn btn-primary btn-large pulse" onclick="showPaymentModal('monthly')">
                             <span class="btn-icon">🐉</span>
-                            Start 7-Day Free Trial
+                            Subscribe — $5/month
                         </button>
                         <p class="plan-note">Cancel anytime. No commitment.</p>
                     </div>
@@ -357,161 +424,27 @@
                     <!-- Lifetime Tier -->
                     <div class="pricing-card">
                         <div class="plan-badge">LIFETIME</div>
-                        <h3 class="plan-name">Dragon Master</h3>
+                        <h3 class="plan-name">Founding DM</h3>
                         <div class="plan-price">
-                            <span class="price">$99</span>
+                            <span class="price">$40</span>
                             <span class="period">one-time</span>
                         </div>
-                        <div class="savings-badge">Save $100+</div>
                         <ul class="plan-features">
-                            <li>✓ Everything in Premium</li>
-                            <li>✓ Lifetime access</li>
-                            <li>✓ ALL future content free</li>
-                            <li>✓ Exclusive digital art</li>
-                            <li>✓ Private Discord access</li>
-                            <li>✓ Name in credits</li>
-                            <li>✓ Founding member badge</li>
+                            <li>✓ Everything in DM Subscription</li>
+                            <li>✓ All future content and updates — free forever</li>
+                            <li>✓ Name in the setting credits</li>
+                            <li>✓ Founding member designation</li>
+                            <li>✓ Direct input on lore development priorities</li>
                         </ul>
-                        <button class="btn btn-primary btn-large" onclick="showPaymentModal('lifetime')">Get Lifetime Access</button>
-                        <p class="plan-note">One payment. Own it forever.</p>
+                        <button class="btn btn-primary btn-large" onclick="showPaymentModal('lifetime')">Get Lifetime Access — $40</button>
+                        <p class="plan-note">One payment. All future updates included.</p>
                     </div>
                 </div>
 
                 <div class="pricing-guarantee">
-                    <div class="guarantee-box">
-                        <div class="guarantee-icon">🛡️</div>
-                        <div class="guarantee-content">
-                            <h4>30-Day Money-Back Guarantee</h4>
-                            <p>Not satisfied? Get a full refund within 30 days, no questions asked. We're confident you'll love the Dragon Bible.</p>
-                        </div>
-                    </div>
+                    <p>30-day refund policy. If it doesn't serve your campaign, email <a href="mailto:mr.noahwilson@gmail.com">mr.noahwilson@gmail.com</a> for a full refund.</p>
                 </div>
             </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="testimonials-section">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-label">READER REVIEWS</span>
-                    <h2 class="section-title">What Seekers Are Saying</h2>
-                </div>
-
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"I've studied mythology for 20 years, and this is the most creative reinterpretation I've ever encountered. The dragon symbolism hidden in Genesis is mind-blowing!"</p>
-                        <div class="testimonial-author">
-                            <strong>Michael T.</strong>
-                            <span>Comparative Mythology Professor</span>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"As someone who left organized religion, this gave me a fresh lens to appreciate ancient wisdom. The dragon-human unity concept is profound."</p>
-                        <div class="testimonial-author">
-                            <strong>Jessica R.</strong>
-                            <span>Spiritual Seeker</span>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"The Book of Enoch interpretation changed how I understand the Watchers. This is essential reading for anyone into ancient astronaut theories."</p>
-                        <div class="testimonial-author">
-                            <strong>David K.</strong>
-                            <span>Alternative History Researcher</span>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"The audio narration makes it perfect for meditation. I listen every night before bed. It's become part of my spiritual practice."</p>
-                        <div class="testimonial-author">
-                            <strong>Amanda L.</strong>
-                            <span>Meditation Practitioner</span>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"I'm a fantasy writer and this inspired an entire novel. The mythological framework is incredibly detailed and consistent."</p>
-                        <div class="testimonial-author">
-                            <strong>Brandon W.</strong>
-                            <span>Fantasy Author</span>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"The Gnostic texts finally make sense! This bridges ancient wisdom with modern consciousness exploration. Absolutely brilliant."</p>
-                        <div class="testimonial-author">
-                            <strong>Sophia M.</strong>
-                            <span>Gnostic Studies Scholar</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section class="faq-section">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-label">QUESTIONS?</span>
-                    <h2 class="section-title">Frequently Asked Questions</h2>
-                </div>
-
-                <div class="faq-grid">
-                    <div class="faq-item">
-                        <h3 class="faq-question">Is this a real religious text?</h3>
-                        <p class="faq-answer">No. The Dragon Bible is a creative work of fiction and mythology. It's a literary reimagining of ancient texts through the lens of dragon mythology, created for entertainment and artistic expression.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 class="faq-question">Do I really get 3 chapters free?</h3>
-                        <p class="faq-answer">Yes! Sign up with your email and get instant access to Genesis chapters 1-3. No credit card required. If you love it, upgrade anytime to unlock the full library.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 class="faq-question">Can I cancel my subscription?</h3>
-                        <p class="faq-answer">Absolutely. Cancel anytime with one click. No hidden fees, no hassle. You'll keep access until the end of your billing period.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 class="faq-question">What's included in the library?</h3>
-                        <p class="faq-answer">Genesis (50 chapters), Exodus (40 chapters), Book of Enoch (108 sections), Gnostic Texts, Gospel of Judas, Psalms, and Revelation. We're constantly adding new content.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 class="faq-question">Is the audio narration good quality?</h3>
-                        <p class="faq-answer">Yes! We use advanced text-to-speech with natural-sounding voices. Premium members get access to enhanced audio with better pacing and intonation.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 class="faq-question">Can I read on my phone or tablet?</h3>
-                        <p class="faq-answer">Yes! The Dragon Bible works on any device with a web browser. It's fully responsive and optimized for mobile reading. Premium members can also download PDFs.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Final CTA Section -->
-        <section class="final-cta-section">
-            <div class="container">
-                <div class="final-cta-box">
-                    <div class="cta-icon">🐉</div>
-                    <h2>Ready to Awaken Your Dragon Nature?</h2>
-                    <p>Join 10,000+ readers exploring the sacred union of humanity and dragonkind</p>
-                    <button class="btn btn-primary btn-huge pulse" onclick="showEmailModal()">
-                        <span class="btn-icon">✨</span>
-                        Get 3 FREE Chapters Now
-                    </button>
-                    <p class="cta-subtitle">No credit card required • Instant access • Cancel anytime</p>
-                </div>
-            </div>
-        </section>
 
         <section id="reader" class="reader-section hidden">
             <div class="reader-container">
@@ -693,6 +626,256 @@
         </section>
 
 
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">QUESTIONS ANSWERED</span>
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Everything you need to know about The Dragon Bible</p>
+                </div>
+
+                <div class="faq-grid">
+                    <div class="faq-category">
+                        <h3 class="faq-category-title">📖 About the Content</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>What exactly is The Dragon Bible?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>The Dragon Bible is a complete reimagining of sacred texts (Genesis, Exodus, Enoch, Gnostic texts, and more) through the lens of dragon mythology. It explores the premise that humanity and dragonkind were once one unified being, and these ancient texts contain hidden clues about that lost unity.</p>
+                                <p>It's not a religious text - it's creative mythology that reveals new layers of meaning in familiar stories.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Is this a religious text or fantasy fiction?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Neither - and both! The Dragon Bible is <strong>mythological reinterpretation</strong>. Think of it like Joseph Campbell meets fantasy literature. It takes familiar biblical stories and recontextualizes them through dragon symbolism found in cultures worldwide.</p>
+                                <p>It's designed for seekers interested in comparative mythology, depth psychology (Jung), alternative spirituality, and creative interpretation of ancient wisdom.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>How many chapters are available?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Currently <strong>50+ chapters</strong> across 7 sacred books:</p>
+                                <ul>
+                                    <li>Genesis (10 chapters)</li>
+                                    <li>Exodus (3 chapters)</li>
+                                    <li>Book of Enoch (3 chapters)</li>
+                                    <li>Nag Hammadi texts (multiple)</li>
+                                    <li>Gospel of Judas (complete)</li>
+                                    <li>Psalms (2 chapters)</li>
+                                    <li>Revelation (3 chapters)</li>
+                                </ul>
+                                <p>New chapters added regularly. Premium members get early access.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Who wrote this?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>The Dragon Bible was created by Noah Wilson, a mythology enthusiast and creative writer who spent two years reimagining sacred texts through dragon mythology. Every verse is original work inspired by traditional texts.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-category">
+                        <h3 class="faq-category-title">💳 Pricing & Access</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Is there a free trial?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! You get <strong>3 chapters completely free</strong> (Genesis 1-3) with no credit card required. Just enter your email to start reading immediately.</p>
+                                <p>Premium subscriptions also include a <strong>7-day free trial</strong> with full access to all content.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>What's the difference between the pricing tiers?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p><strong>Free:</strong> 3 chapters, basic audio, community comments (read-only)</p>
+                                <p><strong>Monthly ($9.99):</strong> All 50+ chapters, premium audio, downloads, ad-free, full community access, priority support</p>
+                                <p><strong>Annual ($79):</strong> Same as Monthly but save $40/year (33% off!)</p>
+                                <p><strong>Lifetime ($99):</strong> Pay once, own forever. Includes ALL future content + exclusive perks</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Can I cancel anytime?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Absolutely! Monthly and Annual subscriptions can be canceled anytime from your account settings. No questions asked. You'll retain access until the end of your billing period.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Do you offer refunds?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! We offer a <strong>30-day money-back guarantee</strong>. If you're not satisfied for any reason within 30 days of purchase, email us and we'll refund you in full. No questions asked.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Is my payment information secure?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>100%. We use Stripe, the industry standard for secure payment processing. We never see or store your credit card information. All transactions are encrypted with bank-level security.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-category">
+                        <h3 class="faq-category-title">🎧 Features & Experience</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Does it include audio narration?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! Every chapter includes audio narration. Free users get basic text-to-speech. Premium members get enhanced audio with professional voice quality, background music, and downloadable MP3s.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Can I download chapters for offline reading?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Premium members can download chapters as PDFs or EPUBs for offline reading on any device. Perfect for flights, commutes, or reading without internet connection.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>What's the Dragon Quiz?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>The Dragon Quiz is a personality assessment that reveals your dragon archetype: Fire, Water, Earth, Air, or Storm Dragon. It takes 2 minutes and gives you personalized chapter recommendations based on your type. It's fun and surprisingly accurate!</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Can I share this with friends or family?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Free chapters can be shared with anyone! For premium content, each person needs their own subscription. However, we have a <strong>referral program</strong> - share your unique link and when friends subscribe, you BOTH get 1 month free!</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Is there a community or discussion forum?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! We have:</p>
+                                <ul>
+                                    <li>Chapter comments on every page</li>
+                                    <li>Private Discord server for premium members</li>
+                                    <li>Weekly live discussions</li>
+                                    <li>Monthly Q&As with the author</li>
+                                </ul>
+                                <p>Join 10,000+ dragon seekers exploring mythology together!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-category">
+                        <h3 class="faq-category-title">❓ Other Questions</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Will more content be added?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Absolutely! New chapters are added regularly. The goal is to complete all 66 books of the Bible plus additional texts (Jasher, Jubilees, more Gnostic texts). Premium members get new content 2 weeks before it's released publicly.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Can I use this for academic study or book clubs?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! Many book clubs, mythology classes, and spiritual study groups use Dragon Bible. We offer group discounts for 10+ members and can provide discussion guides. Email us for details.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Is there a mobile app?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Not yet, but coming soon! The website is fully mobile-responsive and works great on phones and tablets. You can even add it to your home screen for an app-like experience. Native iOS and Android apps are in development.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>Who is this for?</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>The Dragon Bible is perfect for:</p>
+                                <ul>
+                                    <li>Mythology enthusiasts</li>
+                                    <li>Spiritual seekers exploring alternative paths</li>
+                                    <li>Fantasy readers who love deep lore</li>
+                                    <li>Jung readers interested in archetypes</li>
+                                    <li>Creative writers seeking inspiration</li>
+                                    <li>Anyone curious about dragon symbolism across cultures</li>
+                                </ul>
+                                <p>If you're open-minded and curious, you'll love it.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>I have another question not listed here.</span>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We're here to help! Email us at <a href="mailto:mr.noahwilson@gmail.com">mr.noahwilson@gmail.com</a> or use the live chat in the bottom right corner. We typically respond within 24 hours.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <footer class="site-footer">
             <div class="container">
@@ -707,7 +890,10 @@
                         <p class="tagline">Where humanity remembers its wings</p>
                     </div>
                     <div class="footer-links">
-                        <a href="#books">Books</a>
+                        <a href="#books">Lore Compendium</a>
+                        <a href="cosmology.html">Cosmology</a>
+                        <a href="lore-oracle.html">AI Lore Oracle</a>
+                        <a href="blog.html">Journal</a>
                         <a href="#about">About</a>
                         <a href="privacy.html">Privacy Policy</a>
                         <a href="terms.html">Terms of Service</a>
@@ -716,7 +902,7 @@
                 </div>
                 
                 <div class="footer-copyright">
-                    <p>&copy; 2024 The Dragon Bible by Noah Wilson. All rights reserved. | This site uses cookies and Google AdSense for advertising.</p>
+                    <p>&copy; 2025 The Dragon Bible by Noah Wilson. All rights reserved.</p>
                 </div>
             </div>
         </footer>
@@ -826,10 +1012,12 @@
                 </ul>
             </div>
 
-            <div class="payment-notice">
-                <p>🚧 Payment processing coming soon! We're integrating Stripe for secure payments.</p>
-                <p>In the meantime, <strong>enjoy full free access to all content.</strong></p>
-                <button class="btn btn-primary btn-large" onclick="closePaymentModal()">Continue Exploring</button>
+            <div class="payment-form">
+                <button class="btn btn-primary btn-large" id="checkoutButton" onclick="handleCheckout()">
+                    <span class="btn-icon">🔒</span>
+                    Complete Secure Checkout
+                </button>
+                <p class="payment-security">🔐 Secure payment powered by Stripe • Your data is encrypted</p>
             </div>
 
             <p class="modal-note">Questions? Email us at mr.noahwilson@gmail.com</p>
@@ -973,6 +1161,18 @@
 
     <!-- Analytics -->
     <script src="analytics.js"></script>
+    
+    <!-- Payment Integration -->
+    <script src="payment.js"></script>
+    
+    <!-- Search System -->
+    <script src="search.js"></script>
+    
+    <!-- Social Proof & Urgency -->
+    <script src="social-proof.js"></script>
+    
+    <!-- Referral System -->
+    <script src="referral.js"></script>
     
     <!-- Load script at the very end -->
     <script src="script.js"></script>

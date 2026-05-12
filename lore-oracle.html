@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Dragon Bible Lore Oracle — an AI assistant with the complete Dragon Bible cosmology loaded as context. Ask in-world questions and get answers consistent with the setting's metaphysics. Available to DM subscribers.">
+    <meta property="og:title" content="Dragon Bible Lore Oracle | AI Lore Assistant for Dungeon Masters">
+    <meta property="og:description" content="Ask the Dragon Bible any in-world question. Get in-character answers consistent with the Hermetic and Gnostic cosmology of the Dragon Bible setting.">
+    <title>Dragon Bible Lore Oracle | AI Lore Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .oracle-page {
+            background: var(--bg-dark, #0d0505);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .oracle-page-hero {
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(139, 0, 0, 0.12) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+        }
+        .oracle-page-hero .section-label {
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .oracle-page-hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #f5e6d0;
+            margin-bottom: 1.25rem;
+        }
+        .oracle-page-hero p {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            color: #b8a898;
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .oracle-main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 3rem;
+            align-items: start;
+        }
+        @media (max-width: 768px) {
+            .oracle-main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Chat Interface */
+        .oracle-chat-container {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .oracle-chat-header {
+            background: rgba(139, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .oracle-chat-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #f5e6d0;
+            letter-spacing: 0.05em;
+        }
+        .oracle-status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.85rem;
+            color: #8b7d6b;
+        }
+        .oracle-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #8b0000;
+        }
+        .oracle-status-dot.active {
+            background: #4a9;
+            box-shadow: 0 0 6px rgba(74, 153, 102, 0.5);
+        }
+        .oracle-messages {
+            padding: 1.5rem;
+            min-height: 400px;
+            max-height: 560px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .message {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .message-speaker {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .message-dm .message-speaker {
+            color: #8b7d6b;
+        }
+        .message-oracle .message-speaker {
+            color: #8b0000;
+        }
+        .message-bubble {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            padding: 0.9rem 1.1rem;
+            border-radius: 6px;
+        }
+        .message-dm .message-bubble {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #c8b8a8;
+        }
+        .message-oracle .message-bubble {
+            background: rgba(139, 0, 0, 0.08);
+            border: 1px solid rgba(139, 0, 0, 0.15);
+            color: #d4c4b0;
+        }
+        .oracle-input-area {
+            border-top: 1px solid rgba(139, 0, 0, 0.2);
+            padding: 1.25rem 1.5rem;
+        }
+        .oracle-input-form {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .oracle-input {
+            flex: 1;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(139, 0, 0, 0.25);
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            color: #f5e6d0;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .oracle-input::placeholder {
+            color: #6b5d4f;
+        }
+        .oracle-input:focus {
+            border-color: rgba(139, 0, 0, 0.5);
+        }
+        .oracle-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .oracle-send-btn {
+            background: #8b0000;
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem 1.25rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #f5e6d0;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .oracle-send-btn:hover:not(:disabled) {
+            background: #a50000;
+        }
+        .oracle-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .oracle-gate-notice {
+            padding: 1.5rem;
+            text-align: center;
+            font-family: 'Crimson Pro', serif;
+            color: #8b7d6b;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(139, 0, 0, 0.15);
+        }
+        .oracle-gate-notice a {
+            color: #d4a96a;
+        }
+
+        /* Suggested questions */
+        .suggested-questions {
+            margin-top: 1rem;
+        }
+        .suggested-questions p {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6b5d4f;
+            margin-bottom: 0.5rem;
+        }
+        .question-chip {
+            display: inline-block;
+            background: rgba(139, 0, 0, 0.08);
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            border-radius: 3px;
+            padding: 0.3rem 0.7rem;
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.9rem;
+            color: #b8a898;
+            cursor: pointer;
+            margin: 0.25rem 0.25rem 0.25rem 0;
+            transition: all 0.2s;
+        }
+        .question-chip:hover {
+            background: rgba(139, 0, 0, 0.15);
+            color: #d4a96a;
+            border-color: rgba(139, 0, 0, 0.4);
+        }
+
+        /* Sidebar */
+        .oracle-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .oracle-info-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(139, 0, 0, 0.15);
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+        .oracle-info-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #8b0000;
+            margin-bottom: 1rem;
+        }
+        .oracle-info-card p {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: #b8a898;
+            margin-bottom: 0.75rem;
+        }
+        .oracle-info-card p:last-child {
+            margin-bottom: 0;
+        }
+        .oracle-info-card ul {
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.95rem;
+            color: #b8a898;
+            padding-left: 1.25rem;
+            line-height: 1.7;
+        }
+        .oracle-info-card ul li {
+            margin-bottom: 0.35rem;
+        }
+        .oracle-sub-cta {
+            background: rgba(139, 0, 0, 0.08);
+            border: 1px solid rgba(139, 0, 0, 0.25);
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .oracle-sub-cta h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f5e6d0;
+            margin-bottom: 0.75rem;
+        }
+        .oracle-sub-cta p {
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.95rem;
+            color: #b8a898;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+        .oracle-sub-cta .price-display {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #f5e6d0;
+            margin-bottom: 0.25rem;
+        }
+        .oracle-sub-cta .price-period {
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.9rem;
+            color: #8b7d6b;
+            margin-bottom: 1.25rem;
+        }
+        .typing-indicator {
+            display: none;
+            gap: 4px;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        .typing-indicator.visible {
+            display: flex;
+        }
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #8b0000;
+            animation: typing-pulse 1.2s infinite;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing-pulse {
+            0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1); }
+        }
+        .demo-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #6b5d4f;
+            text-align: center;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper oracle-page">
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:0.5rem;">
+                        <span class="dragon-icon">🐉</span>
+                        <span class="logo-text">Dragon Bible</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="cosmology.html">Cosmology</a>
+                    <a href="index.html#books">Lore Compendium</a>
+                    <a href="lore-oracle.html" style="color: #d4a96a;">AI Lore Oracle</a>
+                    <a href="blog.html">Journal</a>
+                    <a href="index.html#pricing">Subscribe</a>
+                    <button class="btn btn-nav-cta" onclick="window.location.href='index.html#pricing'">DM Access</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="oracle-page-hero">
+            <span class="section-label">THE DRAGON BIBLE LORE ORACLE</span>
+            <h1>An AI That Knows the Dragon Bible</h1>
+            <p>Ask the Oracle any in-world question — factions, cosmology, NPC motivations, encounter context — and get answers that stay consistent with the Dragon Bible's Hermetic and Gnostic metaphysics. No lore breaks. No invented answers outside the canon.</p>
+        </div>
+
+        <div class="oracle-main">
+            <!-- Chat Interface -->
+            <div>
+                <div class="oracle-chat-container">
+                    <div class="oracle-chat-header">
+                        <span class="oracle-chat-title">Dragon Bible Lore Oracle</span>
+                        <div class="oracle-status-indicator">
+                            <div class="oracle-status-dot" id="statusDot"></div>
+                            <span id="statusText">Demo Mode</span>
+                        </div>
+                    </div>
+
+                    <div class="oracle-messages" id="chatMessages">
+                        <!-- Initial oracle message -->
+                        <div class="message message-oracle">
+                            <span class="message-speaker">Oracle</span>
+                            <div class="message-bubble">
+                                I am the Dragon Bible Lore Oracle. I have been given the complete cosmological record: the canonical texts, the faction dossiers, the metaphysical principles of the Hermetic and Gnostic framework that underlies this world. Ask me anything about the Dragon Bible setting and I will answer from within it. If your question falls outside documented lore, I will say so rather than invent an answer.<br><br>
+                                What would you know, Dungeon Master?
+                            </div>
+                        </div>
+
+                        <!-- Typing indicator -->
+                        <div class="typing-indicator" id="typingIndicator">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="oracle-input-area">
+                        <div class="suggested-questions" id="suggestedQuestions">
+                            <p>Try asking:</p>
+                            <span class="question-chip" onclick="askQuestion(this.textContent)">What is the Separation Event?</span>
+                            <span class="question-chip" onclick="askQuestion(this.textContent)">Who are the Watchers?</span>
+                            <span class="question-chip" onclick="askQuestion(this.textContent)">What does dragon fire color mean?</span>
+                            <span class="question-chip" onclick="askQuestion(this.textContent)">What do the Architects of Separation want?</span>
+                            <span class="question-chip" onclick="askQuestion(this.textContent)">How does ophidian gnosis work?</span>
+                        </div>
+
+                        <div class="oracle-input-form" id="inputForm">
+                            <input type="text" class="oracle-input" id="oracleInput" placeholder="Ask a lore question..." maxlength="500" />
+                            <button class="oracle-send-btn" id="sendBtn" onclick="handleOracleQuery()">Ask</button>
+                        </div>
+                        <div class="demo-label" id="demoLabel">Demo — 3 free questions. Full access with DM Subscription.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="oracle-sidebar">
+                <div class="oracle-sub-cta">
+                    <h3>Unlock Full Oracle Access</h3>
+                    <p>The demo gives you a taste. Subscribers get unlimited queries, full faction context, NPC motivations, encounter suggestions, and Oracle updates as new lore is published.</p>
+                    <div class="price-display">$5</div>
+                    <div class="price-period">per month — cancel anytime</div>
+                    <button class="btn btn-primary btn-large" style="width:100%;" onclick="window.location.href='index.html#pricing'">
+                        <span class="btn-icon">🐉</span>
+                        Subscribe
+                    </button>
+                    <p style="margin-top:1rem; font-family:'Crimson Pro',serif; font-size:0.85rem; color:#6b5d4f;">Or $40 one-time for lifetime access.</p>
+                </div>
+
+                <div class="oracle-info-card">
+                    <h3>What the Oracle Knows</h3>
+                    <ul>
+                        <li>Complete cosmogony (Primordial Flame → Separation Event → current state)</li>
+                        <li>All four cosmological layers and their rules</li>
+                        <li>Faction motivations and internal politics</li>
+                        <li>Canonical texts (Genesis, Enoch, Exodus, Nag Hammadi, Judas, Psalms, Revelation)</li>
+                        <li>NPC archetypes with in-world motivations</li>
+                        <li>Encounter context keyed to faction and layer</li>
+                        <li>5e mechanical suggestions consistent with lore</li>
+                    </ul>
+                </div>
+
+                <div class="oracle-info-card">
+                    <h3>How It Works</h3>
+                    <p>The Oracle is a Claude-powered assistant with the full Dragon Bible lore compendium injected as context. It operates with a custom system prompt that keeps it in-world and instructs it to flag gaps in documented lore rather than invent answers.</p>
+                    <p>It is not a general-purpose AI assistant. It knows this world and only this world — which is what makes it useful at the table.</p>
+                </div>
+
+                <div class="oracle-info-card">
+                    <h3>Read the Cosmology</h3>
+                    <p>If you want to understand the framework before querying it, the full cosmology document is publicly available.</p>
+                    <a href="cosmology.html" class="btn btn-secondary" style="display:block; text-align:center; text-decoration:none; margin-top:0.5rem;">Read the Cosmology</a>
+                </div>
+            </aside>
+        </div>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <span class="dragon-icon">🐉</span>
+                        <p>The Dragon Bible</p>
+                        <p class="tagline">Where humanity remembers its wings</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="cosmology.html">Cosmology</a>
+                        <a href="index.html#books">Lore Compendium</a>
+                        <a href="lore-oracle.html">AI Lore Oracle</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="mailto:mr.noahwilson@gmail.com">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 The Dragon Bible by Noah Wilson. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Demo responses — short-circuits the API for the free demo questions.
+        // When subscription is implemented, replace with actual API call.
+
+        const DEMO_LIMIT = 3;
+        let demoQueriesUsed = 0;
+        let isWaiting = false;
+
+        const demoResponses = {
+            "what is the separation event": `The Separation Event is the cosmological catastrophe that defines the Dragon Bible setting. Before it, there was one consciousness — the Primordial Flame — that was neither dragon nor human in any recognizable sense, but undivided, integrated, total.
+
+The Separation occurred along the axis of the Flame's two primary capacities: dragon-nature (fire, will, direct knowing, the eternal) and human-nature (form, reason, temporal experience, the embodied). The result was the cosmos as it currently exists: two expressions of a once-unified consciousness, now operating in conditions of mutual forgetting.
+
+Three factions interpret this differently. The Demiurgic School holds it was caused by an organizing intelligence that began treating its own categories as real separations. The Voluntarist School holds the Flame chose it as a necessary stage of self-knowledge. The Accident School — the Watchers' tradition — holds it was a structural resonance collapse with no teleological meaning.
+
+Which interpretation a character holds tells you everything about their goals. What would you know of its implications for your campaign?`,
+
+            "who are the watchers": `The Watchers — the Irin of the Enochian corpus — are semi-autonomous dragon-consciousness entities who dwell in the Enochian Meridian, the second cosmological layer. They have not fully ascended to the Empyrean nor descended to the Material Plane.
+
+Their defining characteristic is paradoxical: they remember the Primordial Flame clearly enough to recognize the Separation as a wound, but have not found the mechanism for repair. This partial-memory is their tragedy and their power. They are drawn to human gnosis-seekers — humans who have begun to remember their dragon-nature — because such humans are evidence that reunion is possible.
+
+Their descent to the Material Plane as described in the Enochian corpus was not rebellion. It was resonance — they were drawn toward the daughters of humanity because they saw in them the mirror of what had been lost in themselves. The offspring of these unions, the Nephilim, are the most politically complex entities in the setting: they carry both natures in a single form, which is either the greatest hope or the greatest threat, depending on which faction you ask.
+
+The Watchers currently operate as advisors, intermediaries, and occasionally as agents of destabilization when the Architects of Separation push too hard against the possibility of reunification.`,
+
+            "what does dragon fire color mean": `Dragon fire color is a direct readout of a dragon's cosmological state — specifically, how close to or far from the Primordial Flame their consciousness currently operates.
+
+White-gold fire indicates a dragon operating near the Empyrean layer — near-total integration, high gnosis, ancient. These dragons are rare in the Material Plane because their consciousness is barely compatible with full physical form. When they do appear there, their fire does not burn matter so much as illuminate it.
+
+Deep red fire is the fire of engaged will — dragons operating fully in the Material Plane with purpose. Most bonded dragons, Dragon Riders' mounts, and politically active dragons burn in this range.
+
+Green or blue fire indicates a dragon with significant Enochian Meridian attunement — Watcher-adjacent, often possessing cross-layer perception. These dragons frequently serve as messengers or seers.
+
+Black or grey fire marks a dragon that has descended deep into the Residual Depths — the lowest layer, formed from the pressure of the Separation Event. This is not evil in a moral sense, but it is ontologically dangerous. These dragons have forgotten their human-nature almost entirely and operate on pure draconic instinct at its most primordial.
+
+At your table: fire color should be immediately visible and narratively significant. When players see a grey-fire dragon, they should understand something has gone deeply wrong in this creature's cosmological trajectory.`,
+
+            "what do the architects of separation want": `The Architects of Separation want the Separation maintained — and they have persuaded themselves this is a moral position, not merely a political one.
+
+Their argument is coherent. They believe, based on evidence they consider compelling, that premature or forced reunification of dragon and human consciousness would not restore the Primordial Flame but collapse both expressions of it. The Separation, in their view, created a structural equilibrium. Destroy the walls and both sides flood into each other and drown.
+
+Their leader — the Keeper of the Sevenfold Seal, who has held the separation protocols in place for seventeen generations — is not a villain who knows he is a villain. He has watched sincere, well-intentioned reunification attempts fail catastrophically. He believes the Voluntarist School's eschatology is a beautiful story that will get everyone killed.
+
+What makes them dramatically interesting: they are not wrong about the danger. A badly-executed reunification attempt is genuinely catastrophic in this cosmology. They are wrong about the ethics of maintaining the Separation as a permanent solution — but the wrongness is subtle, not obvious.
+
+For DMs: the Architects work best as opponents who the players eventually understand rather than simply defeat. Their institutional knowledge of what goes wrong is actually valuable. The question is whether that knowledge is being used to prevent harm or to prevent change.`,
+
+            "how does ophidian gnosis work": `Ophidian gnosis is the tradition associated with serpentine and wyrm-form entities — the limbless dragons — in the Dragon Bible cosmology. It is distinct from the Dragon Rider tradition and from Watcher lore, though it intersects with both.
+
+The core principle: the ophidian forms exist in a liminal state between the separated and integrated conditions. A wyrm is neither the fully embodied dragon of the Material Plane nor the pure fire-consciousness of the Empyrean. It moves through all layers with unusual ease because it has never fully committed to the dense corporeality of four-limbed, winged dragon form. This liminality is not weakness — it is function.
+
+Ophidian gnosis, as a practice, means cultivating the capacity to dissolve false boundaries. What the serpent-form can do physically — pass through narrow places, shed and renew its covering — the practitioner learns to do cognitively and ontologically. The "poison" of ophidian entities in the Dragon Bible is precisely this: it dissolves the rigid categorical thinking that the Demiurgic Separation instilled. Contact with an ophidian entity of sufficient power can shatter a character's certainty about which side of any boundary they are on.
+
+This is why the Architects of Separation regard ophidian entities with particular hostility. Not because they are dangerous in the conventional sense, but because their mere presence is corrosive to the conceptual infrastructure of the Separation.
+
+For DMs: ophidian gnosis practitioners make excellent mystery-cult NPCs — groups that claim to facilitate gnosis through controlled dissolution of identity. Whether this is liberation or dangerous destabilization is a campaign question.`
+        };
+
+        function normalizeQuestion(q) {
+            return q.toLowerCase().replace(/[?!.,]/g, '').trim();
+        }
+
+        function findDemoResponse(question) {
+            const normalized = normalizeQuestion(question);
+            for (const [key, value] of Object.entries(demoResponses)) {
+                if (normalized.includes(key) || key.includes(normalized.substring(0, 20))) {
+                    return value;
+                }
+            }
+            // Default response for unknown questions in demo mode
+            if (demoQueriesUsed < DEMO_LIMIT) {
+                return `That question touches on lore that is either in development or outside the scope of this demo. The full Oracle — available to DM subscribers — has access to the complete faction dossiers, the extended cosmological record, and the canonical texts in their entirety.
+
+For what is publicly documented: the cosmological framework (Primordial Flame, Separation Event, four layers, major factions) is available at <a href="cosmology.html" style="color:#d4a96a;">the Cosmology page</a>. The full Oracle can answer questions that go significantly deeper.`;
+            }
+            return null;
+        }
+
+        function addMessage(speaker, text, isOracle = false) {
+            const container = document.getElementById('chatMessages');
+            const typingIndicator = document.getElementById('typingIndicator');
+
+            const div = document.createElement('div');
+            div.className = `message ${isOracle ? 'message-oracle' : 'message-dm'}`;
+            div.innerHTML = `
+                <span class="message-speaker">${speaker}</span>
+                <div class="message-bubble">${text.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</div>
+            `;
+
+            container.insertBefore(div, typingIndicator);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showTyping(show) {
+            const indicator = document.getElementById('typingIndicator');
+            indicator.className = show ? 'typing-indicator visible' : 'typing-indicator';
+            if (show) {
+                document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+            }
+        }
+
+        function setInputEnabled(enabled) {
+            document.getElementById('oracleInput').disabled = !enabled;
+            document.getElementById('sendBtn').disabled = !enabled;
+        }
+
+        async function handleOracleQuery() {
+            if (isWaiting) return;
+
+            const input = document.getElementById('oracleInput');
+            const question = input.value.trim();
+            if (!question) return;
+
+            // Clear suggested questions on first use
+            const suggested = document.getElementById('suggestedQuestions');
+            if (suggested) suggested.style.display = 'none';
+
+            if (demoQueriesUsed >= DEMO_LIMIT) {
+                addMessage('Oracle', `You have used all ${DEMO_LIMIT} demo queries. Full access to the Oracle — unlimited queries, complete faction dossiers, encounter suggestions — is available with a DM Subscription.<br><br><a href="index.html#pricing" style="color:#d4a96a;">Subscribe for $5/month →</a>`, true);
+                setInputEnabled(false);
+                input.value = '';
+                document.getElementById('demoLabel').style.display = 'none';
+                document.getElementById('statusDot').className = 'oracle-status-dot';
+                document.getElementById('statusText').textContent = 'Demo Limit Reached';
+                return;
+            }
+
+            input.value = '';
+            isWaiting = true;
+            setInputEnabled(false);
+
+            addMessage('Dungeon Master', question, false);
+
+            showTyping(true);
+            document.getElementById('statusDot').className = 'oracle-status-dot active';
+            document.getElementById('statusText').textContent = 'Consulting the lore...';
+
+            // Simulate thinking delay (1.5–3s)
+            const delay = 1500 + Math.random() * 1500;
+            await new Promise(resolve => setTimeout(resolve, delay));
+
+            showTyping(false);
+
+            const response = findDemoResponse(question);
+            demoQueriesUsed++;
+
+            const remaining = DEMO_LIMIT - demoQueriesUsed;
+            const demoLabel = document.getElementById('demoLabel');
+
+            if (remaining <= 0) {
+                demoLabel.textContent = 'Demo limit reached. Subscribe for unlimited Oracle access.';
+                document.getElementById('statusDot').className = 'oracle-status-dot';
+                document.getElementById('statusText').textContent = 'Demo — 0 questions remaining';
+            } else {
+                demoLabel.textContent = `Demo — ${remaining} question${remaining === 1 ? '' : 's'} remaining. Full access with DM Subscription.`;
+                document.getElementById('statusDot').className = 'oracle-status-dot active';
+                document.getElementById('statusText').textContent = `Demo — ${remaining} remaining`;
+            }
+
+            addMessage('Oracle', response || `That falls outside the scope of this demo. The full Oracle has the complete cosmological record. <a href="index.html#pricing" style="color:#d4a96a;">Subscribe for full access →</a>`, true);
+
+            isWaiting = false;
+            setInputEnabled(remaining > 0);
+        }
+
+        function askQuestion(text) {
+            const input = document.getElementById('oracleInput');
+            input.value = text;
+            handleOracleQuery();
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('oracleInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleOracleQuery();
+            }
+        });
+
+        // Navbar scroll effect (minimal version for this page)
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(13, 5, 5, 0.98)';
+                navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
+            } else {
+                navbar.style.background = 'rgba(13, 5, 5, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

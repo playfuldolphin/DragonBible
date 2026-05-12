@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Dragon Bible Cosmology — a complete metaphysical framework built on Hermetic and Gnostic foundations. Explore the Primordial Flame, the Demiurgic Separation, the cosmological layers, and the factions that define the Dragon Bible setting.">
+    <meta property="og:title" content="Dragon Bible Cosmology | Hermetic & Gnostic Worldbuilding">
+    <meta property="og:description" content="The full cosmological framework of the Dragon Bible setting — built publicly. Primordial Flame, Demiurgic Separation, dragon-human metaphysics.">
+    <title>Dragon Bible Cosmology | The Metaphysical Framework</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .cosmo-page {
+            background: var(--bg-dark, #0d0505);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .cosmo-hero {
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(139, 0, 0, 0.15) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+        }
+        .cosmo-hero .section-label {
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .cosmo-hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #f5e6d0;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .cosmo-hero p {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.25rem;
+            color: #b8a898;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .cosmo-content {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+        .cosmo-section {
+            margin-bottom: 5rem;
+        }
+        .cosmo-section-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #8b0000;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .cosmo-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+            color: #f5e6d0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+            padding-bottom: 1rem;
+        }
+        .cosmo-section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #d4a96a;
+            margin: 2rem 0 0.75rem;
+        }
+        .cosmo-section p {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #c8b8a8;
+            margin-bottom: 1.25rem;
+        }
+        .cosmo-section ul {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #c8b8a8;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .cosmo-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        .cosmo-section ul li strong {
+            color: #d4a96a;
+        }
+        .cosmo-principle {
+            background: rgba(139, 0, 0, 0.08);
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            border-left: 3px solid #8b0000;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .cosmo-principle .principle-name {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #8b0000;
+            margin-bottom: 0.4rem;
+        }
+        .cosmo-principle p {
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+        .layer-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(139, 0, 0, 0.15);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .layer-card .layer-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f5e6d0;
+            margin-bottom: 0.25rem;
+        }
+        .layer-card .layer-nature {
+            font-size: 0.85rem;
+            color: #8b0000;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+        .layer-card p {
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+        .faction-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(139, 0, 0, 0.15);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .faction-card .faction-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f5e6d0;
+            margin-bottom: 0.25rem;
+        }
+        .faction-card .faction-alignment {
+            font-size: 0.8rem;
+            color: #d4a96a;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .faction-card p {
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+        .wip-note {
+            background: rgba(212, 169, 106, 0.08);
+            border: 1px solid rgba(212, 169, 106, 0.2);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            color: #d4a96a;
+            margin: 2rem 0;
+        }
+        .wip-note strong {
+            color: #d4a96a;
+        }
+        .cosmo-nav {
+            position: sticky;
+            top: 90px;
+        }
+        .cosmo-layout {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+            align-items: start;
+        }
+        .cosmo-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+        .cosmo-sidebar h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #8b0000;
+            margin-bottom: 1rem;
+        }
+        .cosmo-sidebar a {
+            display: block;
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.95rem;
+            color: #8b7d6b;
+            text-decoration: none;
+            padding: 0.3rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+            transition: all 0.2s;
+        }
+        .cosmo-sidebar a:hover {
+            color: #d4a96a;
+            border-left-color: #8b0000;
+        }
+        @media (max-width: 768px) {
+            .cosmo-layout {
+                grid-template-columns: 1fr;
+            }
+            .cosmo-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper cosmo-page">
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:0.5rem;">
+                        <span class="dragon-icon">🐉</span>
+                        <span class="logo-text">Dragon Bible</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="cosmology.html" style="color: #d4a96a;">Cosmology</a>
+                    <a href="index.html#books">Lore Compendium</a>
+                    <a href="lore-oracle.html">AI Lore Oracle</a>
+                    <a href="blog.html">Journal</a>
+                    <a href="index.html#pricing">Subscribe</a>
+                    <button class="btn btn-nav-cta" onclick="window.location.href='index.html#pricing'">DM Access</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="cosmo-hero">
+            <span class="section-label">WORLDBUILDING JOURNAL — COSMOLOGY</span>
+            <h1>The Metaphysical Framework of the Dragon Bible</h1>
+            <p>A complete cosmological system grounded in Hermetic and Gnostic principles, documented publicly as the setting develops. This is the living architecture of the world — not background flavor, but structural metaphysics that determines how everything in the Dragon Bible works.</p>
+        </div>
+
+        <div class="cosmo-layout">
+            <aside class="cosmo-sidebar">
+                <h4>Contents</h4>
+                <a href="#foundations">Philosophical Foundations</a>
+                <a href="#primordial">The Primordial Flame</a>
+                <a href="#separation">The Separation Event</a>
+                <a href="#layers">Cosmological Layers</a>
+                <a href="#factions">The Factions</a>
+                <a href="#metaphysics">Key Metaphysics</a>
+                <a href="#for-dms">For Dungeon Masters</a>
+            </aside>
+
+            <main class="cosmo-content" style="padding: 0;">
+
+                <div class="wip-note">
+                    <strong>Living Document.</strong> This cosmology is being built and documented publicly. Sections marked as in development will be expanded as the lore develops. The framework below is stable; the detail layers are ongoing.
+                </div>
+
+                <!-- Philosophical Foundations -->
+                <section class="cosmo-section" id="foundations">
+                    <span class="cosmo-section-label">I. Foundations</span>
+                    <h2>Philosophical Underpinnings</h2>
+                    <p>The Dragon Bible setting is not invented mythology — it is constructed mythology. The cosmological framework draws explicitly from two esoteric traditions, and the setting's metaphysics are direct expressions of their principles rather than decorative references.</p>
+
+                    <h3>Hermeticism</h3>
+                    <p>The Hermetic tradition — encapsulated in the Corpus Hermeticum and the Emerald Tablet — provides the structural logic of the Dragon Bible cosmos. Its core operating principle: what exists in one layer of reality corresponds to and affects what exists in every other layer. The celestial realms and the material world are not separate — they are the same pattern at different densities.</p>
+
+                    <div class="cosmo-principle">
+                        <div class="principle-name">The Hermetic Correspondence</div>
+                        <p>As the Dragon Realms above, so the Material World below. Every dragon archetype has a corresponding human archetype. Every cosmological event has a corresponding historical event in the mundane world. The Dragon Bible is a setting where the Hermetic axiom is structurally literal — DMs can extrapolate downward from the cosmological framework to generate consistent world events.</p>
+                    </div>
+
+                    <h3>Gnosticism</h3>
+                    <p>The Gnostic tradition provides the moral and narrative architecture. In classical Gnostic cosmogony, the material world was not created by a benevolent supreme god — it was created by a lesser, flawed divine being (the Demiurge) who either misunderstood or distorted the original divine emanation. The material world is therefore a kind of mistake — or a trap — and gnosis (direct knowledge of one's divine origin) is the means of escape.</p>
+
+                    <div class="cosmo-principle">
+                        <div class="principle-name">The Gnostic Adaptation</div>
+                        <p>In the Dragon Bible, the Demiurge is not a separate entity but the aftermath of the Separation Event — the residual organizing intelligence of a cosmos that has forgotten its own unity. The Demiurge is not malevolent in the traditional Gnostic sense; it is amnesiac. Its impulse to separate and categorize and control is not evil — it is the mechanical result of a consciousness that has lost access to its integrated state. This is a more nuanced and more interesting antagonist.</p>
+                    </div>
+                </section>
+
+                <!-- The Primordial Flame -->
+                <section class="cosmo-section" id="primordial">
+                    <span class="cosmo-section-label">II. Origin State</span>
+                    <h2>The Primordial Flame</h2>
+                    <p>Before the cosmos as it exists now, there was one consciousness — the Primordial Flame. It was neither dragon nor human in any sense that would be recognizable to either. It was undifferentiated, integrated, total. It knew itself completely.</p>
+                    <p>The Primordial Flame is the setting's analog to both the Hermetic <em>All</em> and the Gnostic Pleroma — the fullness of divine being before any emanation or separation. It is not a god in the conventional sense. It is a state of consciousness that once was and, according to the eschatology of the setting, may be again.</p>
+
+                    <h3>Key Properties</h3>
+                    <ul>
+                        <li><strong>Non-dual:</strong> The Primordial Flame contains no internal distinctions — dragon/human, spirit/matter, creation/destruction are all aspects of a single undivided thing.</li>
+                        <li><strong>Self-knowing:</strong> The Flame's defining property is complete self-awareness. Its "thought" and its "being" are identical.</li>
+                        <li><strong>Generative:</strong> The Flame did not decide to create — creation emerged from its nature the way light emerges from fire. The cosmos is not made but emanated.</li>
+                        <li><strong>Still present:</strong> The Primordial Flame is not gone. It is the deep substrate of every consciousness in the setting — dragon, human, Nephilim, or otherwise. Gnosis in this setting means remembering the Flame that underlies one's divided nature.</li>
+                    </ul>
+                </section>
+
+                <!-- The Separation Event -->
+                <section class="cosmo-section" id="separation">
+                    <span class="cosmo-section-label">III. The Central Event</span>
+                    <h2>The Separation Event</h2>
+                    <p>The Separation Event is the cosmological catastrophe that defines everything in the Dragon Bible setting. It is not a fall, exactly — it is more like a fracture. The integrated consciousness of the Primordial Flame divided along the axis of its two primary capacities: <em>dragon-nature</em> (fire, will, direct knowing, the eternal) and <em>human-nature</em> (form, reason, temporal experience, the embodied).</p>
+                    <p>The mechanism of the Separation is debated by factions within the setting. Three interpretive traditions have emerged:</p>
+
+                    <ul>
+                        <li><strong>The Demiurgic School</strong> holds that the Separation was caused by the Demiurge — an organizing intelligence that arose within the Primordial Flame and began differentiating its contents. The Demiurge mistook its analytical function for an ontological one and began treating its own categories as real separations.</li>
+                        <li><strong>The Voluntarist School</strong> holds that the Primordial Flame chose Separation — that differentiation was a necessary stage in the Flame's self-knowledge, and that the current divided state is temporary, purposeful, and eventually self-resolving.</li>
+                        <li><strong>The Accident School</strong> (the Watchers' tradition) holds that the Separation was a structural failure — a resonance collapse in the fabric of unified consciousness — and that it has no teleological meaning. It simply happened, and the only meaningful response is repair.</li>
+                    </ul>
+
+                    <p>Which school a character or faction adheres to tells you everything about their goals, their methods, and who they consider an enemy.</p>
+
+                    <div class="wip-note">
+                        <strong>In Development:</strong> The Separation Event timeline — the sequence of cosmological moments between the Primordial Flame and the current setting — is being documented. A detailed eschatological sequence will be published here as the lore develops.
+                    </div>
+                </section>
+
+                <!-- Cosmological Layers -->
+                <section class="cosmo-section" id="layers">
+                    <span class="cosmo-section-label">IV. The Cosmological Map</span>
+                    <h2>Layers of the Dragon Bible Cosmos</h2>
+                    <p>The Dragon Bible cosmos is structured as a series of layers — not a flat multiverse, but a depth stack where each layer corresponds to a different density of consciousness. The Hermetic principle of correspondence applies across all layers: events in one layer ripple through the others.</p>
+
+                    <div class="layer-card">
+                        <div class="layer-name">The Empyrean — Layer 1</div>
+                        <div class="layer-nature">Nature: Pure Fire / Closest to the Primordial Flame</div>
+                        <p>The uppermost layer — where the Primordial Flame's residue still burns with near-total integration. Dragon consciousness at its most rarefied. Ancient dragons who have not fully descended into form inhabit this layer. It is not a "heaven" in the conventional sense — it is a state of nearly-undivided consciousness that can be entered or exited by sufficiently developed beings.</p>
+                    </div>
+
+                    <div class="layer-card">
+                        <div class="layer-name">The Enochian Meridian — Layer 2</div>
+                        <div class="layer-nature">Nature: Mixed / The Layer of the Watchers</div>
+                        <p>The transitional layer where dragon-consciousness begins to differentiate but retains awareness of its integrated origin. The Watchers — the Irin of the Enochian corpus — dwell here. This is the layer most accessible to advanced human practitioners and to Nephilim. The Enochian Meridian is where most cross-layer communication occurs.</p>
+                    </div>
+
+                    <div class="layer-card">
+                        <div class="layer-name">The Material Plane — Layer 3</div>
+                        <div class="layer-nature">Nature: Form / The World of Forgetting</div>
+                        <p>The setting's mundane world — where human consciousness and embodied dragon consciousness (dragons in physical form) coexist in conditions of relative separation. Most characters live here. The Demiurgic organizing principle is strongest here, which is why categories feel real, boundaries feel permanent, and unity feels mythological rather than actual.</p>
+                    </div>
+
+                    <div class="layer-card">
+                        <div class="layer-name">The Residual Depths — Layer 4</div>
+                        <div class="layer-nature">Nature: Inversion / The Shadow of the Separation</div>
+                        <p>The lowest layer — formed from the pressure of the Separation Event. Not "hell" in the conventional sense, but the place where the most traumatized expressions of divided consciousness reside. Dragons who have fully forgotten their human-nature, humans who have fully denied their dragon-nature, and entities born directly from the Demiurge's compulsive differentiating function inhabit this layer.</p>
+                    </div>
+                </section>
+
+                <!-- Factions -->
+                <section class="cosmo-section" id="factions">
+                    <span class="cosmo-section-label">V. Factions</span>
+                    <h2>The Major Factions</h2>
+                    <p>The factions of the Dragon Bible setting are organized around their position on the central cosmological question: what is the Separation, and what should be done about it?</p>
+
+                    <div class="faction-card">
+                        <div class="faction-name">The Watchers (Irin)</div>
+                        <div class="faction-alignment">Alignment: Neutral — Repair-Oriented</div>
+                        <p>Semi-autonomous dragon-consciousness entities who have chosen to remain in the Enochian Meridian rather than ascend to the Empyrean or descend to the Material Plane. Their defining characteristic is that they remember the Primordial Flame clearly enough to recognize the Separation as a wound, but have not yet found the mechanism for repair. Their relationship with humanity is complex: they are drawn to human gnosis-seekers because humans who remember their dragon-nature are evidence that reunion is possible.</p>
+                    </div>
+
+                    <div class="faction-card">
+                        <div class="faction-name">The Architects of Separation</div>
+                        <div class="faction-alignment">Alignment: Lawful — Separation-Maintaining</div>
+                        <p>The priestly and administrative caste that inherited the Demiurge's organizational mandate. They are not evil in any simple sense — they genuinely believe that the Separation is either necessary or irreversible, and that any attempt at forced reunion risks a resonance collapse that would destroy both the dragon and human expressions of consciousness entirely. They are not wrong about the danger. They are wrong about the ethics of maintaining division as the permanent solution.</p>
+                    </div>
+
+                    <div class="faction-card">
+                        <div class="faction-name">The Nephilim Orders</div>
+                        <div class="faction-alignment">Alignment: Variable — Dual-Natured</div>
+                        <p>The descendants of Watcher-human unions — beings who carry both dragon-nature and human-nature in a single form. They are the setting's most politically complex faction because they embody the possibility the Architects most fear: that dragon and human consciousness can integrate without destroying either. The Nephilim Orders are fragmented; some align with the Watchers, some have been co-opted by the Architects, and some pursue their own agenda of Nephilim supremacy that has nothing to do with the original cosmological question.</p>
+                    </div>
+
+                    <div class="faction-card">
+                        <div class="faction-name">The Dragon Riders</div>
+                        <div class="faction-alignment">Alignment: Variable — Pragmatic</div>
+                        <p>Humans and dragons who have achieved a partial, voluntary integration — not the full reunion of the Primordial Flame, but a working alliance of two consciousness-types that have chosen to function in concert. They are the most practically powerful faction and the least ideologically coherent. Some are reunificationists who see the Dragon Rider bond as a model for what full integration could look like at scale. Some are simply soldiers who discovered that a bonded dragon makes them nearly undefeatable and have no broader cosmological agenda.</p>
+                    </div>
+
+                    <div class="wip-note">
+                        <strong>In Development:</strong> Additional factions — the Keepers of the Sevenfold Seal, the Gnostic Remnant, and the Demiurgic Servitors — are being documented. Full faction dossiers with NPC archetypes are available to DM subscribers.
+                    </div>
+                </section>
+
+                <!-- Key Metaphysics -->
+                <section class="cosmo-section" id="metaphysics">
+                    <span class="cosmo-section-label">VI. Mechanics of the World</span>
+                    <h2>Key Metaphysical Principles</h2>
+                    <p>The following principles govern how the Dragon Bible cosmos operates. DMs can use these as a generative framework — when in doubt about how something works in this world, apply the relevant principle.</p>
+
+                    <div class="cosmo-principle">
+                        <div class="principle-name">Memory Is Power</div>
+                        <p>In a world defined by the Separation Event, the degree to which a being remembers its integrated nature is the degree to which it can operate across cosmological layers. Gnosis — direct knowing of one's pre-Separation nature — is not a belief but a capacity. Characters who achieve it gain access to abilities that are unavailable to those still operating fully within the divided state.</p>
+                    </div>
+
+                    <div class="cosmo-principle">
+                        <div class="principle-name">The Correspondence Chain</div>
+                        <p>Every material object, faction, or political event has a corresponding pattern in the upper layers. When a Watcher in the Enochian Meridian makes a decision, it is felt in the Material Plane as a shift in faction politics, an unusual weather pattern, or a sudden mass dreaming event. DMs can generate events by reasoning backward from cosmological movements, or forward from material events to their upper-layer causes.</p>
+                    </div>
+
+                    <div class="cosmo-principle">
+                        <div class="principle-name">Ophidian Gnosis</div>
+                        <p>The serpent figures in the Dragon Bible tradition are not tempters — they are gnostic messengers. The ophidian forms (serpents, wyrms, the limbless dragons) carry a specific function in the cosmology: they are the intermediary consciousness-type that exists between the fully differentiated human and the fully integrated dragon. Their "poison" is dissolution of false categories. Their "wisdom" is the ability to exist in both the separated and integrated states simultaneously.</p>
+                    </div>
+
+                    <div class="cosmo-principle">
+                        <div class="principle-name">Draconic Fire as Consciousness</div>
+                        <p>Dragon fire in the Dragon Bible is not merely a physical weapon — it is a material expression of consciousness operating at high integration. The color, temperature, and behavior of a dragon's fire is a direct readout of its cosmological state. Old dragons burning white-gold fire are operating close to the Empyrean layer. Dragons burning black or grey fire have descended deep into the Residual Depths. DMs can use fire color as an immediate, visible indication of a dragon's metaphysical alignment.</p>
+                    </div>
+                </section>
+
+                <!-- For DMs -->
+                <section class="cosmo-section" id="for-dms">
+                    <span class="cosmo-section-label">VII. Running This World</span>
+                    <h2>For Dungeon Masters</h2>
+                    <p>The Dragon Bible cosmology is designed to be generative. The framework is tight enough to produce consistent answers to lore questions, but open enough that DMs can place their campaign anywhere within it and have the metaphysics do real work in the fiction.</p>
+
+                    <h3>The Central Campaign Question</h3>
+                    <p>Every Dragon Bible campaign is ultimately about the same thing: what do the player characters do about the Separation? This does not mean every campaign must resolve it. It means that the Separation is the gravitational center of the setting — every faction, every NPC, every cosmological event is oriented relative to it. PCs can ignore it, work against it, exploit it, or try to heal it. But they cannot escape it.</p>
+
+                    <h3>Using the Correspondence Chain</h3>
+                    <p>When you need an event, reason from layer to layer. A political crisis in the Architects of Separation (Material Plane) corresponds to a destabilization in the Enochian Meridian. That destabilization means the Watchers are moving — which means something is happening in the Empyrean that is forcing action. Work out the cause in the Empyrean, and you have a campaign arc that feels cosmologically grounded rather than arbitrary.</p>
+
+                    <h3>The AI Lore Oracle</h3>
+                    <p>DM subscribers have access to the Dragon Bible Lore Oracle — a Claude-powered assistant with the full cosmology loaded as context. Ask it lore questions in plain language and get in-character answers consistent with the metaphysics above. It knows the factions, the layers, the key metaphysical principles, and the canonical texts. It will flag when you ask a question that falls outside documented lore rather than inventing an answer.</p>
+
+                    <div style="text-align: center; margin-top: 2.5rem;">
+                        <a href="index.html#pricing" class="btn btn-primary btn-large" style="display:inline-block; text-decoration:none;">
+                            <span class="btn-icon">🐉</span>
+                            DM Subscription — $5/month
+                        </a>
+                        <p style="margin-top: 1rem; font-family: 'Crimson Pro', serif; font-size: 1rem; color: #8b7d6b;">Includes Lore Compendium PDF, 5e Setting Guide, and AI Lore Oracle access.</p>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <span class="dragon-icon">🐉</span>
+                        <p>The Dragon Bible</p>
+                        <p class="tagline">Where humanity remembers its wings</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="cosmology.html">Cosmology</a>
+                        <a href="index.html#books">Lore Compendium</a>
+                        <a href="lore-oracle.html">AI Lore Oracle</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="mailto:mr.noahwilson@gmail.com">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 The Dragon Bible by Noah Wilson. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

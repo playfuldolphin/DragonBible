@@ -5145,6 +5145,102 @@ section {
 }
 
 /* ============================================================
+   LOGO MARK — text-based, no emoji
+   ============================================================ */
+.logo-mark {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: var(--accent, #8b0000);
+    background: rgba(139, 0, 0, 0.12);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    border-radius: 3px;
+    padding: 0.2rem 0.45rem;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   HERO PATHS — two-audience split
+   ============================================================ */
+.hero-paths {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin-top: 2.5rem;
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-path {
+    flex: 1;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    text-align: left;
+}
+
+.hero-path-dm {
+    background: rgba(139, 0, 0, 0.08);
+    border-color: rgba(139, 0, 0, 0.25);
+}
+
+.hero-path-reader {
+    background: rgba(255,255,255,0.02);
+    border-color: rgba(255,255,255,0.06);
+}
+
+.hero-path-divider {
+    padding: 0 1.5rem;
+    padding-top: 5rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    color: #6b5d4f;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.path-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8b7d6b;
+    margin-bottom: 0.75rem;
+}
+
+.hero-path-dm .path-label {
+    color: #d4a96a;
+}
+
+.path-desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #b8a898;
+    margin-bottom: 1.25rem;
+}
+
+.path-sub {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    color: #6b5d4f;
+    margin-top: 0.6rem;
+    margin-bottom: 0;
+}
+
+@media (max-width: 680px) {
+    .hero-paths {
+        flex-direction: column;
+    }
+    .hero-path-divider {
+        padding: 0.75rem 0;
+        text-align: center;
+    }
+}
+
+/* ============================================================
    ORACLE SECTION — Homepage AI Lore Oracle teaser
    ============================================================ */
 .oracle-section {

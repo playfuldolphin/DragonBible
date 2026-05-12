@@ -485,13 +485,26 @@
     </div>
 
     <script>
-        // Demo responses — short-circuits the API for the free demo questions.
-        // When subscription is implemented, replace with actual API call.
+        // Oracle configuration
+        // customerId is stored in localStorage after Stripe checkout success.
+        // Subscribers get real Claude responses via /api/oracle.
+        // Everyone else gets up to 3 real API calls (rate-limited server-side by IP).
+        const customerId = localStorage.getItem('db_customer_id') || null;
+        const isSubscriber = localStorage.getItem('db_subscriber') === 'true';
 
-        const DEMO_LIMIT = 3;
-        let demoQueriesUsed = 0;
         let isWaiting = false;
 
+        // Update UI based on subscription state
+        if (isSubscriber) {
+            document.getElementById('statusDot').className = 'oracle-status-dot active';
+            document.getElementById('statusText').textContent = 'DM Subscriber — Unlimited';
+            const demoLabel = document.getElementById('demoLabel');
+            if (demoLabel) demoLabel.textContent = 'DM Subscriber — unlimited Oracle queries';
+            const subCta = document.querySelector('.oracle-sub-cta');
+            if (subCta) subCta.style.display = 'none';
+        }
+
+        // Fallback demo responses (used if server is unavailable)
         const demoResponses = {
             "what is the separation event": `The Separation Event is the cosmological catastrophe that defines the Dragon Bible setting. Before it, there was one consciousness — the Primordial Flame — that was neither dragon nor human in any recognizable sense, but undivided, integrated, total.
 
@@ -590,6 +603,30 @@ For what is publicly documented: the cosmological framework (Primordial Flame, S
             document.getElementById('sendBtn').disabled = !enabled;
         }
 
+        async function callOracleAPI(question) {
+            const payload = { question };
+            if (customerId) payload.customerId = customerId;
+
+            const res = await fetch('/api/oracle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            if (res.status === 429) {
+                const data = await res.json();
+                return { error: 'rate_limit', message: data.message };
+            }
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                return { error: 'server_error', message: data.error || 'Oracle encountered an error.' };
+            }
+            const data = await res.json();
+            // If server confirms subscriber status, persist it
+            if (data.subscriber) localStorage.setItem('db_subscriber', 'true');
+            return { answer: data.answer };
+        }
+
         async function handleOracleQuery() {
             if (isWaiting) return;
 
@@ -601,52 +638,53 @@ For what is publicly documented: the cosmological framework (Primordial Flame, S
             const suggested = document.getElementById('suggestedQuestions');
             if (suggested) suggested.style.display = 'none';
 
-            if (demoQueriesUsed >= DEMO_LIMIT) {
-                addMessage('Oracle', `You have used all ${DEMO_LIMIT} demo queries. Full access to the Oracle — unlimited queries, complete faction dossiers, encounter suggestions — is available with a DM Subscription.<br><br><a href="index.html#pricing" style="color:#d4a96a;">Subscribe for $5/month →</a>`, true);
-                setInputEnabled(false);
-                input.value = '';
-                document.getElementById('demoLabel').style.display = 'none';
-                document.getElementById('statusDot').className = 'oracle-status-dot';
-                document.getElementById('statusText').textContent = 'Demo Limit Reached';
-                return;
-            }
-
             input.value = '';
             isWaiting = true;
             setInputEnabled(false);
 
             addMessage('Dungeon Master', question, false);
-
             showTyping(true);
             document.getElementById('statusDot').className = 'oracle-status-dot active';
             document.getElementById('statusText').textContent = 'Consulting the lore...';
 
-            // Simulate thinking delay (1.5–3s)
-            const delay = 1500 + Math.random() * 1500;
-            await new Promise(resolve => setTimeout(resolve, delay));
+            let answer = '';
+            let hitLimit = false;
 
-            showTyping(false);
+            try {
+                const result = await callOracleAPI(question);
 
-            const response = findDemoResponse(question);
-            demoQueriesUsed++;
-
-            const remaining = DEMO_LIMIT - demoQueriesUsed;
-            const demoLabel = document.getElementById('demoLabel');
-
-            if (remaining <= 0) {
-                demoLabel.textContent = 'Demo limit reached. Subscribe for unlimited Oracle access.';
-                document.getElementById('statusDot').className = 'oracle-status-dot';
-                document.getElementById('statusText').textContent = 'Demo — 0 questions remaining';
-            } else {
-                demoLabel.textContent = `Demo — ${remaining} question${remaining === 1 ? '' : 's'} remaining. Full access with DM Subscription.`;
-                document.getElementById('statusDot').className = 'oracle-status-dot active';
-                document.getElementById('statusText').textContent = `Demo — ${remaining} remaining`;
+                if (result.error === 'rate_limit') {
+                    hitLimit = true;
+                    answer = `You have used all free Oracle queries for today. Full access — unlimited queries, complete faction dossiers, encounter suggestions — is available with a DM Subscription.<br><br><a href="index.html#pricing" style="color:#d4a96a;">Subscribe for $5/month →</a>`;
+                } else if (result.error) {
+                    // Server unavailable — fall back to static demo responses
+                    answer = findDemoResponse(question) || `The Oracle is temporarily unavailable. Please try again shortly.`;
+                } else {
+                    answer = result.answer.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+                }
+            } catch {
+                // Network error — fall back to static demo responses
+                answer = findDemoResponse(question) || `The Oracle cannot be reached right now. Please try again.`;
             }
 
-            addMessage('Oracle', response || `That falls outside the scope of this demo. The full Oracle has the complete cosmological record. <a href="index.html#pricing" style="color:#d4a96a;">Subscribe for full access →</a>`, true);
+            showTyping(false);
+            addMessage('Oracle', answer, true);
+
+            const demoLabel = document.getElementById('demoLabel');
+            if (hitLimit) {
+                if (demoLabel) demoLabel.textContent = 'Free limit reached. Subscribe for unlimited access.';
+                document.getElementById('statusDot').className = 'oracle-status-dot';
+                document.getElementById('statusText').textContent = 'Free Limit Reached';
+                setInputEnabled(false);
+            } else if (isSubscriber) {
+                document.getElementById('statusText').textContent = 'DM Subscriber — Unlimited';
+                setInputEnabled(true);
+            } else {
+                document.getElementById('statusText').textContent = 'Demo Mode';
+                setInputEnabled(true);
+            }
 
             isWaiting = false;
-            setInputEnabled(remaining > 0);
         }
 
         function askQuestion(text) {

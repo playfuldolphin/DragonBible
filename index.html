@@ -576,6 +576,39 @@
         <!-- Research Parameters moved to cosmology.html and about.html -->
 
 
+        <!-- Reader Features Strip -->
+        <section class="reader-features-strip">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">The Reader</span>
+                    <h2 class="section-title">Built-In Features Worth Knowing</h2>
+                    <p class="section-subtitle">The lore reader has features most people miss. They're worth surfacing.</p>
+                </div>
+                <div class="reader-features-grid">
+                    <div class="reader-feature">
+                        <div class="rf-icon">⌨</div>
+                        <h3>Keyboard Navigation</h3>
+                        <p>← → to move between chapters. Space to play/pause narration. Ctrl+S to search across all texts. Ctrl+B for bookmarks. No mouse required once you're in the reader.</p>
+                    </div>
+                    <div class="reader-feature">
+                        <div class="rf-icon">🔖</div>
+                        <h3>Bookmarks</h3>
+                        <p>Bookmark any verse and return to it later. Your bookmarks are stored locally — no account needed. Useful for DMs flagging specific lore passages for session prep.</p>
+                    </div>
+                    <div class="reader-feature">
+                        <div class="rf-icon">🔊</div>
+                        <h3>Audio Speed Control</h3>
+                        <p>Adjustable narration speed and voice selection. The reader uses your browser's built-in speech synthesis — works offline, no streaming required.</p>
+                    </div>
+                    <div class="reader-feature">
+                        <div class="rf-icon">📊</div>
+                        <h3>Reading Progress</h3>
+                        <p>Tracks which chapters you've read across sessions. The progress widget shows how far through each book you are. Picks up where you left off.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- FAQ Section -->
         <section id="faq" class="faq-section">
             <div class="container">
@@ -647,12 +680,11 @@
                         
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>Is there a free trial?</span>
+                                <span>Is there a free tier?</span>
                                 <span class="faq-icon">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Yes! You get <strong>3 chapters completely free</strong> (Genesis 1-3) with no credit card required. Just enter your email to start reading immediately.</p>
-                                <p>Premium subscriptions also include a <strong>7-day free trial</strong> with full access to all content.</p>
+                                <p>Yes. All seven canonical texts are publicly readable with no account required. The free tier gives you access to the full lore library, audio narration, and the cosmology overview. The DM Subscription ($5/month) adds the lore compendium PDF, 5e setting guide, AI Lore Oracle, and faction dossiers.</p>
                             </div>
                         </div>
 
@@ -708,7 +740,7 @@
                                 <span class="faq-icon">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Yes! Every chapter includes audio narration. Free users get basic text-to-speech. Premium members get enhanced audio with professional voice quality, background music, and downloadable MP3s.</p>
+                                <p>Yes. Every chapter includes text-to-speech narration with adjustable speed and voice controls, built into the reader. You can control playback speed, pause between verses, and pick up where you left off.</p>
                             </div>
                         </div>
 
@@ -718,7 +750,7 @@
                                 <span class="faq-icon">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Premium members can download chapters as PDFs or EPUBs for offline reading on any device. Perfect for flights, commutes, or reading without internet connection.</p>
+                                <p>DM subscribers can download the full Lore Compendium as a PDF. Individual chapter downloads are not currently available, but the reader works on any device and saves your position between sessions.</p>
                             </div>
                         </div>
 
@@ -734,11 +766,11 @@
 
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>Can I share this with friends or family?</span>
+                                <span>Can I share this with friends or other DMs?</span>
                                 <span class="faq-icon">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Free chapters can be shared with anyone! For premium content, each person needs their own subscription. However, we have a <strong>referral program</strong> - share your unique link and when friends subscribe, you BOTH get 1 month free!</p>
+                                <p>All the free lore is publicly readable — share any page directly. For the DM tools (compendium, Oracle, setting guide), each DM needs their own subscription. The sampler PDF at <a href="sampler.html">dragonbible.com/sampler</a> is a good thing to share with a DM who's on the fence.</p>
                             </div>
                         </div>
 
@@ -772,7 +804,7 @@
                                 <span class="faq-icon">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Yes! Many book clubs, mythology classes, and spiritual study groups use Dragon Bible. We offer group discounts for 10+ members and can provide discussion guides. Email us for details.</p>
+                                <p>Yes — the lore is well-suited to book clubs and mythology study groups since all the primary texts are freely readable. Email <a href="mailto:noah@dragonbible.com">noah@dragonbible.com</a> if you want discussion guide suggestions.</p>
                             </div>
                         </div>
 
@@ -782,7 +814,7 @@
                                 <span class="faq-icon">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Not yet, but coming soon! The website is fully mobile-responsive and works great on phones and tablets. You can even add it to your home screen for an app-like experience. Native iOS and Android apps are in development.</p>
+                                <p>No app — the site is fully mobile-responsive and works on any device browser. You can add it to your home screen from your browser's share menu for quick access.</p>
                             </div>
                         </div>
 
@@ -792,16 +824,12 @@
                                 <span class="faq-icon">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>The Dragon Bible is perfect for:</p>
+                                <p>Two distinct audiences:</p>
                                 <ul>
-                                    <li>Mythology enthusiasts</li>
-                                    <li>Spiritual seekers exploring alternative paths</li>
-                                    <li>Fantasy readers who love deep lore</li>
-                                    <li>Jung readers interested in archetypes</li>
-                                    <li>Creative writers seeking inspiration</li>
-                                    <li>Anyone curious about dragon symbolism across cultures</li>
+                                    <li><strong>Dungeon Masters</strong> who want a setting with genuine philosophical depth — Hermetic cosmology, Gnostic metaphysics, an AI lore assistant that answers in-world questions at the table.</li>
+                                    <li><strong>Mythology readers</strong> interested in Hermetic and Gnostic traditions, comparative mythology, Jungian archetypes, or the Enochian and Nag Hammadi texts reframed as original fiction.</li>
                                 </ul>
-                                <p>If you're open-minded and curious, you'll love it.</p>
+                                <p>The lore is free for both. The DM tools are the paid tier.</p>
                             </div>
                         </div>
 
@@ -823,7 +851,7 @@
             <div class="container">
                 <!-- Single consolidated disclaimer — all others removed -->
                 <div class="footer-disclaimer">
-                    <p>The Dragon Bible is a work of creative fiction and original mythology. Not affiliated with any religious organization. No content represents actual religious doctrine or historical fact. &copy; 2025 Noah Wilson.</p>
+                    <p>The Dragon Bible is a work of creative fiction and original mythology. Not affiliated with any religious organization. No content represents actual religious doctrine or historical fact. &copy; 2026 Noah Wilson.</p>
                 </div>
                 
                 <div class="footer-content">
@@ -845,7 +873,7 @@
                 </div>
                 
                 <div class="footer-copyright">
-                    <p>&copy; 2025 The Dragon Bible by Noah Wilson. All rights reserved.</p>
+                    <p>&copy; 2026 The Dragon Bible by Noah Wilson. All rights reserved.</p>
                 </div>
             </div>
         </footer>

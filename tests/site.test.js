@@ -119,6 +119,16 @@ test("corrupt saved data and unavailable speech do not break reading", () => {
   assert.ok(d.querySelectorAll(".chapter-verse").length > 0);
   assert.equal(errors.length, 0);
   dom.window.close();
+  const invalid = browser("index.html", "#read/constructor/1", {
+    dragonbible_reading_progress: '{"currentBook":"constructor","currentChapter":1}',
+    dragonbible_bookmarks: '[{"bookId":"toString","chapterNum":1,"verseIndex":0},{"bookId":"genesis","chapterNum":1,"verseIndex":"map"}]',
+  });
+  assert.equal(invalid.d.querySelector("#reader").hidden, true);
+  assert.equal(invalid.d.querySelector("#resumeReading").hidden, true);
+  invalid.d.querySelector('[data-action="bookmarks"]').click();
+  assert.equal(invalid.d.querySelectorAll('#bookmarksList a').length, 0);
+  assert.equal(invalid.errors.length, 0);
+  invalid.dom.window.close();
 });
 test("skip navigation preserves the chapter and earlier private comments remain readable", async () => {
   const saved = {

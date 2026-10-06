@@ -1,6 +1,13 @@
 (() => {
   "use strict";
   const { books, quizQuestions, dragonTypes } = window.DragonBibleContent;
+  const chapterAt = (book, chapter) =>
+    typeof book === "string" &&
+    ["string", "number"].includes(typeof chapter) &&
+    Object.hasOwn(books, book) &&
+    Object.hasOwn(books[book].chapters, chapter)
+      ? books[book].chapters[chapter]
+      : null;
   const $ = (id) => document.getElementById(id);
   const storage = {
     read(key, fallback) {
@@ -34,8 +41,10 @@
   bookmarks = bookmarks.filter(
     (b) =>
       b &&
-      books[b.bookId]?.chapters[b.chapterNum]?.verses[b.verseIndex] !==
-        undefined,
+      ["string", "number"].includes(typeof b.verseIndex) &&
+      Number.isInteger(Number(b.verseIndex)) &&
+      Number(b.verseIndex) >= 0 &&
+      typeof chapterAt(b.bookId, b.chapterNum)?.verses[Number(b.verseIndex)] === "string",
   );
   let notes = storage.read("dragonbible_comments", {});
   if (!notes || typeof notes !== "object" || Array.isArray(notes)) notes = {};
@@ -84,7 +93,7 @@
       : `${totalChapters} chapters to explore`;
     const resume = $("resumeReading");
     resume.hidden =
-      !books[progress.currentBook]?.chapters[progress.currentChapter];
+      !chapterAt(progress.currentBook, progress.currentChapter);
     resume.onclick = () => {
       location.hash = chapterLink(
         progress.currentBook,
@@ -307,7 +316,7 @@
   }
   function route() {
     const match = location.hash.match(/^#read\/([a-z-]+)\/(\d+)(?:\/(\d+))?$/);
-    if (match && books[match[1]]?.chapters[Number(match[2])]) {
+    if (match && chapterAt(match[1], Number(match[2]))) {
       renderChapter(match[1], Number(match[2]), Number(match[3]) || undefined);
       return;
     }

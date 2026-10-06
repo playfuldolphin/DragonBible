@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#102723" />
+    <meta
+      name="description"
+      content="Hatch your dragon. Gather seven memories. Explore an original fantasy world, one small quest at a time."
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>Dragon Bible · The Remembering</title>
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="app.css" />
+    <script src="../content.js" defer></script>
+    <script src="game.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#screen">Skip to content</a>
+    <div class="app-shell">
+      <header class="app-header">
+        <a class="wordmark" href="#journey"
+          ><span class="sigil" aria-hidden="true">✧</span
+          ><span>Dragon Bible<small>THE REMEMBERING</small></span></a
+        ><button
+          id="installButton"
+          class="round-button"
+          type="button"
+          aria-label="Add app to your phone"
+        >
+          ↗
+        </button>
+      </header>
+      <main id="screen" tabindex="-1"></main>
+      <p id="storageStatus" class="storage-status" role="status"></p>
+      <footer class="app-footer">
+        <span>Original fantasy fiction · Playable prototype</span
+        ><a href="../index.html">Visit the website ↗</a>
+      </footer>
+      <nav class="tab-bar" aria-label="App navigation">
+        <a href="#journey" data-tab="journey"
+          ><span aria-hidden="true">✧</span>Journey</a
+        ><a href="#dragon" data-tab="dragon"
+          ><span aria-hidden="true">◇</span>My dragon</a
+        ><a href="#archive" data-tab="archive"
+          ><span aria-hidden="true">▤</span>Archive</a
+        >
+      </nav>
+    </div>
+    <dialog id="installDialog" aria-labelledby="installTitle">
+      <button
+        class="round-button close-dialog"
+        type="button"
+        aria-label="Close installation help"
+      >
+        ×
+      </button>
+      <p class="eyebrow">Your pocket mythology</p>
+      <h2 id="installTitle">Take the world with you.</h2>
+      <p>
+        On iPhone or iPad, open this page in Safari, tap Share, then Add to Home
+        Screen. On Android, use your browser’s Install app or Add to Home screen
+        option.
+      </p>
+      <button id="nativeInstall" class="primary" type="button" hidden>
+        Install Dragon Bible
+      </button>
+      <p class="small" id="offlineStatus">
+        Your progress is saved on this device. It does not sync between
+        browsers. Clearing site data removes it.
+      </p>
+    </dialog>
+    <noscript
+      ><p class="notice">
+        Enable JavaScript to play, or
+        <a href="../sampler.html">read the free sampler</a>.
+      </p></noscript
+    >
+  </body>
+</html>

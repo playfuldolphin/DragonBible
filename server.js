@@ -304,6 +304,17 @@ function createApp({ env = process.env, stripe, anthropic } = {}) {
   );
   // Serve only public assets, never server source, environment files, or backups.
   const publicFiles = new Set([
+    "app",
+    "app/",
+    "app/index.html",
+    "app/app.css",
+    "app/app.js",
+    "app/game.js",
+    "app/sw.js",
+    "app/icon.svg",
+    "app/icon-192.png",
+    "app/icon-512.png",
+    "app/manifest.webmanifest",
     "index.html",
     "about.html",
     "blog.html",

@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="site.css">
+    <script src="site.js" defer></script>
 </head>
 <body>
     <div class="page-wrapper">
@@ -22,7 +24,7 @@
                 <div class="nav-links">
                     <a href="index.html">Home</a>
                     <a href="index.html#books">Books</a>
-                    <a href="index.html#about">About</a>
+                    <a href="about.html">About</a>
                     <a href="privacy.html">Privacy</a>
                     <a href="terms.html">Terms</a>
                 </div>
@@ -32,7 +34,7 @@
         <section class="legal-section">
             <div class="container">
                 <h1 class="legal-title">Privacy Policy</h1>
-                <p class="legal-date">Last updated: November 8, 2024</p>
+                <p class="legal-date">Service descriptions updated: October 6, 2026</p>
 
                 <div class="legal-content">
                     <h2>1. Introduction</h2>
@@ -42,23 +44,23 @@
                     
                     <h3>2.1 Information You Provide</h3>
                     <ul>
-                        <li><strong>Comments:</strong> When you post comments on our Site, we collect your name (or pseudonym) and comment content.</li>
+                        <li><strong>Reading Notes:</strong> Notes and earlier comments stay in your browser. They are not published or sent to our server.</li>
+                        <li><strong>Oracle Questions:</strong> When live AI is connected, questions are sent to our server and Anthropic to generate a response. Prewritten examples run in your browser.</li>
+                        <li><strong>Payments:</strong> When checkout is connected, Stripe processes your payment. The Site receives purchase and subscription status; card details are entered on Stripe.</li>
                         <li><strong>Contact Information:</strong> If you contact us directly, we may receive additional information about you.</li>
                     </ul>
 
                     <h3>2.2 Information Collected Automatically</h3>
                     <ul>
-                        <li><strong>Log Data:</strong> IP address, browser type, operating system, referring URLs, pages viewed, and access times.</li>
-                        <li><strong>Cookies:</strong> We and our third-party partners use cookies and similar tracking technologies.</li>
-                        <li><strong>Local Storage:</strong> Comments and reactions are stored locally in your browser.</li>
+                        <li><strong>Hosting:</strong> Requests to the Site include connection information such as your IP address and browser headers. Our hosting provider may keep request logs.</li>
+                        <li><strong>Oracle Limits:</strong> When live AI is connected, the server temporarily tracks free question usage by IP address for a 24-hour limit.</li>
+                        <li><strong>Local Storage:</strong> Reading progress, bookmarks, notes, and a verified purchase access token are saved in your browser. They do not automatically sync to another device.</li>
                     </ul>
 
                     <h2>3. Third-Party Services</h2>
                     
-                    <h3>3.1 Google AdSense</h3>
-                    <p>We use Google AdSense to display advertisements on our Site. Google AdSense uses cookies to serve ads based on your prior visits to our Site or other websites. You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google's Ads Settings</a>.</p>
-                    
-                    <p>For more information about how Google uses data when you use our Site, please visit: <a href="https://www.google.com/policies/privacy/partners/" target="_blank" rel="noopener">How Google uses data when you use our partners' sites or apps</a>.</p>
+                    <h3>3.1 Optional Payments and Live AI</h3>
+                    <p>Stripe and Anthropic are used only when their respective services are connected. The Site displays whether checkout and live AI are available. Their handling of information is described in <a href="https://stripe.com/privacy">Stripe's privacy policy</a> and <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>.</p>
 
                     <h3>3.2 Google Fonts</h3>
                     <p>Our Site uses Google Fonts. When you visit our Site, your browser downloads the required fonts directly from Google servers. This may involve transmitting your IP address to Google.</p>
@@ -67,31 +69,24 @@
                     <p>We use the collected information to:</p>
                     <ul>
                         <li>Provide and maintain our Site</li>
-                        <li>Display relevant advertisements through Google AdSense</li>
+                        <li>Verify purchases and provide access to connected services</li>
                         <li>Improve user experience</li>
-                        <li>Analyze Site usage and trends</li>
-                        <li>Respond to comments and inquiries</li>
+                        <li>Apply free Oracle usage limits</li>
+                        <li>Respond to inquiries</li>
                     </ul>
 
                     <h2>5. Cookies and Tracking Technologies</h2>
-                    <p>We use cookies and similar technologies for:</p>
-                    <ul>
-                        <li><strong>Essential Cookies:</strong> Required for the Site to function properly</li>
-                        <li><strong>Advertising Cookies:</strong> Used by Google AdSense to serve relevant ads</li>
-                        <li><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our Site</li>
-                    </ul>
-                    
-                    <p>You can control cookies through your browser settings. However, disabling cookies may affect your ability to use certain features of our Site.</p>
+                    <p>This version of the Site does not load advertising or analytics scripts. Browser local storage supports the reader and verified paid access. External services such as Stripe may use their own cookies when you visit them.</p>
+                    <p>You can clear Site data through your browser settings. Doing so removes saved progress, bookmarks, notes, and access tokens from that browser.</p>
 
                     <h2>6. Your Rights and Choices</h2>
                     <ul>
-                        <li><strong>Opt-out of Personalized Ads:</strong> Visit <a href="http://www.aboutads.info/choices/" target="_blank" rel="noopener">Digital Advertising Alliance</a></li>
-                        <li><strong>Browser Controls:</strong> Most browsers allow you to manage cookie preferences</li>
+                        <li><strong>Browser Controls:</strong> Manage or clear saved Site data using your browser settings.</li>
                         <li><strong>Do Not Track:</strong> We currently do not respond to Do Not Track signals</li>
                     </ul>
 
                     <h2>7. Data Retention</h2>
-                    <p>Comments and reactions stored in your browser's local storage remain until you clear your browser data. We do not store this information on our servers.</p>
+                    <p>Reading progress, bookmarks, notes, and earlier comments remain in browser storage until you clear Site data. We do not store these reading records on our server. The live Oracle's free usage counter expires after 24 hours. Contact and payment records are separate from browser data.</p>
 
                     <h2>8. Children's Privacy</h2>
                     <p>Our Site is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13.</p>

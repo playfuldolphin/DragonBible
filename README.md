@@ -1,226 +1,48 @@
 # The Dragon Bible
 
-*"In the beginning, Man and Dragon were One"*
+An original fantasy setting with seven books and 27 published chapters. All published lore is freely readable. The reader includes chapter links, browser narration, search, bookmarks, reading progress, and a ten-question dragon quiz.
 
-## Overview
+## Run and test
 
-The Dragon Bible is a free web application offering a complete reimagining of sacred texts through the mythological lens of the human-dragon union. This project presents the Old Testament, Book of Enoch, and Gnostic texts rewritten with the premise that humanity and dragonkind were once a unified being.
+Use Node.js 22.12 or later:
 
-## Features
-
-### 📖 Complete Sacred Library
-- **Old Testament** - All books reimagined through the dragon-human covenant
-- **Book of Enoch** - The Watchers and their dragon heritage
-- **Gnostic Texts** - Hidden knowledge of the serpent wisdom
-- **Original Interpretations** - New mythological framework
-
-### 🎙️ Audio Narration
-- Built-in text-to-speech narration
-- Adjustable voice settings
-- Chapter-by-chapter audio playback
-- Free for all users
-
-### 🌟 Full Access Features
-- **All books freely available**: Genesis, Exodus, Enoch, Nag Hammadi, Gospel of Judas
-- **Complete chapters**: Full text access with no restrictions
-- **Community features**: Comment and discuss passages with other readers
-
-### 🎨 Design
-- Dark, mystical aesthetic with gold and crimson accents
-- Cinzel serif fonts for titles (medieval/classical feel)
-- Crimson Pro for body text (readability)
-- Responsive design for all devices
-- Smooth animations and transitions
-
-## Technology Stack
-
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Audio**: Web Speech API (text-to-speech)
-- **Fonts**: Google Fonts (Cinzel, Crimson Pro)
-- **Hosting Ready**: Static site, deploy anywhere
-
-## Local Development
-
-### Quick Start
-
-```bash
-cd ~/DragonBible
-python3 -m http.server 8000
+```sh
+npm ci
+npm test
+npm start
 ```
 
-Then visit: `http://localhost:8000`
+Open http://localhost:3000. No keys are required to browse the library or test the site. `npm test` exercises all published chapters, reader interactions, Oracle rendering, local links, and the API using mocked Stripe and Anthropic clients. It does not charge cards or call paid AI services.
 
-### Alternative Servers
+## Current hosting
 
-```bash
-# Node.js
-npx http-server -p 8000
+The production domain uses GitHub Pages from the root of `main`. Pushing a feature branch does not publish it. Merging into `main` publishes the static site.
 
-# PHP
-php -S localhost:8000
-```
+GitHub Pages cannot run `server.js`. The static `api/config` file reports that checkout and live AI are unavailable. The Oracle displays explicitly labeled prewritten examples. No payment success or subscriber access is simulated.
 
-## File Structure
+To enable paid services, deploy this repository on a Node-capable host behind HTTPS, or route `/api/*` on the same domain to the Node server. The API intentionally accepts only same-origin browser requests. Configure `.env` using `.env.example`, keep secrets out of Git, and configure the public `DOMAIN` and host binding. Configure the exact trusted proxy count when applicable. Do not point a public site at localhost.
 
-```
-DragonBible/
-├── index.html          # Main application
-├── styles.css          # Complete styling
-├── script.js           # Functionality + content
-└── README.md          # This file
-```
+Checkout is enabled only when Stripe, both the selected price and a signing secret, and the live Oracle client are configured. The API checks that the Stripe price matches the displayed $5/month or $40 one-time USD plan before creating checkout. A valid configured key is not a guarantee that an external service is operational; verify both integrations in Stripe test mode before enabling live purchases. Configure a currently available Anthropic model for your account.
 
-## Content Strategy
+## Access and billing
 
-### Phase 1 (Current)
-- Genesis (3 chapters completed)
-- Book of Enoch (1 chapter started)
-- Basic navigation and audio
+A confirmed paid Stripe session produces a signed access token saved in that browser. Every protected request rechecks the purchase and current entitlement with Stripe. A customer ID or a browser `subscriber` flag alone grants no access. Monthly cancellations and refunded or disputed lifetime payments stop subscriber access. The billing portal uses the verified customer and a server-controlled return URL.
 
-### Phase 2 (Expansion)
-- Complete Genesis (50 chapters)
-- Complete Book of Enoch (108 chapters)
-- Add Exodus, Psalms
-- Gnostic texts integration
+The private checkout confirmation link can restore access on another browser. This is a bearer-link access mechanism, not a full account system; keep it private. Changing `ACCESS_TOKEN_SECRET` invalidates saved tokens. Existing purchases using different Stripe price IDs or amounts require a deliberate migration before enabling this version of the API. No customer data is migrated by this change.
 
-### Phase 3 (Premium)
-- Payment integration (Stripe)
-- User accounts
-- Downloadable PDFs
-- Enhanced audio (professional voiceovers)
-- Mobile app versions
+The demo Oracle allows three successful requests per IP per 24 hours. Its limiter is held in memory, resets on restart, and is intended for a single instance. A multi-instance deployment needs a shared limiter before launch.
 
-## Monetization Model
+## Content and files
 
-### Free Tier
-- Genesis Chapters 1-3
-- Basic text reading
-- Limited audio narration
-- Advertising supported (optional)
+- `content.js`: original published lore and quiz data, preserved from the previous reader.
+- `index.html`, `site.css`, `script.js`: home page and reader.
+- `site.js`: shared mobile navigation for home and article pages.
+- `payment.js`, `oracle.js`, `success.js`: service availability, payments, and Oracle UI.
+- `server.js`: optional API and allowlisted public file server.
+- `tests/`: regression tests; GitHub Actions runs them on pushes and pull requests.
 
-### Premium Tier ($9.99/month)
-- Complete Old Testament
-- Full Book of Enoch
-- All Gnostic texts
-- Premium audio narration
-- Downloadable content
-- Ad-free experience
-- Early access to new content
+Reading progress, bookmarks, and notes are local to a browser; storage failures do not prevent reading. Earlier local comments are preserved as private reading notes. Narration depends on the voices supported by the user's device. The old cache-first service worker retires its own caches so it cannot indefinitely pin visitors to obsolete files.
 
-### Lifetime Access ($99)
-- Everything in Premium
-- All future content
-- Exclusive commentary
-- Digital art collection
-- Priority support
-- Community forum access
+Expanded compendium PDFs, faction dossiers, enhanced recordings, email capture, and a community service are not implemented deliverables in this repository. Marketing text should not promise that they are already available. The sampler can be printed or saved as PDF using the browser.
 
-## Deployment Options
-
-### GitHub Pages
-```bash
-git init
-git add .
-git commit -m "Initial Dragon Bible"
-git branch -M main
-git remote add origin https://github.com/yourusername/dragonbible.git
-git push -u origin main
-```
-Enable GitHub Pages in repository settings.
-
-### Netlify
-1. Drag and drop the DragonBible folder to Netlify
-2. Site automatically deploys
-3. Custom domain support
-
-### Vercel
-```bash
-npm i -g vercel
-cd ~/DragonBible
-vercel
-```
-
-## Payment Integration (Future)
-
-To monetize, integrate:
-
-### Stripe
-```javascript
-// Add to script.js
-const stripe = Stripe('your_publishable_key');
-```
-
-### Alternatives
-- PayPal
-- Gumroad (easiest for digital products)
-- Memberful
-- Patreon integration
-
-## Marketing Strategy
-
-### Target Audience
-- Mythology enthusiasts
-- Alternative spirituality communities
-- Dragon lovers and fantasy fans
-- Gnostic/esoteric study groups
-- Creative writers seeking inspiration
-
-### Unique Selling Points
-1. **Unprecedented Concept**: No other "dragon bible" exists
-2. **Beautiful Design**: Premium aesthetic justifies pricing
-3. **Complete Library**: Massive content offering
-4. **Audio Feature**: Accessibility + premium experience
-5. **Mythological Framework**: Appeals to multiple audiences
-
-### Marketing Channels
-- Reddit: r/mythology, r/gnostic, r/dragons
-- Instagram: Fantasy art community
-- TikTok: Short dramatic readings
-- YouTube: Chapter previews with visuals
-- Discord: Build community around content
-
-## Legal Considerations
-
-- Public domain texts (Bible, Enoch, Gnostic)
-- Original reinterpretations (your copyright)
-- Clearly state "reimagining" not religious text
-- Terms of service for subscription
-- Privacy policy for user data
-
-## Future Enhancements
-
-### Content
-- Complete all 66 books of Bible
-- Add Book of Jasher, Book of Jubilees
-- Original "Dragon Testament" books
-- Illustrated editions with dragon art
-
-### Features
-- Search functionality
-- Bookmarks and highlights
-- Note-taking system
-- Share favorite verses
-- Discussion forums
-- Mobile apps (iOS/Android)
-- Kindle/ePub exports
-
-### Monetization
-- Affiliate links (mythology books)
-- Physical printed editions
-- Dragon Bible merchandise
-- Patreon for exclusive content
-- Workshops/webinars on mythology
-
-## Contact
-
-**Creator**: Noah Wilson  
-**Email**: mr.noahwilson@gmail.com
-
-## License
-
-Content: © 2025 Noah Wilson. All rights reserved.  
-Code: MIT License (for the application framework)
-
----
-
-*"Where humanity remembers its wings"* 🐉
+Original fiction by Noah Wilson. Contact: noah@dragonbible.com.

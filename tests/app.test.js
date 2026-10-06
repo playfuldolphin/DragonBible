@@ -109,10 +109,17 @@ test("companion names are safe text and the archive preserves every published ch
   assert.equal(d.querySelector("h1").textContent, "<img src=x onerror=x>");
   assert.equal(d.querySelector("#screen img"), null);
   assert.equal(d.querySelectorAll(".skin-card:disabled").length, 2);
-  w.Storage.prototype.setItem = () => { throw new Error('storage disabled'); };
-  d.querySelector('#dragonName').value = 'Ash';
-  d.querySelector('.name-form').dispatchEvent(new w.Event('submit', {cancelable:true}));
-  assert.match(d.querySelector('#storageStatus').textContent, /Storage is unavailable/);
+  w.Storage.prototype.setItem = () => {
+    throw new Error("storage disabled");
+  };
+  d.querySelector("#dragonName").value = "Ash";
+  d.querySelector(".name-form").dispatchEvent(
+    new w.Event("submit", { cancelable: true }),
+  );
+  assert.match(
+    d.querySelector("#storageStatus").textContent,
+    /Storage is unavailable/,
+  );
   w.location.hash = "#archive";
   await tick();
   const links = [...d.querySelectorAll(".chapter-link")].map(
@@ -125,8 +132,9 @@ test("companion names are safe text and the archive preserves every published ch
     assert.ok(d.querySelectorAll(".verse").length > 3);
     assert.match(d.querySelector(".passage h2").textContent, /\S/);
   }
-  w.location.hash = '#read/constructor/1'; await tick();
-  assert.equal(d.querySelectorAll('.chapter-link').length, 27);
+  w.location.hash = "#read/constructor/1";
+  await tick();
+  assert.equal(d.querySelectorAll(".chapter-link").length, 27);
   assert.equal(errors.length, 0);
   dom.window.close();
 });
@@ -190,9 +198,9 @@ test("offline cache covers the journey and lore, never intercepting checkout or 
     },
     caches: {
       open: async () => cache,
-      keys: async () => ["db-quest-v1", "unrelated-cache"],
-      delete: async () => {
-        throw new Error("must preserve unrelated caches");
+      keys: async () => ["db-quest-v1", "db-quest-v2", "unrelated-cache"],
+      delete: async (key) => {
+        assert.equal(key, "db-quest-v1");
       },
     },
     fetch: async () => {
@@ -233,4 +241,195 @@ test("offline cache covers the journey and lore, never intercepting checkout or 
     },
   });
   assert.equal(intercepted, false);
+  context.fetch = async () => new Response("unavailable", { status: 503 });
+  events.fetch({
+    request: new Request("https://dragonbible.com/app/"),
+    respondWith: (promise) => {
+      pending = promise;
+    },
+  });
+  assert.match(await (await pending).text(), /cached:/);
+  context.fetch = async () => new Response("online app");
+  cache.put = async () => {
+    throw new Error("quota");
+  };
+  events.fetch({
+    request: new Request("https://dragonbible.com/app/"),
+    respondWith: (promise) => {
+      pending = promise;
+    },
+  });
+  assert.equal(await (await pending).text(), "online app");
+});
+test("story choices migrate old progress and change a bond without farming XP", () => {
+  const legacy = {
+    version: 1,
+    name: "Ash",
+    skin: "ember",
+    completed: ["flame"],
+    days: ["2026-02-30", "2026-10-06"],
+  };
+  const migrated = game.normalize(legacy);
+  assert.equal(migrated.name, "Ash");
+  assert.equal(migrated.version, 2);
+  assert.deepEqual(migrated.days, ["2026-10-06"]);
+  assert.deepEqual(migrated.choices, {});
+  let state = game.choose(migrated, "flame", "shelter", "2026-10-07");
+  assert.equal(game.temperament(state).counts.care, 1);
+  assert.equal(state.completed.length * 40, 40);
+  state = game.choose(state, "flame", "listen", "2026-10-07");
+  assert.equal(game.temperament(state).counts.care, 0);
+  assert.equal(game.temperament(state).counts.wonder, 1);
+  assert.equal(game.temperament(state).total, 1);
+  assert.deepEqual(state.days, ["2026-10-06", "2026-10-07"]);
+  assert.deepEqual(game.choose(state, "reunion", "horizon"), state);
+  assert.deepEqual(game.choose(state, "flame", "invalid"), state);
+  assert.equal(game.complete(state, "flame", 1, "2026-10-08").earned, 0);
+});
+test("save files round-trip and merge without losing progress or existing choices", () => {
+  const current = game.choose(
+    { name: "Ash", completed: ["flame", "memory"], days: ["2026-10-06"] },
+    "flame",
+    "shelter",
+  );
+  const incoming = game.choose(
+    { name: "Luna", completed: ["flame"], days: ["2026-10-05"] },
+    "flame",
+    "beacon",
+  );
+  const restored = game.parseSave(game.exportSave(incoming));
+  assert.deepEqual(restored, incoming);
+  let merged = game.mergeSave(current, restored);
+  assert.equal(merged.name, "Ash");
+  assert.deepEqual(merged.completed, ["flame", "memory"]);
+  assert.equal(merged.choices.flame, "shelter");
+  assert.deepEqual(merged.days, ["2026-10-05", "2026-10-06"]);
+  merged = game.mergeSave(current, restored, true);
+  assert.equal(merged.name, "Luna");
+  const farther = {
+    ...incoming,
+    completed: ["flame", "memory", "watchers"],
+    choices: { watchers: "steady" },
+  };
+  assert.equal(game.mergeSave(current, farther).choices.watchers, "steady");
+  assert.equal(game.mergeSave(current, farther).completed.length, 3);
+  for (const text of [
+    "{}",
+    "invalid",
+    "x".repeat(65537),
+    JSON.stringify({
+      format: "dragonbible-journey",
+      formatVersion: 2,
+      progress: current,
+    }),
+    JSON.stringify({
+      format: "dragonbible-journey",
+      formatVersion: 1,
+      progress: { ...current, completed: ["reunion"] },
+    }),
+    JSON.stringify({
+      format: "dragonbible-journey",
+      formatVersion: 1,
+      progress: { ...current, choices: { flame: "invalid" } },
+    }),
+  ])
+    assert.throws(() => game.parseSave(text));
+});
+test("recovered memories open a story journal and persist companion personality", async () => {
+  const { dom, w, d, errors } = browser(
+    JSON.stringify({ version: 1, name: "Ash", completed: ["flame"] }),
+  );
+  w.location.hash = "#dragon";
+  await tick();
+  assert.equal(d.querySelector(".relic.found").hash, "#memory/flame");
+  d.querySelector(".relic.found").click();
+  await tick();
+  assert.equal(d.querySelectorAll(".story-choice").length, 3);
+  d.querySelector('[data-choice="shelter"]').click();
+  assert.match(
+    d.querySelector(".story-outcome").textContent,
+    /gentle protector/,
+  );
+  const saved = JSON.parse(w.localStorage.getItem("dragonbible_quest_v1"));
+  assert.equal(saved.choices.flame, "shelter");
+  w.location.hash = "#dragon";
+  await tick();
+  assert.match(
+    d.querySelector(".spirit-card").textContent,
+    /A gentle protector/,
+  );
+  d.querySelector(".spirit-card button").click();
+  assert.match(d.querySelector(".dragon-reply").textContent, /Ash/);
+  assert.equal(errors.length, 0);
+  dom.window.close();
+});
+test("import preview does not change progress until the player confirms a merge", async () => {
+  const { dom, w, d } = browser(
+    JSON.stringify({ name: "Ash", completed: ["flame", "memory"] }),
+  );
+  const upload = d.querySelector("#importSave");
+  const file = {
+    size: 500,
+    text: async () =>
+      game.exportSave({
+        name: "Luna",
+        completed: ["flame", "memory", "watchers"],
+      }),
+  };
+  Object.defineProperty(upload, "files", { configurable: true, value: [file] });
+  upload.dispatchEvent(new w.Event("change"));
+  await tick();
+  assert.equal(d.querySelector("#importPreview").hidden, false);
+  assert.equal(
+    JSON.parse(w.localStorage.getItem("dragonbible_quest_v1")).completed.length,
+    2,
+  );
+  d.querySelector("#useBackupProfile").checked = true;
+  d.querySelector("#confirmImport").click();
+  const merged = JSON.parse(w.localStorage.getItem("dragonbible_quest_v1"));
+  assert.equal(merged.name, "Luna");
+  assert.equal(merged.completed.length, 3);
+  const before = w.localStorage.getItem("dragonbible_quest_v1");
+  Object.defineProperty(upload, "files", {
+    configurable: true,
+    value: [{ size: 100, text: async () => "not a save" }],
+  });
+  upload.dispatchEvent(new w.Event("change"));
+  await tick();
+  assert.equal(d.querySelector("#importPreview").hidden, true);
+  assert.match(d.querySelector("#saveStatus").textContent, /not readable JSON/);
+  assert.equal(w.localStorage.getItem("dragonbible_quest_v1"), before);
+  dom.window.close();
+});
+test("text backups stay current after playing and can restore choices through the settings UI", async () => {
+  const { dom, w, d } = browser();
+  d.querySelector("#installButton").click();
+  assert.equal(
+    game.parseSave(d.querySelector("#backupText").value).completed.length,
+    0,
+  );
+  d.querySelector(".close-dialog").click();
+  w.location.hash = "#quest/flame";
+  await tick();
+  d.querySelector('input[value="1"]').checked = true;
+  d.querySelector("#challengeForm").dispatchEvent(
+    new w.Event("submit", { cancelable: true }),
+  );
+  d.querySelector('[data-choice="shelter"]').click();
+  d.querySelector("#installButton").click();
+  const backup = d.querySelector("#backupText").value;
+  assert.equal(game.parseSave(backup).choices.flame, "shelter");
+  d.querySelector("#restoreText").value = backup;
+  d.querySelector("#previewSaveText").click();
+  assert.match(
+    d.querySelector("#importSummary").textContent,
+    /1 memory and 40 XP/,
+  );
+  d.querySelector("#confirmImport").click();
+  assert.equal(
+    game.parseSave(d.querySelector("#backupText").value).choices.flame,
+    "shelter",
+  );
+  assert.match(d.querySelector("#saveStatus").textContent, /merged and saved/);
+  dom.window.close();
 });

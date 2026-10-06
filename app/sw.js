@@ -1,4 +1,4 @@
-const CACHE = "db-quest-v1";
+const CACHE = "db-quest-v2";
 const FILES = [
   "./",
   "./index.html",
@@ -47,7 +47,12 @@ self.addEventListener("fetch", (event) => {
         const response = await fetch(event.request, {
           signal: controller.signal,
         });
-        if (response.ok) await cache.put(event.request, response.clone());
+        if (!response.ok) return (await cache.match(event.request)) || response;
+        try {
+          await cache.put(event.request, response.clone());
+        } catch {
+          /* Storage limits must not block an online visit. */
+        }
         return response;
       } catch {
         return (

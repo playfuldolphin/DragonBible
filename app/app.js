@@ -1,11 +1,26 @@
 (() => {
   "use strict";
-  const { quests, skins, normalize, level, complete } = window.DragonQuest;
+  const {
+    quests,
+    skins,
+    encounters,
+    traits,
+    normalize,
+    level,
+    complete,
+    choose,
+    temperament,
+    exportSave,
+    parseSave,
+    mergeSave,
+  } = window.DragonQuest;
   const books = window.DragonBibleContent.books;
   const $ = (id) => document.getElementById(id);
   const KEY = "dragonbible_quest_v1";
   let state,
     installPrompt,
+    pendingSave,
+    importVersion = 0,
     returnQuest = null;
   try {
     state = normalize(JSON.parse(localStorage.getItem(KEY)));
@@ -48,7 +63,7 @@
       skins.find((skin) => skin.id === state.skin).color,
     );
     // All SVG markup is fixed artwork. Player names and lore are rendered with textContent.
-    box.innerHTML = `<svg viewBox="0 0 400 300" aria-hidden="true"><defs><radialGradient id="aura"><stop stop-color="#b6c69d" stop-opacity=".13"/><stop offset="1" stop-color="#b6c69d" stop-opacity="0"/></radialGradient><linearGradient id="scales" x1="0" y1="0" x2="1" y2="1"><stop stop-color="var(--scale-color)"/><stop offset="1" stop-color="#79694f"/></linearGradient></defs><circle cx="200" cy="146" r="143" fill="url(#aura)"/><g fill="none" stroke="#b5a783" opacity=".3"><circle cx="200" cy="143" r="108"/><circle cx="200" cy="143" r="124" stroke-dasharray="1 9"/><path d="M50 144h36m228 0h36M200 6v20m0 238v20"/></g><g fill="#d7bd8c"><path d="m84 59 3 10 10 3-10 3-3 10-3-10-10-3 10-3Zm224 26 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/><circle cx="288" cy="228" r="2"/><circle cx="103" cy="214" r="2"/><circle cx="246" cy="25" r="1.5"/></g><ellipse cx="200" cy="255" rx="90" ry="11" fill="#071915" opacity=".6"/><g class="egg-art"><path d="M200 57c-36 36-76 90-76 142a76 76 0 0 0 152 0c0-52-40-106-76-142Z" fill="url(#scales)" stroke="#e8c894" stroke-width="1.5"/><path d="m202 72 17 52-29 25 23 26-25 23 15 37" fill="none" stroke="#223e32" stroke-width="3"/><g fill="none" stroke="#f3d7a1" opacity=".35"><path d="m148 161 12 12 12-12 12 12m34 29 12 12 12-12 12 12m-101-6 12 12 12-12 12 12m15-81 12 12 12-12"/></g></g><g class="dragon-art"><path class="wings" d="M191 155Q135 45 68 49l21 83 19-29 26 74-1-63 58 74Zm26-9Q258 45 330 47l-18 86-21-29-31 77 5-65-48 72Z" fill="#567469" stroke="#a6b9a0" stroke-width="2"/><path d="M244 228c35 18 66-3 57-36-7 28-33 24-48 10-15-17-4-35-16-54-15-23-55-24-74-2-29 35-38 62-75 64 11 35 42 42 71 19 22 32 59 29 85-1Z" fill="url(#scales)" stroke="#e6c291" stroke-width="1.5"/><path d="M168 184c-1 24 6 45 25 50 15 4 24-7 31-19" fill="none" stroke="#efcf9b" stroke-width="12" opacity=".45"/><path d="m192 106-10-29-13 33m51-7 17-29 2 42" fill="#d1b689" stroke="#f3d0a3" stroke-width="1.5"/><path d="M174 108c8-20 42-23 61-5l9 19 22 10-11 19-22 4c-12 27-40 23-51 5l-17-4-4-20Z" fill="url(#scales)" stroke="#ecd1a5" stroke-width="2"/><path d="m172 123-21-8 9 22m70-1c6 5 12 5 18 1m-53-7q10-10 18 0" fill="none" stroke="#18352e" stroke-width="3" stroke-linecap="round"/><circle cx="250" cy="135" r="2" fill="#173329"/><path d="m184 172-8 9m50-9 7 8m-79 21-6 8m61 22 6 7" fill="none" stroke="#77634a" stroke-width="2"/><path d="m199 235-12 9m20-6-7 9m30-19 3 11" stroke="#eed1a5" stroke-width="3" stroke-linecap="round"/></g></svg>`;
+    box.innerHTML = `<svg viewBox="0 0 400 300" aria-hidden="true"><defs><radialGradient id="aura"><stop stop-color="#b6c69d" stop-opacity=".13"/><stop offset="1" stop-color="#b6c69d" stop-opacity="0"/></radialGradient><linearGradient id="scales" x1="0" y1="0" x2="1" y2="1"><stop stop-color="var(--scale-color)"/><stop offset="1" stop-color="#79694f"/></linearGradient></defs><circle cx="200" cy="146" r="143" fill="url(#aura)"/><g fill="none" stroke="#b5a783" opacity=".3"><circle cx="200" cy="143" r="108"/><circle cx="200" cy="143" r="124" stroke-dasharray="1 9"/><path d="M50 144h36m228 0h36M200 6v20m0 238v20"/></g><g fill="#d7bd8c"><path d="m84 59 3 10 10 3-10 3-3 10-3-10-10-3 10-3Zm224 26 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/><circle cx="288" cy="228" r="2"/><circle cx="103" cy="214" r="2"/><circle cx="246" cy="25" r="1.5"/></g><ellipse cx="200" cy="255" rx="90" ry="11" fill="#071915" opacity=".6"/><g class="egg-art"><path d="M200 57c-36 36-76 90-76 142a76 76 0 0 0 152 0c0-52-40-106-76-142Z" fill="url(#scales)" stroke="#e8c894" stroke-width="1.5"/><path d="m202 72 17 52-29 25 23 26-25 23 15 37" fill="none" stroke="#223e32" stroke-width="3"/><g fill="none" stroke="#f3d7a1" opacity=".35"><path d="m148 161 12 12 12-12 12 12m34 29 12 12 12-12 12 12m-101-6 12 12 12-12 12 12m15-81 12 12 12-12"/></g></g><g class="dragon-art"><g class="guardian-crown" fill="none" stroke="#e9cb88" stroke-width="1.4"><ellipse cx="207" cy="57" rx="40" ry="11"/><path d="m181 49 4-12 7 10m10-2 5-18 6 18m10 2 7-10 3 12"/><path d="m140 203-11 6 11 6m135-12 11 6-11 6"/></g><path class="wings" d="M191 155Q135 45 68 49l21 83 19-29 26 74-1-63 58 74Zm26-9Q258 45 330 47l-18 86-21-29-31 77 5-65-48 72Z" fill="#567469" stroke="#a6b9a0" stroke-width="2"/><path d="M244 228c35 18 66-3 57-36-7 28-33 24-48 10-15-17-4-35-16-54-15-23-55-24-74-2-29 35-38 62-75 64 11 35 42 42 71 19 22 32 59 29 85-1Z" fill="url(#scales)" stroke="#e6c291" stroke-width="1.5"/><path d="M168 184c-1 24 6 45 25 50 15 4 24-7 31-19" fill="none" stroke="#efcf9b" stroke-width="12" opacity=".45"/><path d="m192 106-10-29-13 33m51-7 17-29 2 42" fill="#d1b689" stroke="#f3d0a3" stroke-width="1.5"/><path d="M174 108c8-20 42-23 61-5l9 19 22 10-11 19-22 4c-12 27-40 23-51 5l-17-4-4-20Z" fill="url(#scales)" stroke="#ecd1a5" stroke-width="2"/><path d="m172 123-21-8 9 22m70-1c6 5 12 5 18 1m-53-7q10-10 18 0" fill="none" stroke="#18352e" stroke-width="3" stroke-linecap="round"/><circle cx="250" cy="135" r="2" fill="#173329"/><path d="m184 172-8 9m50-9 7 8m-79 21-6 8m61 22 6 7" fill="none" stroke="#77634a" stroke-width="2"/><path d="m199 235-12 9m20-6-7 9m30-19 3 11" stroke="#eed1a5" stroke-width="3" stroke-linecap="round"/></g></svg>`;
     return box;
   }
   function progressCard() {
@@ -69,7 +84,7 @@
       el(
         "p",
         current.next
-          ? `${current.next - xp()} XP until the next form`
+          ? `${current.next - xp()} XP until ${["", "Hatchling", "Young dragon", "Guardian"][current.number]}`
           : "Guardian form unlocked. Your journey continues.",
         "small",
       ),
@@ -128,6 +143,16 @@
       ),
     );
     $("screen").append(stats);
+    const bond = temperament(state);
+    if (bond.total) {
+      const note = link("", "#dragon", "spirit-strip");
+      note.append(
+        el("span", "YOUR SHARED STORY", "eyebrow"),
+        el("strong", bond.title),
+        el("span", "See how your choices shape your dragon →"),
+      );
+      $("screen").append(note);
+    }
     const trail = el("section", undefined, "trail");
     trail.append(
       el("p", "CHAPTER I · THE REMEMBERING", "eyebrow"),
@@ -144,7 +169,11 @@
       );
       const item = locked
         ? el("div", undefined, "quest-link")
-        : link("", `#quest/${quest.id}`, "quest-link");
+        : link(
+            "",
+            `#${finished ? "memory" : "quest"}/${quest.id}`,
+            "quest-link",
+          );
       const text = el("span", undefined, "quest-text");
       text.append(
         el(
@@ -160,7 +189,11 @@
           "span",
           locked
             ? "Continue the journey to unlock"
-            : "A short passage · 40 XP on first completion",
+            : finished
+              ? state.choices[quest.id]
+                ? "Memory and story choice saved · Revisit ↗"
+                : "Memory recovered · A story choice awaits"
+              : "Read · Remember · Choose · 40 XP",
         ),
       );
       item.append(
@@ -197,6 +230,42 @@
       portrait(),
       progressCard(),
     );
+    const spirit = temperament(state),
+      bond = el("section", undefined, "spirit-card");
+    bond.append(
+      el("p", "SHAPED BY YOUR CHOICES", "eyebrow"),
+      el("h2", spirit.title),
+      el("p", spirit.description),
+    );
+    const bars = el("div", undefined, "trait-bars");
+    for (const [id, trait] of Object.entries(traits)) {
+      const row = el("div"),
+        label = el("span", `${trait.name} · ${spirit.counts[id]}`),
+        bar = el("progress");
+      bar.max = Math.max(1, spirit.total);
+      bar.value = spirit.counts[id];
+      bar.setAttribute(
+        "aria-label",
+        `${trait.name}: ${spirit.counts[id]} story choices`,
+      );
+      row.append(label, bar);
+      bars.append(row);
+    }
+    bond.append(bars);
+    const greet = el("button", `Greet ${state.name}`, "secondary"),
+      reply = el("p", "", "dragon-reply");
+    greet.type = "button";
+    reply.setAttribute("role", "status");
+    const reactions = [
+      `${state.name} ${level(state).number === 1 ? "stirs inside the shell. A soft warmth answers your voice." : "leans into your hand and lets out a small, contented rumble."}`,
+      `${state.name} ${spirit.counts.care > spirit.counts.wonder && spirit.counts.care > spirit.counts.courage ? "settles beside you, making a little circle of warmth." : spirit.counts.courage > spirit.counts.wonder ? "looks toward the horizon, then back at you. Together, perhaps?" : "tilts toward a wandering spark, curious about the story it might carry."}`,
+    ];
+    let greeting = 0;
+    greet.onclick = () => {
+      reply.textContent = reactions[greeting++ % reactions.length];
+    };
+    bond.append(greet, reply);
+    $("screen").append(bond);
     const form = el("form", undefined, "name-form"),
       label = el("label", "What shall we call your dragon?");
     label.htmlFor = "dragonName";
@@ -215,9 +284,10 @@
       if (!input.value.trim()) return;
       state.name = input.value;
       const saved = save();
-      render();
-      if (saved) $("storageStatus").textContent =
-        "Your dragon’s name is saved on this device.";
+      render({ keepScroll: true, focusId: "dragonName" });
+      if (saved)
+        $("storageStatus").textContent =
+          "Your dragon’s name is saved on this device.";
     };
     $("screen").append(form);
     const section = el("section", undefined, "collection");
@@ -228,6 +298,7 @@
     const palette = el("div", undefined, "skin-grid");
     skins.forEach((skin) => {
       const item = el("button", undefined, "skin-card");
+      item.id = `skin-${skin.id}`;
       item.type = "button";
       item.disabled = xp() < skin.xp;
       item.setAttribute("aria-pressed", String(state.skin === skin.id));
@@ -248,7 +319,7 @@
       item.onclick = () => {
         state.skin = skin.id;
         save();
-        render();
+        render({ keepScroll: true, focusId: `skin-${skin.id}` });
       };
       palette.append(item);
     });
@@ -262,7 +333,9 @@
     const grid = el("div", undefined, "relic-grid");
     quests.forEach((quest) => {
       const unlocked = state.completed.includes(quest.id),
-        item = el("div", undefined, `relic ${unlocked ? "found" : ""}`);
+        item = unlocked
+          ? link("", `#memory/${quest.id}`, "relic found")
+          : el("div", undefined, "relic");
       item.append(
         el("span", unlocked ? quest.symbol : "·"),
         el("strong", unlocked ? quest.relic : "Undiscovered memory"),
@@ -271,6 +344,113 @@
     });
     relics.append(grid);
     $("screen").append(relics);
+    const growth = el("section", undefined, "collection growth-steps");
+    growth.append(
+      el("p", "EVERY MEMORY BRINGS YOU CLOSER", "eyebrow"),
+      el("h2", "Watch your dragon grow."),
+    );
+    for (const [name, threshold] of [
+      ["Dreaming egg", 0],
+      ["Hatchling", 40],
+      ["Young dragon", 120],
+      ["Guardian", 240],
+    ]) {
+      const row = el("div", undefined, "growth-step");
+      row.append(
+        el("span", xp() >= threshold ? "✓" : "◇"),
+        el("strong", name),
+        el(
+          "small",
+          xp() >= threshold ? "Unlocked" : `${threshold - xp()} XP away`,
+        ),
+      );
+      growth.append(row);
+    }
+    $("screen").append(growth);
+  }
+  function encounterView(id) {
+    const encounter = encounters[id],
+      section = el("section", undefined, "encounter");
+    section.append(
+      el("p", "A MOMENT IN YOUR OWN JOURNEY", "eyebrow"),
+      el("h2", "What will you carry forward?"),
+      el("p", encounter.scene),
+    );
+    section.append(
+      el(
+        "p",
+        "An imagined encounter inspired by this memory. Every choice is valid; each shapes your dragon’s spirit.",
+        "small",
+      ),
+    );
+    const options = el("div", undefined, "story-options"),
+      outcome = el("div", undefined, "story-outcome");
+    outcome.setAttribute("role", "status");
+    function update() {
+      const selected = encounter.choices.find(
+        (choice) => choice.id === state.choices[id],
+      );
+      options
+        .querySelectorAll("button")
+        .forEach((button) =>
+          button.setAttribute(
+            "aria-pressed",
+            String(button.dataset.choice === selected?.id),
+          ),
+        );
+      outcome.replaceChildren();
+      if (selected)
+        outcome.append(
+          el("p", selected.outcome),
+          el(
+            "strong",
+            `${traits[selected.trait].name} remembered · ${temperament(state).title}`,
+          ),
+          el(
+            "p",
+            "Your choice is saved with this memory. You can explore another choice when you revisit.",
+            "small",
+          ),
+        );
+    }
+    encounter.choices.forEach((choice) => {
+      const button = el("button", undefined, "story-choice");
+      button.type = "button";
+      button.dataset.choice = choice.id;
+      button.append(
+        el("strong", choice.label),
+        el("span", traits[choice.trait].name),
+      );
+      button.onclick = () => {
+        state = choose(state, id, choice.id, dayKey());
+        save();
+        update();
+      };
+      options.append(button);
+    });
+    section.append(options, outcome);
+    update();
+    return section;
+  }
+  function memoryView(id) {
+    const quest = quests.find((quest) => quest.id === id);
+    if (!quest || !state.completed.includes(id)) {
+      $("screen").append(
+        heading(
+          "YOUR CONSTELLATION",
+          "A memory still waiting.",
+          "Recover this memory on your journey to open its story.",
+        ),
+        link("Follow the thread →", "#journey", "primary"),
+      );
+      return;
+    }
+    $("screen").append(
+      link("← Your constellation", "#dragon", "back-link"),
+      heading("A MEMORY YOU CARRY", quest.relic, quest.insight),
+      encounterView(id),
+      link("Revisit the original passage →", `#quest/${id}`, "secondary"),
+    );
   }
   function archive() {
     $("screen").append(
@@ -349,6 +529,12 @@
       heading(`MEMORY ${index + 1} OF 7`, quest.title, quest.subtitle),
       passage(quest.book, quest.chapter, 4),
     );
+    const steps = el("ol", undefined, "quest-steps");
+    steps.setAttribute("aria-label", "Quest stages");
+    ["Read", "Remember", "Choose"].forEach((label, i) =>
+      steps.append(el("li", `${i + 1}. ${label}`)),
+    );
+    $("screen").insertBefore(steps, $("screen").querySelector(".passage"));
     $("screen").append(
       link(
         "Read the full chapter ↗",
@@ -417,12 +603,24 @@
             "evolution",
           ),
         );
+      const skin = skins.find((skin) => skin.xp > 0 && skin.xp === xp());
+      if (result.earned && skin)
+        reward.append(
+          link(
+            `${skin.name} appearance unlocked · Try it on →`,
+            "#dragon",
+            "unlock-link",
+          ),
+        );
+      reward.append(encounterView(id));
       reward.append(
         link(
           index === quests.length - 1
             ? "See your constellation →"
-            : "Return to your journey →",
-          index === quests.length - 1 ? "#dragon" : "#journey",
+            : "Continue to the next memory →",
+          index === quests.length - 1
+            ? "#dragon"
+            : `#quest/${quests[index + 1].id}`,
           "primary",
         ),
       );
@@ -469,7 +667,8 @@
       );
     $("screen").append(nav);
   }
-  function render() {
+  function render(options = {}) {
+    const previousScroll = window.scrollY;
     const route = location.hash.slice(1).split("/"),
       view = route[0] || "journey";
     $("screen").replaceChildren();
@@ -478,31 +677,119 @@
       returnQuest = null;
       archive();
     } else if (view === "quest") questView(route[1]);
+    else if (view === "memory") memoryView(route[1]);
     else if (view === "read") readChapter(route[1], Number(route[2]));
     else journey();
     const active =
-      view === "quest"
-        ? "journey"
-        : view === "read"
-          ? "archive"
-          : ["journey", "dragon", "archive"].includes(view)
-            ? view
-            : "journey";
+      view === "memory"
+        ? "dragon"
+        : view === "quest"
+          ? "journey"
+          : view === "read"
+            ? "archive"
+            : ["journey", "dragon", "archive"].includes(view)
+              ? view
+              : "journey";
     document.querySelectorAll("[data-tab]").forEach((tab) => {
       if (tab.dataset.tab === active) tab.setAttribute("aria-current", "page");
       else tab.removeAttribute("aria-current");
     });
     document.title = `${$("screen").querySelector("h1,h2")?.textContent || "The Remembering"} · Dragon Bible`;
-    window.scrollTo({ top: 0, behavior: "instant" });
-    $("screen").focus({ preventScroll: true });
+    window.scrollTo({
+      top: options.keepScroll ? previousScroll : 0,
+      behavior: "instant",
+    });
+    ($(options.focusId) || $("screen")).focus({ preventScroll: true });
   }
   document.querySelector(".skip").onclick = (event) => {
     event.preventDefault();
     $("screen").focus();
   };
-  $("installButton").onclick = () => $("installDialog").showModal();
+  $("installButton").onclick = () => {
+    $("backupText").value = exportSave(state);
+    $("installDialog").showModal();
+  };
   document.querySelector(".close-dialog").onclick = () =>
     $("installDialog").close();
+  $("exportSave").onclick = () => {
+    const blob = new Blob([exportSave(state)], { type: "application/json" }),
+      url = URL.createObjectURL(blob);
+    const download = link("", url);
+    download.download = `dragon-bible-save-${dayKey()}.json`;
+    $("installDialog").append(download);
+    download.click();
+    download.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    $("saveStatus").textContent =
+      "Your save file is ready to download. It contains only your dragon and game progress.";
+  };
+  $("textBackup").addEventListener("toggle", () => {
+    if ($("textBackup").open) $("backupText").value = exportSave(state);
+  });
+  $("selectBackup").onclick = () => {
+    $("backupText").value = exportSave(state);
+    $("backupText").focus();
+    $("backupText").select();
+  };
+  function previewSave(incoming) {
+    pendingSave = incoming;
+    const merged = mergeSave(state, incoming);
+    $("importSummary").textContent =
+      `${incoming.name} · ${incoming.completed.length} of 7 memories. Your merged journey will have ${merged.completed.length} ${merged.completed.length === 1 ? "memory" : "memories"} and ${merged.completed.length * 40} XP.`;
+    $("useBackupProfile").checked =
+      state.completed.length === 0 && state.name === "Ember";
+    $("importPreview").hidden = false;
+    $("saveStatus").textContent = "Save checked. Review it before merging.";
+  }
+  $("previewSaveText").onclick = () => {
+    importVersion++;
+    pendingSave = null;
+    $("importPreview").hidden = true;
+    try {
+      previewSave(parseSave($("restoreText").value));
+    } catch (error) {
+      $("saveStatus").textContent = error.message;
+    }
+  };
+  $("importSave").onchange = async (event) => {
+    const version = ++importVersion,
+      file = event.target.files?.[0];
+    pendingSave = null;
+    $("importPreview").hidden = true;
+    $("saveStatus").textContent = "";
+    if (!file) return;
+    try {
+      if (file.size > 65536)
+        throw new Error("Choose a Dragon Bible save file smaller than 64 KB.");
+      const incoming = parseSave(await file.text());
+      if (version !== importVersion) return;
+      previewSave(incoming);
+    } catch (error) {
+      if (version === importVersion)
+        $("saveStatus").textContent = error.message;
+    } finally {
+      if (version === importVersion) event.target.value = "";
+    }
+  };
+  $("confirmImport").onclick = () => {
+    if (!pendingSave) return;
+    state = mergeSave(state, pendingSave, $("useBackupProfile").checked);
+    const persisted = save();
+    $("backupText").value = exportSave(state);
+    pendingSave = null;
+    $("importPreview").hidden = true;
+    render();
+    $("saveStatus").textContent = persisted
+      ? "Your journeys are merged and saved on this device."
+      : "Your journeys are merged for this visit. Storage is unavailable; download a save before leaving.";
+    $("exportSave").focus();
+  };
+  $("installDialog").addEventListener("close", () => {
+    importVersion++;
+    pendingSave = null;
+    $("importPreview").hidden = true;
+    $("importSave").value = "";
+  });
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     installPrompt = event;

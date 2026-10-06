@@ -36,9 +36,9 @@
           id="installButton"
           class="round-button"
           type="button"
-          aria-label="Add app to your phone"
+          aria-label="App settings and save data"
         >
-          ↗
+          ☷
         </button>
       </header>
       <main id="screen" tabindex="-1"></main>
@@ -61,12 +61,60 @@
       <button
         class="round-button close-dialog"
         type="button"
-        aria-label="Close installation help"
+        aria-label="Close app settings"
       >
         ×
       </button>
       <p class="eyebrow">Your pocket mythology</p>
-      <h2 id="installTitle">Take the world with you.</h2>
+      <h2 id="installTitle">Keep your story close.</h2>
+      <section class="save-tools" aria-labelledby="saveTitle">
+        <h3 id="saveTitle">Back up your journey</h3>
+        <p>
+          Your dragon and progress live in this browser. Download a save file to
+          keep a copy or carry it to another device.
+        </p>
+        <button id="exportSave" class="secondary" type="button">
+          Download save file ↓
+        </button>
+        <details id="textBackup" class="text-backup">
+          <summary>Copy a text backup instead</summary>
+          <label for="backupText">Your save text</label
+          ><textarea id="backupText" rows="4" readonly></textarea
+          ><button id="selectBackup" type="button" class="secondary">
+            Select save text
+          </button>
+          <p class="small">
+            Copy this text into a note or file you keep. You can paste it below
+            on another device.
+          </p>
+        </details>
+        <label for="importSave">Restore from a save file</label>
+        <input type="file" id="importSave" accept=".json,application/json" />
+        <details class="text-backup">
+          <summary>Restore from copied text</summary>
+          <label for="restoreText">Paste your save text</label
+          ><textarea id="restoreText" rows="4" maxlength="65536"></textarea
+          ><button id="previewSaveText" class="secondary" type="button">
+            Preview pasted save
+          </button>
+        </details>
+        <div id="importPreview" class="import-preview" hidden>
+          <p id="importSummary"></p>
+          <label class="check-option"
+            ><input type="checkbox" id="useBackupProfile" /> Use this save’s
+            dragon name and appearance</label
+          >
+          <p class="small">
+            Merging keeps your completed quests and existing story choices. It
+            never resets your journey.
+          </p>
+          <button id="confirmImport" class="primary" type="button">
+            Merge this save
+          </button>
+        </div>
+        <p id="saveStatus" role="status"></p>
+      </section>
+      <h3>Add to your home screen</h3>
       <p>
         On iPhone or iPad, open this page in Safari, tap Share, then Add to Home
         Screen. On Android, use your browser’s Install app or Add to Home screen

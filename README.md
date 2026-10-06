@@ -34,6 +34,8 @@ The demo Oracle allows three successful requests per IP per 24 hours. Its limite
 
 ## Content and files
 
+The first merchandise collection is previewed at `/shop.html`, with the Crest Tee, Book Tote, and Art Print. Orders are not open. See [MERCH.md](MERCH.md) for the saved Printful templates, planned prices, production settings, and the remaining storefront setup.
+
 The playable mobile prototype lives at `/app/`: seven lore quests, a growing dragon companion, collectible memories, and the complete free archive. See [app/README.md](app/README.md) for the product concept, revenue hypotheses, installation details, and limitations. It uses local progress and has no paid purchases or accounts.
 
 - `content.js`: original published lore and quiz data, preserved from the previous reader.

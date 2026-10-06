@@ -316,6 +316,8 @@ function createApp({ env = process.env, stripe, anthropic } = {}) {
     "app/icon-512.png",
     "app/manifest.webmanifest",
     "index.html",
+    "shop.html",
+    "shop.css",
     "about.html",
     "blog.html",
     "contact.html",

@@ -8,13 +8,15 @@ The following account-wide templates are saved but unpublished:
 
 | Item | Saved template | Planned USD retail | Configuration |
 | --- | --- | --- | --- |
-| Crest Tee | https://www.printful.com/dashboard/product-templates/108468207 | $32 | Bella + Canvas 3001, Black, XS–5XL; front 7 × 8.75 in, top aligned and horizontally centered |
+| Crest Tee | https://www.printful.com/dashboard/product-templates/108468207 | $32 | Bella + Canvas 3001, Black, XS–5XL; front 8.25 × 8.25 in, horizontally centered and lowered on the chest; preserve the saved template position |
 | Book Tote | https://www.printful.com/dashboard/product-templates/108468311 | $30 | Econscious EC8000, Oyster, one size; front 7 × 8.75 in, centered |
 | Art Print | https://www.printful.com/dashboard/product-templates/108468446 | $16 | Enhanced Matte Paper Poster, only 5 × 7 in; 3.5 × 4.9 in artwork centered on a #123229 full-page field |
 
-The tee and tote source art is 1122 × 1402 px (160 DPI at the saved size). The poster source is 1060 × 1484 px (303 DPI at its inset size). Use the saved templates to preserve placement. Do not expand the poster source to full bleed. Gold is printed color, not metallic foil. Product photos in `images/merch-*.jpg` are official mockups downloaded from these Printful templates, not photographs of inspected samples. `images/merch-gold-crest.png` is the original AI-assisted crest used in the collection hero.
+The revised tee uses `images/merch-tee-crest-v2.png`, 1254 × 1254 px (Printful verified Good / 152 DPI at 8.25 × 8.25 in). It has larger brand lettering and motto, with the artwork lowered from the previous top alignment. The original tee source is retained as the collection hero, not the current shirt print file. The tote source is 1122 × 1402 px (160 DPI at the saved size). The poster source is 1060 × 1484 px (303 DPI at its inset size). Use the saved templates to preserve placement. Do not expand the poster source to full bleed. Gold is printed color, not metallic foil. Product photos in `images/merch-*.jpg` are official mockups downloaded from these Printful templates, not photographs of inspected samples. `images/merch-gold-crest.png` is the original AI-assisted crest used in the collection hero.
 
 No samples have been ordered or inspected. Displayed Printful base costs on October 6, 2026 were $11.92–$19.92 for the tee, $15.87 for the tote, and $5.50 for the print. Verify each size's final cost and retail price when publishing. Shipping and applicable taxes are separate; these prices are not profit guarantees.
+
+The shirt revision used the built-in image-generation tool; the exact edit prompt is in [merch/tee-v2-prompt.json](merch/tee-v2-prompt.json). The saved tee template was updated in place; the tote and poster were not changed.
 
 ## Completing checkout
 
